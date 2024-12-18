@@ -24,12 +24,12 @@ export default function SignUp() {
   return (
     <div className='relative w-screen h-screen'>
       <img src={background} className='absolute size-full -z-10' />
-      <div className='size-full flex items-center justify-center'>
-        <div className='m-0 w-[480px] p-8 flex flex-col items-stretch justify-center shrink-0 rounded-[5px] bg-[#313338] [box-shadow:0px]'>
-          <h1 className='text-2xl text-[#F2F3F5] font-bold'>계정 만들기</h1>
+      <div className='size-full flex justify-center items-center '>
+        <div className='m-0 w-[480px] p-8 flex flex-col items-stretch justify-center rounded-[5px] bg-[#313338] [box-shadow:0px] text-#B5BAC1'>
+          <h1 className='text-[#F2F3F5] text-2xl font-bold'>계정 만들기</h1>
           <form>
             <label className='flex flex-col mt-5 items-stretch gap-2'>
-              <div id='email' className='text-[#B5BAC1] text-xs text-left'>
+              <div id='email' className='text-inherit text-xs text-left'>
                 이메일
               </div>
               <input className='h-10 rounded-[3px] bg-[#1E1F22]' />
