@@ -3,7 +3,7 @@ import Checkbox from '@components/Checkbox.tsx'
 import DatePicker from './DatePicker.tsx'
 import LoginLabel from './LoginLabel.tsx'
 
-export default function SignUpForm() {
+export default function SignupForm() {
   return (
     <form>
       <LoginLabel title='이메일'>
