@@ -1,4 +1,5 @@
 import background from '@assets/Login_Background.png'
+import LoginLabel from './LoginLabel.tsx'
 
 function Checkbox() {
   return (
@@ -25,47 +26,32 @@ export default function SignUp() {
     <div className='relative w-screen h-screen'>
       <img src={background} className='absolute size-full -z-10' />
       <div className='size-full flex justify-center items-center '>
-        <div className='m-0 w-[480px] p-8 flex flex-col items-stretch justify-center rounded-[5px] bg-[#313338] [box-shadow:0px] text-#B5BAC1'>
+        <div className='m-0 p-8 w-[480px] flex flex-col items-stretch justify-center rounded-[5px] bg-[#313338] [box-shadow:0px] text-#B5BAC1'>
           <h1 className='text-[#F2F3F5] text-2xl font-bold'>계정 만들기</h1>
           <form>
-            <label className='flex flex-col mt-5 items-stretch gap-2'>
-              <div id='email' className='text-inherit text-xs text-left'>
-                이메일
-              </div>
+            <LoginLabel title='이메일'>
               <input className='h-10 rounded-[3px] bg-[#1E1F22]' />
-            </label>
-            <label className='flex flex-col mt-5 items-stretch gap-2'>
-              <div id='nickname' className='text-[#B5BAC1] text-xs text-left'>
-                닉네임
-              </div>
+            </LoginLabel>
+            <LoginLabel title='닉네임'>
               <input className='h-10 rounded-[3px] bg-[#1E1F22]' />
-            </label>
-            <label className='flex flex-col mt-5 items-stretch gap-2'>
-              <div id='사용자명' className='text-[#B5BAC1] text-xs text-left'>
-                사용자명
-              </div>
+            </LoginLabel>
+            <LoginLabel title='이름'>
               <input className='h-10 rounded-[3px] bg-[#1E1F22]' />
-            </label>
-            <label className='flex flex-col mt-5 items-stretch gap-2'>
-              <div id='password' className='text-[#B5BAC1] text-xs text-left'>
-                비밀번호
-              </div>
+            </LoginLabel>
+            <LoginLabel title='비밀번호'>
               <input className='h-10 rounded-[3px] bg-[#1E1F22]' />
-            </label>
-            <label className='flex flex-col mt-5 items-stretch gap-2'>
-              <div id='birthday' className='text-[#B5BAC1] text-xs text-left'>
-                생년월일
-              </div>
+            </LoginLabel>
+            <LoginLabel title='생년월일'>
               <DatePicker />
-            </label>
-            <label className='flex mt-3 items-center gap-2'>
+            </LoginLabel>
+            <label className='mt-3 flex items-center gap-2'>
               <Checkbox />
               <div className='w-[364px] text-[#949BA4] text-xs text-left'>
                 (선택사항) Discord 소식, 도움말, 특별 할인을 이메일로
                 보내주세요. 언제든지 취소하실 수 있어요.
               </div>
             </label>
-            <button className='mt-5 w-full h-11 p-[10px] rounded-[3px] justify-center items-center bg-indigo-500 text-base'>
+            <button className='mt-5 p-[10px] w-full h-11 justify-center items-center rounded-[3px] bg-indigo-500'>
               계속하기
             </button>
             <div className='mt-2 text-[#949BA4] text-xs text-left'>
@@ -74,7 +60,7 @@ export default function SignUp() {
               <span className='text-[#00AAFC]'> 개인정보 보호 정책</span>에
               동의하게 됩니다.
             </div>
-            <div className='mt-[18px] text-[14px] text-left text-[#00AAFC]'>
+            <div className='mt-[18px] text-[#00AAFC] text-[14px] text-left'>
               이미 계정이 있으신가요?
             </div>
           </form>
