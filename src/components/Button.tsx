@@ -1,6 +1,7 @@
 interface ButtonProps {
+  style: string
   children: React.ReactNode
 }
-export default function Button({ children }: ButtonProps) {
-  return <button>{children}</button>
+export default function Button({ style, children }: ButtonProps) {
+  return <button className={`${style}`}>{children}</button>
 }

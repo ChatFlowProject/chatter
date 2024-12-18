@@ -1,4 +1,5 @@
 import background from '@assets/Login_Background.png'
+import Button from '@components/Button.tsx'
 import DatePicker from './DatePicker.tsx'
 import LoginLabel from './LoginLabel.tsx'
 
@@ -38,9 +39,9 @@ export default function SignUp() {
                 보내주세요. 언제든지 취소하실 수 있어요.
               </div>
             </label>
-            <button className='mt-5 p-[10px] w-full h-11 justify-center items-center rounded-[3px] bg-indigo-500'>
+            <Button style='mt-5 p-[10px] w-full h-11 justify-center items-center rounded-[3px] bg-indigo-500'>
               계속하기
-            </button>
+            </Button>
             <div className='mt-2 text-[#949BA4] text-xs text-left'>
               등록하는 순간 Discord의{' '}
               <span className='text-[#00AAFC]'>서비스 이용 약관</span>과
