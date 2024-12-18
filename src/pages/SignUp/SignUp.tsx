@@ -1,24 +1,11 @@
 import background from '@assets/Login_Background.png'
+import DatePicker from './DatePicker.tsx'
 import LoginLabel from './LoginLabel.tsx'
 
 function Checkbox() {
   return (
     <button className='flex w-6 h-6 p-[3px] rounded-[6px] border-[1px] bg-transparent border-gray-400 hover:outline-none' />
   )
-}
-
-function DatePicker() {
-  return (
-    <div className='flex justify-between gap-3'>
-      <DropDown />
-      <DropDown />
-      <DropDown />
-    </div>
-  )
-}
-
-function DropDown() {
-  return <input className='w-32 h-10 rounded-[3px] bg-[#1E1F22]' />
 }
 
 export default function SignUp() {
