@@ -1,3 +1,7 @@
-export default function DropDown() {
-  return <input className='w-32 h-10 rounded-[3px] bg-[#1E1F22]' />
+interface DropDownProps {
+  style: string
+}
+
+export default function DropDown({ style }: DropDownProps) {
+  return <input className={`${style}`} />
 }
