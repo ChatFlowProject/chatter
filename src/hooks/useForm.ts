@@ -10,11 +10,6 @@ interface formInfo {
   validation: validation
 }
 
-// 요구사항:
-// 1. 값 제어
-// - 전체 값 초기화 함수 반환
-// - 필수여부
-
 function initializeInputInfos(infos: formInfos) {
   const initialValues: Record<valueName, inputValue> = {}
   const validations: Record<valueName, validation> = {}
@@ -77,6 +72,5 @@ export default function useForm(
     isEssential,
     onChange,
     onSubmit,
-    // isEssential,
   }
 }
