@@ -1,12 +1,13 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 
 type valueName = string
 type inputValue = string | number | boolean
 type formInfos = Record<valueName, formInfo>
+type validation = (newValue: inputValue) => string
 interface formInfo {
   initialValue: inputValue
   //   isEssential: boolean
-  //   validation(newValue: formValue): string
+  validation: validation
 }
 
 interface useFormProps {
@@ -16,37 +17,44 @@ interface useFormProps {
 
 // 요구사항:
 // 1. 값 제어
-// - onChange 함수 반환
-// - validation & 에러 반환
 // - 전체 값 초기화 함수 반환
 // - 필수여부
 // 2. 제출 클릭시 콜백 실행
 
 function initializeInputInfos(infos: formInfos) {
   const initialValues: Record<valueName, inputValue> = {}
+  const validations: Record<valueName, validation> = {}
 
   for (const valueName in infos) {
-    initialValues[valueName] = infos[valueName].initialValue
+    const { initialValue, validation } = infos[valueName]
+    initialValues[valueName] = initialValue
+    validations[valueName] = validation
   }
 
-  return { initialValues }
+  return { initialValues, validations }
 }
 
 export default function useForm({ formValueInfos }: useFormProps) {
-  const [values, setValues] = useState<Record<valueName, inputValue>>({})
-  const { initialValues } = initializeInputInfos(formValueInfos)
-  setValues(initialValues)
+  const { initialValues, validations } = initializeInputInfos(formValueInfos)
+  const [values, setValues] =
+    useState<Record<valueName, inputValue>>(initialValues)
+  const [errors, setErrors] = useState<Record<valueName, string>>({})
 
   function onChange(newValue: inputValue, valueName: valueName) {
-    // if validation true
-    setValues((oldValues) => ({
-      ...oldValues,
-      [valueName]: newValue,
-    }))
+    const errorMessage = validations[valueName](newValue)
+    setErrors((prevErrors) => ({ ...prevErrors, [valueName]: errorMessage }))
+
+    if (errorMessage === '') {
+      setValues((oldValues) => ({
+        ...oldValues,
+        [valueName]: newValue,
+      }))
+    }
   }
 
   return {
     values,
+    errors,
     onChange,
     // isEssential,
     // errorMessage,
