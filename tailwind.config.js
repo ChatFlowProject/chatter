@@ -20,8 +20,11 @@ export default {
         medium: ['gg sans Medium', 'sans-serif'],
         semibold: ['gg sans Semibold', 'sans-serif'],
         kr: ['NotoSansKR-VariableFont_wght', 'sans-serif'],
-        arial: ['Arial', 'sans-serif'],
-        sans: ['sans-serif', 'sans-serif'],
+      },
+      width: {
+        'wrapper': '18rem',
+        'sidebar': '68rem',
+        'chat': '394rem',
       },
     },
   },
