@@ -28,20 +28,20 @@ function initFieldInfo(fieldInfos: FieldInfos) {
 
 export default function useForm(
   fieldInfos: FieldInfos,
-  submitCallback: () => void,
+  submitCallback: (formValues: Record<FieldName, FieldValue>) => void,
 ): {
   values: Record<FieldName, FieldValue>
   errors: Record<FieldName, string>
   isEssentials: Record<FieldName, boolean>
-  onChange: (newValue: FieldValue, fieldName: FieldName) => void
-  onSubmit: () => void
+  changeFieldValue: (newValue: FieldValue, fieldName: FieldName) => void
+  submitForm: () => void
 } {
   const { initialValues, isEssentials, validations } = initFieldInfo(fieldInfos)
   const [values, setValues] =
     useState<Record<FieldName, FieldValue>>(initialValues)
   const [errors, setErrors] = useState<Record<FieldName, string>>({})
 
-  function onChange(newValue: FieldValue, fieldName: FieldName): void {
+  function changeFieldValue(newValue: FieldValue, fieldName: FieldName): void {
     const errorMessage = validations[fieldName](newValue)
     setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: errorMessage }))
 
@@ -53,21 +53,21 @@ export default function useForm(
     }
   }
 
-  function onSubmit(): void {
+  function submitForm(): void {
     for (const valueName in values) {
       if (isEssentials[valueName] && values[valueName] === '')
         return console.error('필수 항목을 작성해주세요')
       if (errors[valueName] !== '')
         return console.error('아직 오류가 남아있습니다')
     }
-    submitCallback()
+    submitCallback(values)
   }
 
   return {
     values,
     errors,
     isEssentials,
-    onChange,
-    onSubmit,
+    changeFieldValue,
+    submitForm,
   }
 }
