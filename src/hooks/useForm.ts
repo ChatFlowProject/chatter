@@ -1,64 +1,61 @@
 import { useState } from 'react'
 
-type valueName = string
-type inputValue = string | number | boolean
-type formInfos = Record<valueName, formInfo>
-type validation = (newValue: inputValue) => string
-interface formInfo {
-  initialValue: inputValue
+type FieldName = string
+type FieldValue = string | number | boolean
+type InputValidation = (newValue: FieldValue) => string
+interface FormInfo {
+  initialValue: FieldValue
   isEssential: boolean
-  validation: validation
+  validation: InputValidation
 }
 
-function initializeInputInfos(infos: formInfos) {
-  const initialValues: Record<valueName, inputValue> = {}
-  const validations: Record<valueName, validation> = {}
-  const isEssentials: Record<valueName, boolean> = {}
+type FieldInfos = Record<FieldName, FormInfo>
 
-  for (const valueName in infos) {
-    const { initialValue, isEssential, validation } = infos[valueName]
-    initialValues[valueName] = initialValue
-    validations[valueName] = validation
-    isEssentials[valueName] = isEssential
+function initFieldInfo(fieldInfos: FieldInfos) {
+  const initialValues: Record<FieldName, FieldValue> = {}
+  const validations: Record<FieldName, InputValidation> = {}
+  const isEssentials: Record<FieldName, boolean> = {}
+
+  for (const fieldName in fieldInfos) {
+    const { initialValue, isEssential, validation } = fieldInfos[fieldName]
+    initialValues[fieldName] = initialValue
+    isEssentials[fieldName] = isEssential
+    validations[fieldName] = validation
   }
 
-  return { initialValues, validations, isEssentials }
+  return { initialValues, isEssentials, validations }
 }
 
 export default function useForm(
-  formValueInfos: formInfos,
+  fieldInfos: FieldInfos,
   submitCallback: () => void,
 ): {
-  values: Record<valueName, inputValue>
-  errors: Record<valueName, string>
-  isEssential: Record<valueName, boolean>
-  onChange: (newValue: inputValue, valueName: valueName) => void
+  values: Record<FieldName, FieldValue>
+  errors: Record<FieldName, string>
+  isEssentials: Record<FieldName, boolean>
+  onChange: (newValue: FieldValue, fieldName: FieldName) => void
   onSubmit: () => void
 } {
-  const {
-    initialValues,
-    validations,
-    isEssentials: isEssential,
-  } = initializeInputInfos(formValueInfos)
+  const { initialValues, isEssentials, validations } = initFieldInfo(fieldInfos)
   const [values, setValues] =
-    useState<Record<valueName, inputValue>>(initialValues)
-  const [errors, setErrors] = useState<Record<valueName, string>>({})
+    useState<Record<FieldName, FieldValue>>(initialValues)
+  const [errors, setErrors] = useState<Record<FieldName, string>>({})
 
-  function onChange(newValue: inputValue, valueName: valueName): void {
-    const errorMessage = validations[valueName](newValue)
-    setErrors((prevErrors) => ({ ...prevErrors, [valueName]: errorMessage }))
+  function onChange(newValue: FieldValue, fieldName: FieldName): void {
+    const errorMessage = validations[fieldName](newValue)
+    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: errorMessage }))
 
     if (errorMessage === '') {
       setValues((oldValues) => ({
         ...oldValues,
-        [valueName]: newValue,
+        [fieldName]: newValue,
       }))
     }
   }
 
   function onSubmit(): void {
     for (const valueName in values) {
-      if (isEssential[valueName] && values[valueName] === '')
+      if (isEssentials[valueName] && values[valueName] === '')
         return console.error('필수 항목을 작성해주세요')
       if (errors[valueName] !== '')
         return console.error('아직 오류가 남아있습니다')
@@ -69,7 +66,7 @@ export default function useForm(
   return {
     values,
     errors,
-    isEssential,
+    isEssentials,
     onChange,
     onSubmit,
   }
