@@ -7,7 +7,7 @@ interface ButtonProps {
 const SubmitButton: React.FC<ButtonProps> = ({ text }) => (
   <button
     type='submit'
-    className='w-full bg-blue-600 hover:bg-blue-700 rounded text-white py-2'
+    className='w-full bg-[#5865f2] hover:bg-blue-700 rounded text-white py-2'
   >
     {text}
   </button>
