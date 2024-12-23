@@ -27,29 +27,29 @@ a:hover {
 }
 
 .wrapper {
-  @apply w-wrapper h-full font-bold text-base bg-wrapper;
+  @apply w-wrapper h-full bg-wrapper font-bold text-base;
 }
 .sidebar {
-  @apply w-sidebar h-full font-bold text-base bg-sidebar;
+  @apply w-sidebar h-full bg-sidebar font-bold text-base;
 }
 .chat {
-  @apply w-chat h-full font-bold text-base bg-chat;
+  @apply w-chat h-full bg-chat font-bold text-base;
 }
 
 .lgon {
-  @apply font-regular text-lg text-white;
+  @apply text-white font-regular text-lg;
 }
 .baseon {
-  @apply font-medium text-base text-white;
+  @apply text-white font-medium text-base;
 }
 .lfoff {
-  @apply font-medium text-lg text-off;
+  @apply text-off font-medium text-lg;
 }
 .smoff {
-  @apply font-bold text-sm text-off;
+  @apply text-off font-bold text-sm;
 }
 .des {
-  @apply font-regular text-lg text-des;
+  @apply text-des font-regular text-lg;
 }
 
 body {
