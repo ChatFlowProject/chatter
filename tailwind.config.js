@@ -7,13 +7,20 @@ export default {
     './src/App.tsx',
   ],
   theme: {
+    fontSize: {
+      lg: '16px',
+      base: '14px',
+      sm: '12px',
+    },
     extend: {
       colors: {
         'wrapper': '#313338',
         'sidebar': '#2E3036',
         'chat': '#37393F',
+        'off': '#8E9297',
+        'des': '#DCDDDE',
+        'primary': '#5865F2',
       },
-      fontSize: {},
       fontFamily: {
         regular: ['gg sans Regular', 'sans-serif'],
         bold: ['gg sans Bold', 'sans-serif'],
@@ -22,9 +29,9 @@ export default {
         kr: ['NotoSansKR-VariableFont_wght', 'sans-serif'],
       },
       width: {
-        'wrapper': '18rem',
-        'sidebar': '68rem',
-        'chat': '394rem',
+        'wrapper': '48px',
+        'sidebar': '180px',
+        'chat': '1052px',
       },
     },
   },
