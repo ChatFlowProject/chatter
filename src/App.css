@@ -3,34 +3,3 @@
   text-align: center;
   height: 100vh;
 }
-
-.wrapper {
-  @apply w-wrapper h-full font-bold text-base bg-wrapper;
-}
-.sidebar {
-  @apply w-sidebar h-full font-bold text-base bg-sidebar;
-}
-.chat {
-  @apply w-chat h-full font-bold text-base bg-chat;
-}
-
-@font-face {
-  font-family: 'gg sans Medium';
-  src: url('./styles/fonts/gg sans Medium.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'gg sans Bold';
-  src: url('./styles/fonts/gg sans Bold.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'gg sans Regular';
-  src: url('./styles/fonts/gg sans Regular.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'gg sans SemiBold';
-  src: url('./styles/fonts/gg sans SemiBold.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'NotoSansKR-VariableFont_wght';
-  src: url('./styles/fonts/NotoSansKR-VariableFont_wght.ttf') format('truetype');
-}
