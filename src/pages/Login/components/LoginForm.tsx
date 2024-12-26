@@ -22,10 +22,10 @@ function LoginForm() {
   return (
     <form className='w-full max-w-lg' onSubmit={handleSubmit}>
       <div className='text-center mb-6'>
-        <h1 className='text-[#f2f2f4] text-[22.5px] font-semibold mb-2'>
+        <h1 className='text-[22.5px] font-semibold text-[#f2f2f4] mb-2'>
           돌아오신 것을 환영해요!
         </h1>
-        <p className='text-[#b5b9c0] text-[15px]'>
+        <p className='text-[15px] text-[#b5b9c0]'>
           다시 만나다니 너무 반가워요!
         </p>
       </div>
@@ -47,7 +47,7 @@ function LoginForm() {
 
       <a
         href='#'
-        className='block text-left text-[#00a9fb] text-[13.2px] text-sm mb-4 hover:underline'
+        className='block text-sm text-[13.2px] text-left text-[#00a9fb] mb-4 hover:underline'
       >
         비밀번호를 잊으셨나요?
       </a>
@@ -57,9 +57,9 @@ function LoginForm() {
         children='로그인'
       />
 
-      <p className='text-left text-[#949aa3] text-[13.6px] mt-2'>
+      <p className='text-[13.6px] text-left text-[#949aa3] mt-2'>
         계정이 필요하신가요?{' '}
-        <a href='#' className='text-[#00a9fb] hover:underline'>
+        <a href='#' className='hover:underline text-[#00a9fb]'>
           가입하기
         </a>
       </p>

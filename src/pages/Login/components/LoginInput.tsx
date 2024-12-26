@@ -4,7 +4,7 @@ function LoginInput({ id, label, type, value, onChange }: LoginInputProps) {
   return (
     <div>
       <label
-        className='block text-left text-[#b5b9c0] text-[11.2px] mt-3 mb-2'
+        className='block text-left text-[11.2px] text-[#b5b9c0] mt-3 mb-2'
         htmlFor={id}
       >
         {label} <span className='text-red-600'>*</span>
@@ -19,4 +19,5 @@ function LoginInput({ id, label, type, value, onChange }: LoginInputProps) {
     </div>
   )
 }
+
 export default LoginInput
