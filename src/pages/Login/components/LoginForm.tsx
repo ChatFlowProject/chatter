@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import LoginInput from './LoginInput'
-import SubmitButton from './SubmitButton'
 import { LoginFormData } from '@types/login'
+import Button from '@components/Button'
 
 function LoginForm() {
   const [formData, setFormData] = useState<LoginFormData>({
@@ -52,7 +52,10 @@ function LoginForm() {
         비밀번호를 잊으셨나요?
       </a>
 
-      <SubmitButton text='로그인' />
+      <Button
+        style='w-full bg-[#5865f2] hover:bg-blue-700 rounded text-white py-2'
+        children='로그인'
+      />
 
       <p className='text-left text-[#949aa3] text-[13.6px] mt-2'>
         계정이 필요하신가요?{' '}
