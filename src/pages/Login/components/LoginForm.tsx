@@ -3,7 +3,7 @@ import LoginInput from './LoginInput'
 import SubmitButton from './SubmitButton'
 import { LoginFormData } from '../../../types/login'
 
-const LoginForm: React.FC = () => {
+function LoginForm() {
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
