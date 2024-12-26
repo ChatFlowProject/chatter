@@ -1,4 +1,4 @@
-import { LoginInputProps } from '../../../types/login'
+import { LoginInputProps } from '@types/login'
 
 function LoginInput({ id, label, type, value, onChange }: LoginInputProps) {
   return (

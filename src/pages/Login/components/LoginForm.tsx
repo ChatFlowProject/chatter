@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import LoginInput from './LoginInput'
 import SubmitButton from './SubmitButton'
-import { LoginFormData } from '../../../types/login'
+import { LoginFormData } from '@types/login'
 
 function LoginForm() {
   const [formData, setFormData] = useState<LoginFormData>({
