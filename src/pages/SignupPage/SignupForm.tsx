@@ -7,16 +7,32 @@ export default function SignupForm() {
   return (
     <form>
       <LoginLabel title='이메일'>
-        <input className='h-10 rounded-[3px] bg-[#1E1F22]' />
+        <input
+          id='email'
+          className='h-10 rounded-[3px] bg-[#1E1F22]'
+          placeholder='이메일을 입력하세요'
+        />
       </LoginLabel>
       <LoginLabel title='닉네임'>
-        <input className='h-10 rounded-[3px] bg-[#1E1F22]' />
+        <input
+          id='nickname'
+          className='h-10 rounded-[3px] bg-[#1E1F22]'
+          placeholder='닉네임을 입력하세요'
+        />
       </LoginLabel>
       <LoginLabel title='이름'>
-        <input className='h-10 rounded-[3px] bg-[#1E1F22]' />
+        <input
+          id='name'
+          className='h-10 rounded-[3px] bg-[#1E1F22]'
+          placeholder='이름을 입력하세요'
+        />
       </LoginLabel>
       <LoginLabel title='비밀번호'>
-        <input className='h-10 rounded-[3px] bg-[#1E1F22]' />
+        <input
+          id='password'
+          className='h-10 rounded-[3px] bg-[#1E1F22]'
+          placeholder='비밀번호를 입력하세요'
+        />
       </LoginLabel>
       <LoginLabel title='생년월일'>
         <DatePicker />
