@@ -6,10 +6,8 @@ interface LoginLabelProps {
 }
 
 export default function LoginLabel({ title, children }: LoginLabelProps) {
-  const childElement = React.Children.only(children)
-  const childId = (childElement as React.ReactElement).props.id
   return (
-    <label className='mt-5 flex flex-col items-stretch gap-2' htmlFor={childId}>
+    <label className='mt-5 flex flex-col items-stretch gap-2'>
       <div className='text-[#B5BAC1] text-xs text-left'>{title}</div>
       {children}
     </label>
