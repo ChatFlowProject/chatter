@@ -47,7 +47,7 @@ function LoginForm() {
 
       <a
         href='#'
-        className='block text-sm text-[13.2px] text-left text-[#00a9fb] mb-4 hover:underline'
+        className='block text-[13.2px] text-left text-[#00a9fb] mb-4 hover:underline'
       >
         비밀번호를 잊으셨나요?
       </a>
