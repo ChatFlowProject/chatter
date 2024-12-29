@@ -60,7 +60,11 @@ function LoginForm() {
 
       <p className='text-[13.6px] text-left text-[#949aa3] mt-2'>
         계정이 필요하신가요?{' '}
+<<<<<<< HEAD
         <Link to='/signup' className='text-[#00a9fb] hover:underline'>
+=======
+        <Link to={'/signup'} className='hover:underline text-[#00a9fb]'>
+>>>>>>> ea27086 (feature: 로그인 페이지에서 signup 페이지 이동 링크 추가)
           가입하기
         </Link>
       </p>
