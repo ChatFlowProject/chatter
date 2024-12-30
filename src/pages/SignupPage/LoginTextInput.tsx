@@ -19,7 +19,7 @@ export default function LoginTextInput({
     <LoginLabel title={title} error={error} isRequired={isRequired}>
       <input
         id={name}
-        className='h-10 rounded-[3px] bg-[#1E1F22]'
+        className='h-10 p-3 rounded-[3px] bg-[#1E1F22]'
         required={isRequired}
         {...props}
       />
