@@ -23,5 +23,5 @@ export function isNickname(value: string): boolean {
 }
 
 export function isName(value: string): boolean {
-  return /^[가-힣]$/.test(value) || /^[a-zA-Z]{2,}$/.test(value)
+  return /^[가-힣]{2,}$/.test(value) || /^[a-zA-Z]{2,}$/.test(value)
 }
