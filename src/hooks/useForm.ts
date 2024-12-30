@@ -40,12 +40,10 @@ export default function useForm(
     const errorMessage = validations[fieldName](newValue)
     setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: errorMessage }))
 
-    if (errorMessage === '') {
-      setValues((oldValues) => ({
-        ...oldValues,
-        [fieldName]: newValue,
-      }))
-    }
+    setValues((oldValues) => ({
+      ...oldValues,
+      [fieldName]: newValue,
+    }))
   }
 
   function submitForm(): void {
