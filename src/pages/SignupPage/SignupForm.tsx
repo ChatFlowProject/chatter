@@ -1,18 +1,30 @@
+import {
+  isEmptyString,
+  isLengthBetween,
+  isEmail,
+  isPassword,
+  isNickname,
+  isName,
+} from '@utils/stringValidations.ts'
+import useForm from '@hooks/useForm.ts'
 import Button from '@components/Button.tsx'
 import Checkbox from '@components/Checkbox.tsx'
 import DatePicker from './DatePicker.tsx'
 import LoginLabel from './LoginLabel.tsx'
-import useForm from '@hooks/useForm.ts'
+import LoginTextInput from './LoginTextInput.tsx'
 
 import type { FieldInfos, FieldValue } from 'src/types/LoginTypes'
-import LoginTextInput from './LoginTextInput.tsx'
 
 const fieldInfos: FieldInfos = {
   email: {
     initialValue: '',
     isEssential: true,
     validation: (newValue: FieldValue) => {
-      if (newValue === '') return '이메일을 입력해주세요'
+      if (typeof newValue !== 'string') return '비정상적인 입력입니다'
+      if (isEmptyString(newValue)) return '이메일을 입력해주세요'
+      if (!isEmail(newValue)) return '이메일 형식이 아닙니다'
+      if (!isLengthBetween(newValue, 6, 50))
+        return '이메일은 6자 이상 50자 이하여야 합니다'
       return ''
     },
   },
@@ -20,7 +32,11 @@ const fieldInfos: FieldInfos = {
     initialValue: '',
     isEssential: true,
     validation: (newValue: FieldValue) => {
-      if (newValue === '') return '닉네임을 입력해주세요'
+      if (typeof newValue !== 'string') return '비정상적인 입력입니다'
+      if (isEmptyString(newValue)) return '닉네임을 입력해주세요'
+      if (!isNickname(newValue)) return '닉네임 형식이 아닙니다'
+      if (!isLengthBetween(newValue, 4, 16))
+        return '닉네임은 4자 이상 16자 이하여야 합니다'
       return ''
     },
   },
@@ -28,7 +44,11 @@ const fieldInfos: FieldInfos = {
     initialValue: '',
     isEssential: true,
     validation: (newValue: FieldValue) => {
-      if (newValue === '') return '이름을 입력해주세요'
+      if (typeof newValue !== 'string') return '비정상적인 입력입니다'
+      if (isEmptyString(newValue)) return '이름을 입력해주세요'
+      if (!isName(newValue)) return '이름 형식이 아닙니다'
+      if (!isLengthBetween(newValue, 2, 20))
+        return '이름은 2자 이상 20자 이하여야 합니다'
       return ''
     },
   },
@@ -36,7 +56,11 @@ const fieldInfos: FieldInfos = {
     initialValue: '',
     isEssential: true,
     validation: (newValue: FieldValue) => {
-      if (newValue === '') return '비밀번호를 입력해주세요'
+      if (typeof newValue !== 'string') return '비정상적인 입력입니다'
+      if (isEmptyString(newValue)) return '비밀번호를 입력해주세요'
+      if (!isPassword(newValue)) return '비밀번호 형식이 아닙니다'
+      if (!isLengthBetween(newValue, 6, 22))
+        return '비밀번호는 6자 이상 22자 이하여야 합니다'
       return ''
     },
   },
