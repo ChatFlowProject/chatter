@@ -87,6 +87,7 @@ export default function SignupForm() {
         title='닉네임'
         value={values.nickname as string}
         onChange={(e) => changeFieldValue(e.target.value, 'nickname')}
+        error={errors.nickname}
       />
       <LoginTextInput
         name='name'
@@ -94,6 +95,7 @@ export default function SignupForm() {
         title='이름'
         value={values.name as string}
         onChange={(e) => changeFieldValue(e.target.value, 'name')}
+        error={errors.name}
       />
       <LoginTextInput
         name='password'
@@ -101,6 +103,7 @@ export default function SignupForm() {
         title='비밀번호'
         value={values.password as string}
         onChange={(e) => changeFieldValue(e.target.value, 'password')}
+        error={errors.password}
       />
       <LoginLabel title='생년월일'>
         <DatePicker />
