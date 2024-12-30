@@ -55,6 +55,7 @@ export default function SignupForm() {
         title='이메일'
         value={values.email as string}
         onChange={(e) => changeFieldValue(e.target.value, 'email')}
+        error={errors.email}
       />
       <LoginTextInput
         name='nickname'
