@@ -1,15 +1,10 @@
 import { useState } from 'react'
-
-type FieldName = string
-type FieldValue = string | number | boolean
-type InputValidation = (newValue: FieldValue) => string
-interface FormInfo {
-  initialValue: FieldValue
-  isEssential: boolean
-  validation: InputValidation
-}
-
-type FieldInfos = Record<FieldName, FormInfo>
+import type {
+  FieldName,
+  FieldValue,
+  InputValidation,
+  FieldInfos,
+} from 'src/types/LoginTypes'
 
 function initFieldInfo(fieldInfos: FieldInfos) {
   const initialValues: Record<FieldName, FieldValue> = {}

@@ -2,8 +2,50 @@ import Button from '@components/Button.tsx'
 import Checkbox from '@components/Checkbox.tsx'
 import DatePicker from './DatePicker.tsx'
 import LoginLabel from './LoginLabel.tsx'
+import useForm from '@hooks/useForm.ts'
+
+import type { FieldInfos, FieldValue } from 'src/types/LoginTypes'
+
+const fieldInfos: FieldInfos = {
+  email: {
+    initialValue: '',
+    isEssential: true,
+    validation: (newValue: FieldValue) => {
+      if (newValue === '') return '이메일을 입력해주세요'
+      return ''
+    },
+  },
+  nickname: {
+    initialValue: '',
+    isEssential: true,
+    validation: (newValue: FieldValue) => {
+      if (newValue === '') return '닉네임을 입력해주세요'
+      return ''
+    },
+  },
+  name: {
+    initialValue: '',
+    isEssential: true,
+    validation: (newValue: FieldValue) => {
+      if (newValue === '') return '이름을 입력해주세요'
+      return ''
+    },
+  },
+  password: {
+    initialValue: '',
+    isEssential: true,
+    validation: (newValue: FieldValue) => {
+      if (newValue === '') return '비밀번호를 입력해주세요'
+      return ''
+    },
+  },
+}
 
 export default function SignupForm() {
+  const { values, errors, isEssentials, changeFieldValue, submitForm } =
+    useForm(fieldInfos, (formValues) => {
+      console.log(formValues)
+    })
   return (
     <form>
       <LoginLabel title='이메일'>
