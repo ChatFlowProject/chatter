@@ -7,8 +7,8 @@ interface LoginLabelProps {
 
 export default function LoginLabel({ title, children }: LoginLabelProps) {
   return (
-    <label className='mt-5 flex flex-col items-stretch gap-2'>
-      <div className='text-[#B5BAC1] text-xs text-left'>{title}</div>
+    <label className='mt-5 flex flex-col items-stretch'>
+      <div className='pb-2 text-[#B5BAC1] text-sm text-left'>{title}</div>
       {children}
     </label>
   )

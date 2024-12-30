@@ -91,9 +91,9 @@ export default function SignupForm() {
       <LoginLabel title='생년월일'>
         <DatePicker />
       </LoginLabel>
-      <label className='mt-3 flex items-center gap-2'>
+      <label className='mt-3 flex items-center'>
         <Checkbox style='flex w-6 h-6 p-[3px] rounded-[6px] border-[1px] bg-transparent border-gray-400 hover:outline-none' />
-        <div className='w-[364px] text-[#949BA4] text-xs text-left'>
+        <div className='w-[364px] pl-2 text-[#949BA4] text-sm text-left'>
           (선택사항) Discord 소식, 도움말, 특별 할인을 이메일로 보내주세요.
           언제든지 취소하실 수 있어요.
         </div>
