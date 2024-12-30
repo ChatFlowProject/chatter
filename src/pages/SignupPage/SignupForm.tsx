@@ -51,29 +51,41 @@ export default function SignupForm() {
       <LoginLabel title='이메일'>
         <input
           id='email'
+          type='email'
           className='h-10 rounded-[3px] bg-[#1E1F22]'
           placeholder='이메일을 입력하세요'
+          value={values.email as string}
+          onChange={(e) => changeFieldValue(e.target.value, 'email')}
         />
       </LoginLabel>
       <LoginLabel title='닉네임'>
         <input
           id='nickname'
+          type='text'
           className='h-10 rounded-[3px] bg-[#1E1F22]'
           placeholder='닉네임을 입력하세요'
+          value={values.nickname as string}
+          onChange={(e) => changeFieldValue(e.target.value, 'nickname')}
         />
       </LoginLabel>
       <LoginLabel title='이름'>
         <input
           id='name'
+          type='text'
           className='h-10 rounded-[3px] bg-[#1E1F22]'
           placeholder='이름을 입력하세요'
+          value={values.name as string}
+          onChange={(e) => changeFieldValue(e.target.value, 'name')}
         />
       </LoginLabel>
       <LoginLabel title='비밀번호'>
         <input
           id='password'
+          type='password'
           className='h-10 rounded-[3px] bg-[#1E1F22]'
           placeholder='비밀번호를 입력하세요'
+          value={values.password as string}
+          onChange={(e) => changeFieldValue(e.target.value, 'password')}
         />
       </LoginLabel>
       <LoginLabel title='생년월일'>
