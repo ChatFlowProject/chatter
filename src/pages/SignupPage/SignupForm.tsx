@@ -18,7 +18,7 @@ import type { FieldInfos, FieldValue } from 'src/types/LoginTypes'
 const fieldInfos: FieldInfos = {
   email: {
     initialValue: '',
-    isEssential: true,
+    isRequired: true,
     validation: (newValue: FieldValue) => {
       if (typeof newValue !== 'string') return '비정상적인 입력입니다'
       if (isEmptyString(newValue)) return '이메일을 입력해주세요'
@@ -30,7 +30,7 @@ const fieldInfos: FieldInfos = {
   },
   nickname: {
     initialValue: '',
-    isEssential: true,
+    isRequired: false,
     validation: (newValue: FieldValue) => {
       if (typeof newValue !== 'string') return '비정상적인 입력입니다'
       if (isEmptyString(newValue)) return '닉네임을 입력해주세요'
@@ -42,7 +42,7 @@ const fieldInfos: FieldInfos = {
   },
   name: {
     initialValue: '',
-    isEssential: true,
+    isRequired: true,
     validation: (newValue: FieldValue) => {
       if (typeof newValue !== 'string') return '비정상적인 입력입니다'
       if (isEmptyString(newValue)) return '이름을 입력해주세요'
@@ -54,7 +54,7 @@ const fieldInfos: FieldInfos = {
   },
   password: {
     initialValue: '',
-    isEssential: true,
+    isRequired: true,
     validation: (newValue: FieldValue) => {
       if (typeof newValue !== 'string') return '비정상적인 입력입니다'
       if (isEmptyString(newValue)) return '비밀번호를 입력해주세요'
@@ -67,10 +67,12 @@ const fieldInfos: FieldInfos = {
 }
 
 export default function SignupForm() {
-  const { values, errors, isEssentials, changeFieldValue, submitForm } =
-    useForm(fieldInfos, (formValues) => {
+  const { values, errors, isRequired, changeFieldValue, submitForm } = useForm(
+    fieldInfos,
+    (formValues) => {
       console.log(formValues)
-    })
+    },
+  )
   return (
     <form>
       <LoginTextInput
@@ -80,6 +82,7 @@ export default function SignupForm() {
         value={values.email as string}
         onChange={(e) => changeFieldValue(e.target.value, 'email')}
         error={errors.email}
+        isRequired={isRequired.email}
       />
       <LoginTextInput
         name='nickname'
@@ -88,6 +91,7 @@ export default function SignupForm() {
         value={values.nickname as string}
         onChange={(e) => changeFieldValue(e.target.value, 'nickname')}
         error={errors.nickname}
+        isRequired={isRequired.nickname}
       />
       <LoginTextInput
         name='name'
@@ -96,6 +100,7 @@ export default function SignupForm() {
         value={values.name as string}
         onChange={(e) => changeFieldValue(e.target.value, 'name')}
         error={errors.name}
+        isRequired={isRequired.name}
       />
       <LoginTextInput
         name='password'
@@ -104,6 +109,7 @@ export default function SignupForm() {
         value={values.password as string}
         onChange={(e) => changeFieldValue(e.target.value, 'password')}
         error={errors.password}
+        isRequired={isRequired.password}
       />
       <LoginLabel title='생년월일'>
         <DatePicker />

@@ -4,7 +4,7 @@ export type InputValidation = (newValue: FieldValue) => string
 
 export interface FormInfo {
   initialValue: FieldValue
-  isEssential: boolean
+  isRequired: boolean
   validation: InputValidation
 }
 export type FieldInfos = Record<FieldName, FormInfo>
