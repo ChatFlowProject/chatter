@@ -1,4 +1,5 @@
 import SignupForm from './SignupForm.tsx'
+import { Link } from 'react-router-dom'
 
 export default function SignupPage() {
   return (
@@ -12,9 +13,11 @@ export default function SignupPage() {
           <span className='text-[#00AAFC]'> 개인정보 보호 정책</span>에 동의하게
           됩니다.
         </div>
-        <div className='mt-[18px] text-[#00AAFC] text-[14px] text-left'>
-          이미 계정이 있으신가요?
-        </div>
+        <Link to='/login'>
+          <div className='mt-[18px] text-[#00AAFC] text-[14px] text-left'>
+            이미 계정이 있으신가요?
+          </div>
+        </Link>
       </div>
     </div>
   )

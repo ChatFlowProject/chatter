@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import LoginInput from './LoginInput'
-import { LoginFormData } from '@types/login'
 import Button from '@components/Button'
+import { LoginFormData } from '@types/login'
 
 function LoginForm() {
   const [formData, setFormData] = useState<LoginFormData>({
@@ -47,7 +48,7 @@ function LoginForm() {
 
       <a
         href='#'
-        className='block text-sm text-[13.2px] text-left text-[#00a9fb] mb-4 hover:underline'
+        className='block text-sm text-left text-[#00a9fb] mb-4 hover:underline'
       >
         비밀번호를 잊으셨나요?
       </a>
@@ -59,9 +60,9 @@ function LoginForm() {
 
       <p className='text-[13.6px] text-left text-[#949aa3] mt-2'>
         계정이 필요하신가요?{' '}
-        <a href='#' className='hover:underline text-[#00a9fb]'>
+        <Link to='/signup' className='text-[#00a9fb] hover:underline'>
           가입하기
-        </a>
+        </Link>
       </p>
     </form>
   )
