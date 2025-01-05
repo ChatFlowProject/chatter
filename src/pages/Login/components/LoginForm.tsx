@@ -1,7 +1,6 @@
 import { FieldInfos, FieldValue } from 'src/types/LoginTypes'
 import { isEmptyString } from '@utils/stringValidations.ts'
 import useForm from '@hooks/useForm'
-import Button from '@components/Button'
 
 import LoginTextInput from '@components/LoginTextInput'
 
@@ -54,16 +53,12 @@ function LoginForm() {
         error={errors.password}
         isRequired={isRequired.password}
       />
-      <a
-        href='#'
-        className='block text-sm text-left text-[#00a9fb] mb-4 hover:underline'
-      >
+      <p className='text-sm text-left text-[#00a9fb] mb-4 hover:underline'>
         비밀번호를 잊으셨나요?
-      </a>
-      <Button
-        style='w-full bg-[#5865f2] hover:bg-blue-700 rounded text-white py-2'
-        children='로그인'
-      />
+      </p>
+      <button className='w-full py-2 rounded-[8px] bg-[#5865f2] hover:bg-blue-700 text-white'>
+        로그인
+      </button>
     </form>
   )
 }
