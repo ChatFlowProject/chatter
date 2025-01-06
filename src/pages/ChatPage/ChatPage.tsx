@@ -1,9 +1,9 @@
 import ChatServer from './ChatServer'
 import ChatChannel from './ChatChannel'
 import ChatMessage from './ChatMessage'
-import ChatInput from './ChatInput'
 import Text from '@components/Text.tsx'
 import { useState } from 'react'
+import ChatInput from './ChatInput'
 
 export default function ChatPage() {
   const [activeServer, setActiveServer] = useState<number | null>(null)
@@ -32,9 +32,7 @@ export default function ChatPage() {
             key={server.id}
             title={server.title}
             isActive={activeServer === server.id}
-            onClick={() => {
-              setActiveServer(server.id)
-            }}
+            onClick={() => setActiveServer(server.id)}
           />
         ))}
       </div>
@@ -48,15 +46,17 @@ export default function ChatPage() {
             onClick={() => setActiveChannel(channel.id)}
           />
         ))}
-        <div className='bottom-0 fixed h-[52px] bg-panel font-regular text-white text-base '>
-          user
-        </div>
+        <div className='panel'>user</div>
       </div>
       <div className='chat'>
-        {messages.map((message, index) => (
-          <ChatMessage key={index} message={message} />
-        ))}
-        <ChatInput onSendMessage={handleSendMessage} />
+        <div>
+          {messages.map((message, index) => (
+            <ChatMessage key={index} message={message} />
+          ))}
+        </div>
+        <div>
+          <ChatInput onSendMessage={handleSendMessage} />
+        </div>
       </div>
     </div>
   )
