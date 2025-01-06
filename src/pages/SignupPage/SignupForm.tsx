@@ -10,8 +10,8 @@ import useForm from '@hooks/useForm.ts'
 import Button from '@components/Button.tsx'
 import Checkbox from '@components/Checkbox.tsx'
 import DatePicker from './DatePicker.tsx'
-import LoginLabel from './LoginLabel.tsx'
-import LoginTextInput from './LoginTextInput.tsx'
+import LoginLabel from '@components/LoginLabel.tsx'
+import LoginTextInput from '@components/LoginTextInput.tsx'
 
 import type { FieldInfos, FieldValue } from 'src/types/LoginTypes'
 
