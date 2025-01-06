@@ -1,5 +1,50 @@
-#root {
-  margin: 0 auto;
-  text-align: center;
-  height: 100vh;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .server {
+    @apply bg-chat overflow-hidden;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-top: 6px;
+  }
+  .server.active {
+    @apply bg-primary;
+  }
+  .channel {
+    @apply text-white font-regular text-lg;
+    width: 100%;
+    padding: 5px;
+  }
+  .channel.active {
+    @apply bg-primary;
+  }
+  .message {
+    @apply text-white font-regular text-lg;
+  }
+  .panel {
+    @apply text-white font-regular text-base;
+    background-color: #292b2f;
+    position: fixed;
+    bottom: 0;
+    height: 52px;
+  }
+  .chatinput {
+    position: fixed;
+    bottom: 0;
+  }
+  .chatinputbox {
+    @apply bg-chat text-white;
+    width: 1500px;
+    height: 44px;
+    margin: 5px;
+  }
+  .chatinputbutton {
+    width: 40px;
+  }
 }
