@@ -20,6 +20,7 @@ export default {
         'off': '#8E9297',
         'des': '#DCDDDE',
         'primary': '#5865F2',
+        'panel': '#292b2f',
       },
       fontFamily: {
         regular: ['gg sans Regular', 'sans-serif'],
