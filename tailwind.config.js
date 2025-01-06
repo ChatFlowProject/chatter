@@ -29,9 +29,9 @@ export default {
         kr: ['NotoSansKR-VariableFont_wght', 'sans-serif'],
       },
       width: {
-        'wrapper': '48px',
-        'sidebar': '180px',
-        'chat': '1052px',
+        'wrapper': '72px',
+        'sidebar': '272px',
+        'chat': '1576px',
       },
     },
   },
