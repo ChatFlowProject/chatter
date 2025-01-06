@@ -48,7 +48,7 @@ export default function ChatPage() {
             onClick={() => setActiveChannel(channel.id)}
           />
         ))}
-        <div className='bottom-0 fixed h-[52px] bg-[#292b2f] font-regular text-white text-base '>
+        <div className='bottom-0 fixed h-[52px] bg-panel font-regular text-white text-base '>
           user
         </div>
       </div>
