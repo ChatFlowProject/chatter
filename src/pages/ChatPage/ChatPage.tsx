@@ -48,19 +48,15 @@ export default function ChatPage() {
             onClick={() => setActiveChannel(channel.id)}
           />
         ))}
-        <div className='text-white font-regular text-base bg-[#292b2f] h-[52px] bottom-0 fixed'>
+        <div className='bottom-0 fixed h-[52px] bg-[#292b2f] font-regular text-white text-base '>
           user
         </div>
       </div>
       <div className='chat'>
-        <div>
-          {messages.map((message, index) => (
-            <ChatMessage key={index} message={message} />
-          ))}
-        </div>
-        <div>
-          <ChatInput onSendMessage={handleSendMessage} />
-        </div>
+        {messages.map((message, index) => (
+          <ChatMessage key={index} message={message} />
+        ))}
+        <ChatInput onSendMessage={handleSendMessage} />
       </div>
     </div>
   )
