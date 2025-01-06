@@ -1,9 +1,10 @@
 import ChatServer from './ChatServer'
 import ChatChannel from './ChatChannel'
 import ChatMessage from './ChatMessage'
+import ChatInput from './ChatInput'
+
 import Text from '@components/Text.tsx'
 import { useState } from 'react'
-import ChatInput from './ChatInput'
 
 export default function ChatPage() {
   const [activeServer, setActiveServer] = useState<number | null>(null)

@@ -5,5 +5,9 @@ interface ChatMessageProps {
   message: string
 }
 export default function ChatMessage({ message }: ChatMessageProps) {
-  return <Text className='message'>{message}</Text>
+  return (
+    <div className='p-3'>
+      <Text className='message'>{message}</Text>
+    </div>
+  )
 }
