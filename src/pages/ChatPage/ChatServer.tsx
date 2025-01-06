@@ -13,8 +13,11 @@ export default function ChatServer({
   onClick,
 }: ChatServerProps) {
   return (
-    <Button style={`server ${isActive ? 'active' : ''}`} onClick={onClick}>
-      <Text className='baseon text-center'>{title}</Text>
+    <Button
+      className={`text-des w-[48px] h-[48px] mt-[6px] justify-center items-center flex rounded-full overflow-hidden ${isActive ? 'bg-primary' : 'bg-chat'}`}
+      onClick={onClick}
+    >
+      <Text className='text-center text-lg'>{title}</Text>
     </Button>
   )
 }

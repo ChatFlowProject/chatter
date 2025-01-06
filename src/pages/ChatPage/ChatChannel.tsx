@@ -15,7 +15,7 @@ export default function ChatChannel({
   return (
     <div>
       <Button
-        style={`channel ${isActive ? 'active' : ''} text-left`}
+        className={`text-white w-full p-[5px] font-regular text-lg ${isActive ? 'bg-primary' : ''} text-left`}
         onClick={onClick}
       >
         <Text className='lgon'>{title}</Text>

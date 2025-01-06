@@ -25,9 +25,9 @@ export default function ChatInput({ onSendMessage }: ChatInputProps) {
     }
   }
   return (
-    <div className='chatinput'>
+    <div className='fixed bottom-0'>
       <input
-        className='chatinputbox'
+        className='bg-chat text-white w-[1500px] h-[44px] m-[5px]'
         type='text'
         value={input}
         onChange={handleInputChange}
