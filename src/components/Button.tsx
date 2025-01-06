@@ -4,6 +4,10 @@ interface ButtonProps {
   children: React.ReactNode
   onClick?: () => void
 }
-export default function Button({ className, children }: ButtonProps) {
-  return <button className={`${className}`}>{children}</button>
+export default function Button({ className, children, onClick }: ButtonProps) {
+  return (
+    <button className={`${className}`} onClick={onClick}>
+      {children}
+    </button>
+  )
 }

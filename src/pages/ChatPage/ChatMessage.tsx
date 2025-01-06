@@ -6,7 +6,7 @@ interface ChatMessageProps {
 export default function ChatMessage({ message }: ChatMessageProps) {
   return (
     <div className='p-3'>
-      <Text className='message'>{message}</Text>
+      <Text className='text-white font-regular text-lg'>{message}</Text>
     </div>
   )
 }

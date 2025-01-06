@@ -2,7 +2,6 @@ import ChatServer from './ChatServer'
 import ChatChannel from './ChatChannel'
 import ChatMessage from './ChatMessage'
 import ChatInput from './ChatInput'
-
 import Text from '@components/Text.tsx'
 import { useState } from 'react'
 
@@ -33,7 +32,9 @@ export default function ChatPage() {
             key={server.id}
             title={server.title}
             isActive={activeServer === server.id}
-            onClick={() => setActiveServer(server.id)}
+            onClick={() => {
+              setActiveServer(server.id)
+            }}
           />
         ))}
       </div>
@@ -47,7 +48,9 @@ export default function ChatPage() {
             onClick={() => setActiveChannel(channel.id)}
           />
         ))}
-        <div className='panel'>user</div>
+        <div className='text-white font-regular text-base bg-[#292b2f] h-[52px] bottom-0 fixed'>
+          user
+        </div>
       </div>
       <div className='chat'>
         <div>
