@@ -1,5 +1,3 @@
-import 'src/App.css'
-
 import React, { useState } from 'react'
 
 interface ChatInputProps {
@@ -27,7 +25,7 @@ export default function ChatInput({ onSendMessage }: ChatInputProps) {
   return (
     <div className='fixed bottom-0'>
       <input
-        className='bg-chat text-white w-[1500px] h-[44px] m-[5px]'
+        className=' w-[1500px] h-[44px] m-[5px] bg-chat text-white'
         type='text'
         value={input}
         onChange={handleInputChange}

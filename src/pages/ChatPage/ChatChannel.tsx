@@ -1,4 +1,3 @@
-import 'src/App.css'
 import Button from '@components/Button.tsx'
 import Text from '@components/Text.tsx'
 interface ChatChannelProps {
@@ -15,7 +14,7 @@ export default function ChatChannel({
   return (
     <div>
       <Button
-        className={`text-white w-full p-[5px] font-regular text-lg ${isActive ? 'bg-primary' : ''} text-left`}
+        className={`w-full p-[5px] ${isActive ? 'bg-primary' : ''} font-regular text-white  text-lg  text-left`}
         onClick={onClick}
       >
         <Text className='lgon'>{title}</Text>
