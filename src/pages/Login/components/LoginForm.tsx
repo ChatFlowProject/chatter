@@ -1,69 +1,64 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import LoginInput from './LoginInput'
-import Button from '@components/Button'
-import { LoginFormData } from '@types/login'
+import { FieldInfos, FieldValue } from 'src/types/LoginTypes'
+import { isEmptyString } from '@utils/stringValidations.ts'
+import useForm from '@hooks/useForm'
+
+import LoginTextInput from '@components/LoginTextInput'
+
+const fieldInfos: FieldInfos = {
+  email: {
+    initialValue: '',
+    isRequired: true,
+    validation: (newValue: FieldValue) => {
+      if (typeof newValue !== 'string') return '비정상적인 입력입니다'
+      if (isEmptyString(newValue)) return '이메일을 입력해주세요'
+      return ''
+    },
+  },
+  password: {
+    initialValue: '',
+    isRequired: true,
+    validation: (newValue: FieldValue) => {
+      if (typeof newValue !== 'string') return '비정상적인 입력입니다'
+      if (isEmptyString(newValue)) return '비밀번호를 입력해주세요'
+      return ''
+    },
+  },
+}
 
 function LoginForm() {
-  const [formData, setFormData] = useState<LoginFormData>({
-    email: '',
-    password: '',
-  })
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = event.target
-    setFormData({ ...formData, [id]: value })
-  }
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
-    console.log('LoginFormData:', formData)
-  }
+  const { values, errors, isRequired, changeFieldValue, submitForm } = useForm(
+    fieldInfos,
+    (formValues) => {
+      console.log(formValues)
+    },
+  )
 
   return (
-    <form className='w-full max-w-lg' onSubmit={handleSubmit}>
-      <div className='text-center mb-6'>
-        <h1 className='text-[22.5px] font-semibold text-[#f2f2f4] mb-2'>
-          돌아오신 것을 환영해요!
-        </h1>
-        <p className='text-[15px] text-[#b5b9c0]'>
-          다시 만나다니 너무 반가워요!
-        </p>
-      </div>
-
-      <LoginInput
-        id='email'
-        label='이메일'
-        type='text'
-        value={formData.email}
-        onChange={handleChange}
+    <form className='w-full max-w-lg'>
+      <LoginTextInput
+        name='email'
+        type='email'
+        title='이메일'
+        value={values.email as string}
+        onChange={(e) => changeFieldValue(e.target.value, 'email')}
+        error={errors.email}
+        isRequired={isRequired.email}
       />
-      <LoginInput
-        id='password'
-        label='비밀번호'
+      <LoginTextInput
+        name='password'
         type='password'
-        value={formData.password}
-        onChange={handleChange}
+        title='비밀번호'
+        value={values.password as string}
+        onChange={(e) => changeFieldValue(e.target.value, 'password')}
+        error={errors.password}
+        isRequired={isRequired.password}
       />
-
-      <a
-        href='#'
-        className='block text-sm text-left text-[#00a9fb] mb-4 hover:underline'
-      >
+      <p className='text-sm text-left text-[#00a9fb] mb-4 hover:underline'>
         비밀번호를 잊으셨나요?
-      </a>
-
-      <Button
-        style='w-full bg-[#5865f2] hover:bg-blue-700 rounded text-white py-2'
-        children='로그인'
-      />
-
-      <p className='text-[13.6px] text-left text-[#949aa3] mt-2'>
-        계정이 필요하신가요?{' '}
-        <Link to='/signup' className='text-[#00a9fb] hover:underline'>
-          가입하기
-        </Link>
       </p>
+      <button className='w-full py-2 rounded-[8px] bg-[#5865f2] hover:bg-blue-700 text-white'>
+        로그인
+      </button>
     </form>
   )
 }
