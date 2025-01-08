@@ -2,7 +2,6 @@ import ChatServer from './ChatServer'
 import ChatChannel from './ChatChannel'
 import ChatMessage from './ChatMessage'
 import ChatInput from './ChatInput'
-import Text from '@components/Text.tsx'
 import { useState } from 'react'
 
 export default function ChatPage() {
@@ -39,7 +38,7 @@ export default function ChatPage() {
         ))}
       </div>
       <div className='sidebar'>
-        <Text className='smoff'>채팅채널</Text>
+        <div className='smoff'>채팅채널</div>
         {channels.map((channel) => (
           <ChatChannel
             key={channel.id}
