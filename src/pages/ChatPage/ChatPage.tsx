@@ -3,6 +3,7 @@ import ChatChannel from './ChatChannel'
 import ChatMessage from './ChatMessage'
 import ChatInput from './ChatInput'
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 const servers = [
   { id: 1, title: '서버1' },
@@ -16,10 +17,10 @@ const channels = [
 export default function ChatPage() {
   const [activeServer, setActiveServer] = useState<number | null>(null)
   const [activeChannel, setActiveChannel] = useState<number | null>(null)
-  const [messages, setMessages] = useState<string[]>([])
+  const [messages, setMessages] = useState<{ id: string; text: string }[]>([])
 
   const handleSendMessage = (message: string) => {
-    setMessages([...messages, message])
+    setMessages([...messages, { id: uuidv4(), text: message }])
   }
 
   return (
@@ -51,8 +52,8 @@ export default function ChatPage() {
         </div>
       </div>
       <div className='chat'>
-        {messages.map((message, index) => (
-          <ChatMessage key={index} message={message} />
+        {messages.map((message) => (
+          <ChatMessage key={message.id} message={message.text} />
         ))}
         <ChatInput onSendMessage={handleSendMessage} />
       </div>
