@@ -4,20 +4,19 @@ import ChatMessage from './ChatMessage'
 import ChatInput from './ChatInput'
 import { useState } from 'react'
 
+const servers = [
+  { id: 1, title: '서버1' },
+  { id: 2, title: 'server2' },
+  { id: 3, title: '추가' },
+]
+const channels = [
+  { id: 1, title: '일반1' },
+  { id: 2, title: '일반2' },
+]
 export default function ChatPage() {
   const [activeServer, setActiveServer] = useState<number | null>(null)
   const [activeChannel, setActiveChannel] = useState<number | null>(null)
   const [messages, setMessages] = useState<string[]>([])
-
-  const servers = [
-    { id: 1, title: '서버1' },
-    { id: 2, title: 'server2' },
-    { id: 3, title: '추가' },
-  ]
-  const channels = [
-    { id: 1, title: '일반1' },
-    { id: 2, title: '일반2' },
-  ]
 
   const handleSendMessage = (message: string) => {
     setMessages([...messages, message])
@@ -37,7 +36,7 @@ export default function ChatPage() {
           />
         ))}
       </div>
-      <div className='sidebar'>
+      <div className='sidebar relative'>
         <div className='smoff'>채팅채널</div>
         {channels.map((channel) => (
           <ChatChannel
@@ -47,7 +46,7 @@ export default function ChatPage() {
             onClick={() => setActiveChannel(channel.id)}
           />
         ))}
-        <div className='bottom-0 fixed h-[52px] bg-panel font-regular text-white text-base '>
+        <div className='bottom-0 absolute h-[52px] bg-panel font-regular text-white text-base '>
           user
         </div>
       </div>
