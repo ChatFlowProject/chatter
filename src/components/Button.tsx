@@ -1,13 +1,7 @@
 interface ButtonProps {
-  className: string
-  className: string
+  style: string
   children: React.ReactNode
-  onClick?: () => void
 }
-export default function Button({ className, children, onClick }: ButtonProps) {
-  return (
-    <button className={`${className}`} onClick={onClick}>
-      {children}
-    </button>
-  )
+export default function Button({ style, children }: ButtonProps) {
+  return <button className={`${style}`}>{children}</button>
 }
