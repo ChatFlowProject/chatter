@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 
-interface ChatInputProps {
+interface ChatInputProps extends React.ComponentProps<'input'> {
   onSendMessage: (message: string) => void
 }
 
-export default function ChatInput({ onSendMessage }: ChatInputProps) {
+export default function ChatInput({ onSendMessage, ...props }: ChatInputProps) {
   const [input, setInput] = useState<string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value)
   }
-  const handleSendMessage = () => {
+  const sendMessage = () => {
     if (input.trim()) {
       onSendMessage(input)
       setInput('')
@@ -19,12 +19,13 @@ export default function ChatInput({ onSendMessage }: ChatInputProps) {
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      handleSendMessage()
+      sendMessage()
     }
   }
   return (
     <div className='fixed bottom-0'>
       <input
+        {...props}
         className=' w-[1500px] h-[44px] m-[5px] bg-chat text-white'
         type='text'
         value={input}
