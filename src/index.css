@@ -53,3 +53,34 @@
   font-family: 'NotoSansKR-VariableFont_wght';
   src: url('./styles/fonts/NotoSansKR-VariableFont_wght.ttf') format('truetype');
 }
+
+/* 배경 있는 스크롤바 ----------------------- */
+.scrollbar-gray::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-gray::-webkit-scrollbar-track {
+  background: #2e3338; /* 회색 배경 */
+  border-radius: 4px;
+}
+
+.scrollbar-gray::-webkit-scrollbar-thumb {
+  background: #6c737d; /* 휠 색상 */
+  border-radius: 4px;
+}
+
+/* 배경 없는 스크롤바 --------------------------*/
+.scrollbar-black::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollbar-black::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-black::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 8px;
+  background-clip: padding-box; /* 패딩박스를 적용하지 않으면 여백이 생기지 않는다 */
+  border: 3px solid transparent;
+}
