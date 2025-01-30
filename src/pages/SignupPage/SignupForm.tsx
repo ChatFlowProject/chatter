@@ -78,7 +78,11 @@ export default function SignupForm() {
   );
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [birthdate, setBirthdate] = useState({ year: "", month: "", day: "" });
+  const [birthdate, setBirthdate] = useState<{ year: number | ""; month: number | ""; day: number | "" }>({
+    year: "",
+    month: "",
+    day: "",
+  });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -142,7 +146,7 @@ export default function SignupForm() {
             isRequired={isRequired.password}
         />
         <LoginLabel title="생년월일">
-          <DatePicker  onChange={setBirthdate}/>
+          <DatePicker   onChange={setBirthdate}/>
         </LoginLabel>
         <label className="mt-3 flex items-center">
           <Checkbox
