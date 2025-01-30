@@ -19,7 +19,7 @@ export function isPassword(value: string): boolean {
 }
 
 export function isNickname(value: string): boolean {
-  return /^(?=.*[a-zA-Z])[a-zA-Z0-9]{4,16}$/.test(value)
+  return /^(?=.*[a-zA-Z])[a-zA-Z0-9]{4,16}$/.test(value) || /^(?=.*[가-힣])[가-힣0-9]{2,10}$/.test(value)
 }
 
 export function isName(value: string): boolean {
