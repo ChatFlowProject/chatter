@@ -7,7 +7,13 @@ interface IconProps {
  */
 
 const Icon = ({ path }: IconProps) => {
-  return <img src={`/assets/${path}.svg`} alt={`${path} icon`} />
+  return (
+    <img
+      src={`/assets/${path}.svg`}
+      alt={`${path} icon`}
+      className='w-full h-full'
+    />
+  )
 }
 
 export default Icon
