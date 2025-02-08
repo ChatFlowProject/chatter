@@ -36,7 +36,7 @@ const UserCard = ({
           <Icon path={`${isOnline}`} />
         </div>
       </div>
-      <div className='flex items-start flex-col justify-center'>
+      <div className='flex items-start flex-col justify-center overflow-hidden whitespace-nowrap'>
         <p className='w-[151px] text-lg m-0 h-[18px] flex items-center '>
           {name}
         </p>
