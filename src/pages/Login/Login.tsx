@@ -1,3 +1,4 @@
+import Alarm from '@components/Alarm'
 import LoginForm from './components/LoginForm'
 import { Link } from 'react-router-dom'
 
@@ -19,6 +20,7 @@ function Login() {
           가입하기
         </Link>
       </p>
+      <Alarm />
     </div>
   )
 }
