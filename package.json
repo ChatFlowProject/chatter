@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "webpack serve --mode=development --hot",
+    "build": "webpack --mode=production",
+    "start": "npx serve -s dist",
     "lint": "eslint .",
-    "preview": "vite preview",
     "format": "prettier --check ./src",
     "format.fix": "prettier --write ./src"
   },
