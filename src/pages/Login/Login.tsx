@@ -1,3 +1,4 @@
+import Modal from '@components/Modal'
 import LoginForm from './components/LoginForm'
 import { Link } from 'react-router-dom'
 
@@ -19,6 +20,9 @@ function Login() {
           가입하기
         </Link>
       </p>
+      <div className='p-10 bg-white'>
+        <Modal />
+      </div>
     </div>
   )
 }
