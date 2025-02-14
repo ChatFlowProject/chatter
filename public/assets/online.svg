@@ -1,5 +1,5 @@
-<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Status">
-<rect id="online" x="0.5" width="9.99985" height="9.99985" rx="4.99993" fill="#3BA55D"/>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Online">
+<circle id="Status" cx="8" cy="8" r="8" fill="#23A55A"/>
 </g>
 </svg>
