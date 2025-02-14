@@ -1,19 +1,20 @@
 interface IconProps {
-  path: string
+  path: string;
+  className?: string;
 }
 
-/**
- * <div> 태그로 덮은 뒤에 거기서 크기 지정해주세요.
- */
-
-const Icon = ({ path }: IconProps) => {
+const Icon = ({ path, className }: IconProps) => {
   return (
-    <img
-      src={`/assets/${path}.svg`}
-      alt={`${path} icon`}
-      className='w-full h-full'
-    />
-  )
-}
+    <div
+      className={`w-full h-full flex items-center justify-center ${className}`}
+    >
+      <img
+        src={`/assets/${path}.svg`}
+        alt={`${path} icon`}
+        className='w-full h-full object-contain'
+      />
+    </div>
+  );
+};
 
-export default Icon
+export default Icon;

@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import Icon from './Icon'
-import UserCard from './UserCard'
+import { useState } from 'react';
+import Icon from './Icon';
+import UserCard from './UserCard';
 
 const DirectMessages = () => {
-  const [selectedUser, setSelectedUser] = useState<string | null>(null)
+  const [selectedUser, setSelectedUser] = useState<string | null>(null);
 
   const handlePlus = () => {
-    console.log('plus 버튼 클릭')
-  }
+    console.log('plus 버튼 클릭');
+  };
 
   return (
     <div className='flex flex-col justify-center items-center gap-[9px]'>
@@ -30,10 +30,10 @@ const DirectMessages = () => {
             status: 'Listening to ',
             special: 'Spotify',
           },
-          { profileImage: 'peppe', isOnline: 'stepOut', name: 'Peppe' },
+          { profileImage: 'peppe', isOnline: 'idle', name: 'Peppe' },
           {
             profileImage: 'phibi',
-            isOnline: 'noDisturb',
+            isOnline: 'dnd',
             name: 'Phibi',
             status: 'Playing ',
             special: 'GTA',
@@ -69,7 +69,7 @@ const DirectMessages = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DirectMessages
+export default DirectMessages;

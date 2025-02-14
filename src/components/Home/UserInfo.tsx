@@ -1,10 +1,10 @@
-import Icon from './Icon'
+import Icon from './Icon';
 
 interface UserInfoProps {
-  profileImage: string
-  isOnline: string
-  name: string
-  tag: string
+  profileImage: string;
+  isOnline: string;
+  name: string;
+  tag: string;
 }
 
 const UserInfo = ({ profileImage, isOnline, name, tag }: UserInfoProps) => {
@@ -25,7 +25,7 @@ const UserInfo = ({ profileImage, isOnline, name, tag }: UserInfoProps) => {
         <p className='text-[13px] font-medium text-white'>#{tag}</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserInfo
+export default UserInfo;
