@@ -9,11 +9,11 @@ import {
   isName,
 } from "@utils/stringValidations.ts";
 import useForm from "@hooks/useForm.ts";
-import Button from "@components/Button.tsx";
-import Checkbox from "@components/Checkbox.tsx";
+import Button from "@components/shared/Button.tsx";
+import Checkbox from "@components/shared/Checkbox.tsx";
 import DatePicker from "./DatePicker.tsx";
-import LoginLabel from "@components/LoginLabel.tsx";
-import LoginTextInput from "@components/LoginTextInput.tsx";
+import LoginLabel from "@components/user/LoginLabel.tsx";
+import LoginTextInput from "@components/user/LoginTextInput.tsx";
 
 import type { FieldInfos, FieldValue } from "src/types/LoginTypes";
 

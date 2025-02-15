@@ -4,7 +4,7 @@ import { signIn } from "@api/authService.ts";
 import { FieldInfos, FieldValue } from "src/types/LoginTypes";
 import { isEmptyString } from "@utils/stringValidations.ts";
 import useForm from "@hooks/useForm";
-import LoginTextInput from "@components/LoginTextInput";
+import LoginTextInput from "@components/user/LoginTextInput.tsx";
 
 const fieldInfos: FieldInfos = {
     email: {

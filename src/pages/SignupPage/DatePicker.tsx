@@ -1,4 +1,4 @@
-import DropDown from "@components/DropDown";
+import DropDown from "@components/shared/DropDown.tsx";
 import { useState } from "react";
 
 type DatePickerProps = {
