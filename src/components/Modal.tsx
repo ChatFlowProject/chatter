@@ -38,12 +38,13 @@ Modal.Trigger = ({ children }: { children: React.ReactNode }) => {
 
 Modal.Portal = ({ children }: { children: React.ReactNode }) => {
   const context = useContext(ModalContext)
-  if (!context || !context.isOpen) return null
 
   const modalRoot = document.getElementById('modal')
   if (!modalRoot) return null
 
   useEffect(() => {
+    if (!context || !context.isOpen) return
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         context.setIsOpen(false)
@@ -54,11 +55,20 @@ Modal.Portal = ({ children }: { children: React.ReactNode }) => {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [context])
 
+  if (!context || !context.isOpen) return null
+
   return createPortal(children, modalRoot)
 }
 
 Modal.Overlay = () => {
-  return <div className=' inset-0 bg-black bg-opacity-30 fixed' />
+  const context = useContext(ModalContext)
+  if (!context || !context.isOpen) return null
+  return (
+    <div
+      onClick={() => context.setIsOpen(false)}
+      className='inset-0 bg-black bg-opacity-70 fixed'
+    />
+  )
 }
 
 Modal.Header = ({ children }: { children: React.ReactNode }) => {
@@ -91,8 +101,15 @@ Modal.Title = ({
       </div>
 
       {isCloseBtn && (
-        <button onClick={() => context?.setIsOpen(false)} className='mr-1'>
-          <img src={CancelBtn} alt='닫기 버튼' />
+        <button
+          onClick={() => context?.setIsOpen(false)}
+          className='mr-1 group'
+        >
+          <img
+            src={CancelBtn}
+            alt='닫기 버튼'
+            className='group-hover:brightness-50 group-hover:invert transition-all duration-800'
+          />
         </button>
       )}
     </div>

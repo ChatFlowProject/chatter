@@ -1,4 +1,3 @@
-import Modal from '@components/Modal'
 import LoginForm from './components/LoginForm'
 import { Link } from 'react-router-dom'
 
@@ -20,62 +19,6 @@ function Login() {
           가입하기
         </Link>
       </p>
-      <div className='p-10 bg-white'>
-        <Modal.Root>
-          <Modal.Header>
-            <Modal.Title profile='123' isCloseBtn>
-              Title
-            </Modal.Title>
-            <Modal.Warning>
-              This form will be submitted to App. Do not share passwords or
-              sensitive information
-            </Modal.Warning>
-          </Modal.Header>
-          <Modal.Body>
-            <Modal.Label>Description</Modal.Label>
-            <Modal.LongText />
-          </Modal.Body>
-          <Modal.Footer />
-        </Modal.Root>
-
-        <Modal.Root>
-          <Modal.Header>
-            <Modal.Title>Title</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Modal.Label>ENTER DISCORD AUTH CODE</Modal.Label>
-            <Modal.ShortText />
-          </Modal.Body>
-          <Modal.Footer />
-        </Modal.Root>
-
-        <Modal.Root>
-          <Modal.Header>
-            <Modal.Title>Title</Modal.Title>
-            <Modal.Description>Description</Modal.Description>
-          </Modal.Header>
-
-          <Modal.Footer />
-        </Modal.Root>
-
-        <Modal.Root>
-          <Modal.Header>
-            <Modal.Title>Title</Modal.Title>
-            <Modal.Description>Description</Modal.Description>
-          </Modal.Header>
-          <Modal.Body>
-            <Modal.Profile
-              profile='123'
-              name='Muatex'
-              date='Today at 09:41'
-              message='Message'
-            />
-            <Modal.ProTip>Descrption</Modal.ProTip>
-          </Modal.Body>
-
-          <Modal.Footer />
-        </Modal.Root>
-      </div>
     </div>
   )
 }
