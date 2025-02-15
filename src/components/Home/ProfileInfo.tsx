@@ -23,7 +23,7 @@ const ProfileInfo = ({
   return (
     <div className='inline-flex flex-col justify-center items-center rounded-lg bg-[#262732]'>
       <div className='w-full h-[174px] relative rounded-lg'>
-        <div className='w-full h-[120px] bg-blue-100 '></div>
+        <div className='w-full h-[120px] bg-blue-100 ' />
         <div className='w-[92px] h-[92px] absolute flex-shrink-0 top-[71px] left-[11px] z-10'>
           <Icon path='ellipse6' />
         </div>

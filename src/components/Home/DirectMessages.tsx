@@ -14,9 +14,9 @@ const DirectMessages = () => {
       <div className='flex justify-center items-end gap-[76px]'>
         <p className='text-[13px]'>DIRECT MESSAGES</p>
         <button
-          type='button'
           className='w-[11px] h-[11px]'
           onClick={handlePlus}
+          type='button'
         >
           <Icon path='plus' />
         </button>

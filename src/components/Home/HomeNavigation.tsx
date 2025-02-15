@@ -7,16 +7,16 @@ const HomeNavigation = () => {
   return (
     <div className='flex flex-col w-full items-start gap-[2px]'>
       <NavigationCard
-        path='friends'
         isActive={selectedPath === 'friends'}
         onClick={() => setSelectedPath('friends')}
+        path='friends'
       >
         Friends
       </NavigationCard>
       <NavigationCard
-        path='nitro'
         isActive={selectedPath === 'nitro'}
         onClick={() => setSelectedPath('nitro')}
+        path='nitro'
       >
         Nitro
       </NavigationCard>

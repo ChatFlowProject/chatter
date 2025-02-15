@@ -23,42 +23,42 @@ const Navigation = () => {
             </div>
             <p className='text-lg font-bold'>Friends</p>
           </div>
-          <div className='w-[1px] h-[24px] bg-[#42454A]'></div>
+          <div className='w-[1px] h-[24px] bg-[#42454A]' />
           <div className='flex justify-center items-center gap-[11px]'>
             <NavigationButton
-              label='Online'
-              paddingX={7}
               isActive={activeButton === 'Online'}
+              label='Online'
               onClick={() => handleButtonClick('Online')}
+              paddingX={7}
             />
             <NavigationButton
-              label='All'
-              paddingX={15}
               isActive={activeButton === 'All'}
+              label='All'
               onClick={() => handleButtonClick('All')}
+              paddingX={15}
             />
             <NavigationButton
-              label='Pending'
-              paddingX={9}
               isActive={activeButton === 'Pending'}
+              label='Pending'
               onClick={() => handleButtonClick('Pending')}
-            />
-            <NavigationButton
-              label='Suggestions'
               paddingX={9}
-              isActive={activeButton === 'Suggestions'}
-              onClick={() => handleButtonClick('Suggestions')}
             />
             <NavigationButton
-              label='Blocked'
-              paddingX={12}
+              isActive={activeButton === 'Suggestions'}
+              label='Suggestions'
+              onClick={() => handleButtonClick('Suggestions')}
+              paddingX={9}
+            />
+            <NavigationButton
               isActive={activeButton === 'Blocked'}
+              label='Blocked'
               onClick={() => handleButtonClick('Blocked')}
+              paddingX={12}
             />
             <button
-              type='button'
               className='flex py-[3px] px-[7px] justify-center items-center gap-[10px] rounded-[3px] bg-[#3BA55D]'
               onClick={handleAddFriendClick}
+              type='button'
             >
               Add Friend
             </button>

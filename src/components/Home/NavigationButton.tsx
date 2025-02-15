@@ -20,11 +20,9 @@ const NavigationButton = ({
       onClick={onClick}
     >
       {label}
-      {notification && (
-        <div className='flex h-[16px] py-0 px-[5px] flex-col items-center gap-[10px] rounded-lg bg-[#ED4245]'>
+      {notification ? <div className='flex h-[16px] py-0 px-[5px] flex-col items-center gap-[10px] rounded-lg bg-[#ED4245]'>
           {notification}
-        </div>
-      )}
+        </div> : null}
     </div>
   )
 }

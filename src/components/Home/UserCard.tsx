@@ -40,21 +40,15 @@ const UserCard = ({
         <p className='w-[151px] text-lg m-0 h-[18px] flex items-center '>
           {name}
         </p>
-        {status && (
-          <div className='flex items-center h-[15px] gap-[3px]'>
-            {status && (
-              <p className='text-[13px] self-stretch flex items-center m-0 '>
+        {status ? <div className='flex items-center h-[15px] gap-[3px]'>
+            {status ? <p className='text-[13px] self-stretch flex items-center m-0 '>
                 {status}
-              </p>
-            )}
-            {special && (
-              <span className='text-[13px] items-center self-stretch flex m-0'>
+              </p> : null}
+            {special ? <span className='text-[13px] items-center self-stretch flex m-0'>
                 {special}
                 <Icon path='richPresence' />
-              </span>
-            )}
-          </div>
-        )}
+              </span> : null}
+          </div> : null}
       </div>
     </div>
   )

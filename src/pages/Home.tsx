@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-function Home() {
+const Home = () => {
   return (
     <div>
       <h1>Welcome Discord!</h1>

@@ -11,20 +11,20 @@ const Home = () => {
     <>
       <Topbar />
       <div className='flex flex-col'>
-        <Conversation value={searchValue} onChange={setSearchValue} />
+        <Conversation onChange={setSearchValue} value={searchValue} />
         <DirectBar />
         <UserProfile />
         <ProfileInfo
-          profileImage='phibi'
+          aboutMe='건들지마세요'
           isOnline='online'
-          userName='phibi'
           nickname='피비'
+          profileImage='phibi'
           pronouns='핍핍'
           status='개발중'
-          aboutMe='건들지마세요'
+          userName='phibi'
         />
 
-        <div></div>
+        <div />
       </div>
     </>
   );

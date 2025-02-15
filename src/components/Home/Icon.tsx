@@ -9,9 +9,9 @@ const Icon = ({ path, className }: IconProps) => {
       className={`w-full h-full flex items-center justify-center ${className}`}
     >
       <img
-        src={`/assets/${path}.svg`}
         alt={`${path} icon`}
         className='w-full h-full object-contain'
+        src={`/assets/${path}.svg`}
       />
     </div>
   );
