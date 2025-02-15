@@ -2,7 +2,7 @@ import Profile from '../assets/profile.svg'
 import Warning from '../assets/warning.svg'
 import CancelBtn from '../assets/cancel-btn.svg'
 import { createPortal } from 'react-dom'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const ModalContext = createContext<{
   isOpen: boolean
@@ -42,6 +42,18 @@ Modal.Portal = ({ children }: { children: React.ReactNode }) => {
 
   const modalRoot = document.getElementById('modal')
   if (!modalRoot) return null
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        context.setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [context])
+
   return createPortal(children, modalRoot)
 }
 
