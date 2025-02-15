@@ -1,16 +1,53 @@
 import Profile from '../assets/profile.svg'
 import Warning from '../assets/warning.svg'
 import CancelBtn from '../assets/cancel-btn.svg'
+import { createPortal } from 'react-dom'
+import { createContext, useContext, useState } from 'react'
+
+const ModalContext = createContext<{
+  isOpen: boolean
+  setIsOpen: (open: boolean) => void
+} | null>(null)
 
 const Modal = ({ children }: { children: React.ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
-    <div className='min-h-[166px] flex flex-col justify-between gap-[0.75rem] w-[22.0625rem] bg-[#36393F] shadow-[0px_5px_20px_0px_rgba(0,0,0,0.2)] rounded-[4px]'>
+    <ModalContext.Provider value={{ isOpen, setIsOpen }}>
+      {children}
+    </ModalContext.Provider>
+  )
+}
+Modal.Root = Modal
+
+Modal.Content = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-h-[166px] flex flex-col justify-between gap-[0.75rem] w-[22.0625rem] bg-[#36393F] shadow-[0px_5px_20px_0px_rgba(0,0,0,0.2)] rounded-[4px]'>
       {children}
     </div>
   )
 }
 
-Modal.Root = Modal
+Modal.Trigger = ({ children }: { children: React.ReactNode }) => {
+  const context = useContext(ModalContext)
+  if (!context) return null
+  return (
+    <div onClick={() => context?.setIsOpen(!context.isOpen)}>{children}</div>
+  )
+}
+
+Modal.Portal = ({ children }: { children: React.ReactNode }) => {
+  const context = useContext(ModalContext)
+  if (!context || !context.isOpen) return null
+
+  const modalRoot = document.getElementById('modal')
+  if (!modalRoot) return null
+  return createPortal(children, modalRoot)
+}
+
+Modal.Overlay = () => {
+  return <div className=' inset-0 bg-black bg-opacity-30 fixed' />
+}
 
 Modal.Header = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -27,6 +64,9 @@ Modal.Title = ({
   isCloseBtn?: boolean
   children: React.ReactNode
 }) => {
+  const context = useContext(ModalContext)
+  if (!context) return null
+
   return (
     <div className='flex items-center justify-between'>
       <div className='flex items-center'>
@@ -39,7 +79,7 @@ Modal.Title = ({
       </div>
 
       {isCloseBtn && (
-        <button className='mr-1'>
+        <button onClick={() => context?.setIsOpen(false)} className='mr-1'>
           <img src={CancelBtn} alt='닫기 버튼' />
         </button>
       )}
@@ -132,17 +172,34 @@ Modal.ProTip = ({ children }: { children: string }) => {
   )
 }
 
-Modal.Footer = () => {
+Modal.Footer = ({ onSubmit }: { onSubmit: () => void }) => {
+  const context = useContext(ModalContext)
+  if (!context) return null
+
+  const handleSubmit = () => {
+    context.setIsOpen(false)
+    onSubmit()
+  }
+
   return (
     <div className=' h-[48px] flex bg-[#2F3136] px-[0.75rem] justify-between items-center rounded-b-[4px]'>
-      <button className='text-[#DCDDDE] text-[10px] px-[0.94rem] py-[0.5rem] rounded-[0.13275rem] hover:bg-[#404249]'>
+      <button
+        onClick={() => context.setIsOpen(false)}
+        className='text-[#DCDDDE] text-[10px] px-[0.94rem] py-[0.5rem] rounded-[0.13275rem] hover:bg-[#404249]'
+      >
         Back
       </button>
       <div className='flex'>
-        <button className='text-[#DCDDDE] text-[10px] px-[0.94rem] mr-[0.5rem] rounded-[0.13275rem] pr-[1.06rem] hover:bg-[#404249]'>
+        <button
+          onClick={() => context.setIsOpen(false)}
+          className='text-[#DCDDDE] text-[10px] px-[0.94rem] mr-[0.5rem] rounded-[0.13275rem] pr-[1.06rem] hover:bg-[#404249]'
+        >
           Cancel
         </button>
-        <button className='bg-[#5865F2] text-white px-[0.94rem] py-[0.5rem] rounded-[0.13275rem] text-[10px] hover:bg-[#4752C4]'>
+        <button
+          onClick={handleSubmit}
+          className='bg-[#5865F2] text-white px-[0.94rem] py-[0.5rem] rounded-[0.13275rem] text-[10px] hover:bg-[#4752C4]'
+        >
           Okay
         </button>
       </div>
