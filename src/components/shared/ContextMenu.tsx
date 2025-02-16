@@ -1,18 +1,22 @@
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import RightArrow from '../../assets/right-arrow.svg'
+
 function Item({
   name,
   isDropdown,
   isWarning,
+  onClick,
   children,
 }: {
   name: string
   isDropdown?: boolean
   isWarning?: boolean
+  onClick?: () => void
   children?: React.ReactNode
 }) {
   return (
     <div
+      onClick={onClick}
       className={` relative hover:bg-primary ${isWarning && 'hover:bg-red'} rounded-[3px] bg-[#202225] flex w-[117px] justify-between items-center px-2 py-1`}
     >
       <div className='font-["Whitney"] font-medium text-[#DCDDDE] text-[11.5px]'>
@@ -78,6 +82,7 @@ function SubMenu({
     </div>
   )
 }
+
 export default function ContextMenu() {
   const [openSubMenu, setOpenSubMenu] = useState<string | null>(null)
 
