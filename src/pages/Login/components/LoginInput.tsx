@@ -1,6 +1,6 @@
 import {LoginInputProps} from "../../../types/Login.ts";
 
-function LoginInput({ id, label, type, value, onChange }: LoginInputProps) {
+const LoginInput = ({ id, label, type, value, onChange }: LoginInputProps) => {
   return (
     <div>
       <label
@@ -10,11 +10,11 @@ function LoginInput({ id, label, type, value, onChange }: LoginInputProps) {
         {label} <span className='text-red-600'>*</span>
       </label>
       <input
+        className='w-full px-4 py-2 rounded bg-[#1e1e21] text-white'
         id={id}
+        onChange={onChange}
         type={type}
         value={value}
-        onChange={onChange}
-        className='w-full px-4 py-2 rounded bg-[#1e1e21] text-white'
       />
     </div>
   )

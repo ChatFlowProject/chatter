@@ -27,11 +27,11 @@ export default function ChatInput({ onSendMessage, ...props }: ChatInputProps) {
       <input
         {...props}
         className=' w-[1500px] h-[44px] m-[5px] bg-chat text-white'
-        type='text'
-        value={input}
         onChange={handleInputChange}
         onKeyUp={handleKeyUp}
         placeholder='메시지를 입력하세요'
+        type='text'
+        value={input}
       />
     </div>
   )

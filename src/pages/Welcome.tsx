@@ -7,5 +7,5 @@ export default function Welcome() {
     navigate('/login')
   }, [])
 
-  return <div></div>
+  return <div />
 }

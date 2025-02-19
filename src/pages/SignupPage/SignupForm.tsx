@@ -110,59 +110,59 @@ export default function SignupForm() {
   return (
       <form onSubmit={handleSubmit}>
         <LoginTextInput
-            name="email"
-            type="email"
-            title="이메일"
-            value={values.email as string}
-            onChange={(e) => changeFieldValue(e.target.value, "email")}
             error={errors.email}
             isRequired={isRequired.email}
+            name="email"
+            onChange={(e) => changeFieldValue(e.target.value, "email")}
+            title="이메일"
+            type="email"
+            value={values.email as string}
         />
         <LoginTextInput
-            name="name"
-            type="text"
-            title="이름"
-            value={values.name as string}
-            onChange={(e) => changeFieldValue(e.target.value, "name")}
             error={errors.name}
             isRequired={isRequired.name}
+            name="name"
+            onChange={(e) => changeFieldValue(e.target.value, "name")}
+            title="이름"
+            type="text"
+            value={values.name as string}
         />
         <LoginTextInput
-            name="nickname"
-            type="text"
-            title="닉네임"
-            value={values.nickname as string}
-            onChange={(e) => changeFieldValue(e.target.value, "nickname")}
             error={errors.nickname}
             isRequired={isRequired.nickname}
+            name="nickname"
+            onChange={(e) => changeFieldValue(e.target.value, "nickname")}
+            title="닉네임"
+            type="text"
+            value={values.nickname as string}
         />
         <LoginTextInput
-            name="password"
-            type="password"
-            title="비밀번호"
-            value={values.password as string}
-            onChange={(e) => changeFieldValue(e.target.value, "password")}
             error={errors.password}
             isRequired={isRequired.password}
+            name="password"
+            onChange={(e) => changeFieldValue(e.target.value, "password")}
+            title="비밀번호"
+            type="password"
+            value={values.password as string}
         />
         <LoginLabel title="생년월일">
           <DatePicker   onChange={setBirthdate}/>
         </LoginLabel>
         <label className="mt-3 flex items-center">
           <Checkbox
-              style={`flex w-6 h-6 p-[3px] rounded-[6px] border-[1px] bg-transparent border-gray-400 hover:outline-none`}
+              style="flex w-6 h-6 p-[3px] rounded-[6px] border-[1px] bg-transparent border-gray-400 hover:outline-none"
             />
-          <input type="hidden" name="isAgreed" value="false" />
+          <input name="isAgreed" type="hidden" value="false" />
           <div className="w-[364px] pl-2 text-[#949BA4] text-sm text-left">
             (선택사항) Discord 소식, 도움말, 특별 할인을 이메일로 보내주세요.
             언제든지 취소하실 수 있어요.
           </div>
         </label>
-        {errorMessage && <p className="text-red-500 mt-3">{errorMessage}</p>}
+        {errorMessage ? <p className="text-red-500 mt-3">{errorMessage}</p> : null}
         <Button
-            type="submit"
             disabled={loading}
-            style={`mt-5 p-[10px] w-full h-11 justify-center items-center rounded-[3px] bg-indigo-500`}>
+            style="mt-5 p-[10px] w-full h-11 justify-center items-center rounded-[3px] bg-indigo-500"
+            type="submit">
           {loading ? "가입 중..." : "계속하기"}
         </Button>
       </form>

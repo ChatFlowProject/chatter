@@ -1,7 +1,7 @@
 import LoginForm from './components/LoginForm'
 import { Link } from 'react-router-dom'
 
-function Login() {
+const Login = () => {
   return (
     <div className='w-[530px] bg-[#313237] p-8 rounded-[5px] shadow-[0px_2px_10px_#00000033]'>
       <div className='text-center mb-6'>
@@ -15,7 +15,7 @@ function Login() {
       <LoginForm />
       <p className='text-[13.6px] text-left text-[#949aa3] mt-2'>
         계정이 필요하신가요?{' '}
-        <Link to='/signup' className='text-[#00a9fb] hover:underline'>
+        <Link className='text-[#00a9fb] hover:underline' to='/signup'>
           가입하기
         </Link>
       </p>

@@ -28,12 +28,12 @@ export default function ChatPage() {
       <div className='wrapper'>
         {servers.map((server) => (
           <ChatServer
-            key={server.id}
-            title={server.title}
             isActive={activeServer === server.id}
+            key={server.id}
             onClick={() => {
               setActiveServer(server.id)
             }}
+            title={server.title}
           />
         ))}
       </div>
@@ -41,10 +41,10 @@ export default function ChatPage() {
         <div className='smoff'>채팅채널</div>
         {channels.map((channel) => (
           <ChatChannel
-            key={channel.id}
-            title={channel.title}
             isActive={activeChannel === channel.id}
+            key={channel.id}
             onClick={() => setActiveChannel(channel.id)}
+            title={channel.title}
           />
         ))}
         <div className='bottom-0 absolute h-[52px] bg-panel font-regular text-white text-base '>

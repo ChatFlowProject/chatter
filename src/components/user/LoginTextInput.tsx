@@ -16,10 +16,10 @@ export default function LoginTextInput({
   ...props
 }: LoginTextInputProps) {
   return (
-    <LoginLabel title={title} error={error} isRequired={isRequired}>
+    <LoginLabel error={error} isRequired={isRequired} title={title}>
       <input
-        id={name}
         className='h-10 p-3 rounded-[3px] bg-[#1E1F22]'
+        id={name}
         required={isRequired}
         {...props}
       />

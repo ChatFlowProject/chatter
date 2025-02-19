@@ -1,21 +1,27 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import eslintConfigPrettier from 'eslint-config-prettier'
+import js from '@eslint/js';
+import globals from 'globals';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
-export default tseslint.config(
-  { ignores: ['dist'] },
+export default [
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
+    ignores: ['dist'],
     languageOptions: {
-      ecmaVersion: 2020,
-      ecmaFeatures: { jsx: true },
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       globals: globals.browser,
     },
+  },
+
+  {
     plugins: {
+      react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
@@ -58,12 +64,13 @@ export default tseslint.config(
       'react/react-in-jsx-scope': 'off',
       'react/jsx-one-expression-per-line': 'off',
       'react/prop-types': 'off',
-      ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
+      'react/jsx-max-depth': '10',
     },
   },
+
   eslintConfigPrettier,
-)
+];
