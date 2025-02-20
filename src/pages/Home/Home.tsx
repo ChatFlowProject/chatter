@@ -1,32 +1,39 @@
 import Conversation from '@components/Home/Conversation';
 import DirectBar from '@components/Home/DirectBar';
-import ProfileInfo from '@components/Home/ProfileInfo';
-import Topbar from '@components/Home/Topbar';
+import FriendsPage from '@components/Home/FriendsPage';
+import Navigation from '@components/Home/Navigation';
+// import ProfileInfo from '@components/Home/ProfileInfo';
 import UserProfile from '@components/Home/UserProfile';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [activeButton, setActiveButton] = useState('Online');
+
   return (
-    <>
-      <Topbar />
-      <div className='flex flex-col'>
-        <Conversation onChange={setSearchValue} value={searchValue} />
+    <div className='flex'>
+      <div className='flex flex-col w-[240px]'>
+        <Conversation />
         <DirectBar />
         <UserProfile />
-        <ProfileInfo
-          aboutMe='건들지마세요'
-          isOnline='online'
-          nickname='피비'
-          profileImage='phibi'
-          pronouns='핍핍'
-          status='개발중'
-          userName='phibi'
-        />
-
-        <div />
       </div>
-    </>
+      <div className='flex flex-col'>
+        <Navigation
+          activeButton={activeButton}
+          setActiveButton={setActiveButton}
+        />
+        <FriendsPage category={activeButton} friends={6} />
+      </div>
+
+      {/* <ProfileInfo
+        aboutMe='건들지마세요'
+        isOnline='online'
+        nickname='피비'
+        profileImage='phibi'
+        pronouns='핍핍'
+        status='개발중'
+        userName='phibi'
+      /> */}
+    </div>
   );
 };
 

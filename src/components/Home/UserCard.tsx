@@ -1,13 +1,13 @@
-import Icon from './Icon'
+import Icon from './Icon';
 
 interface UserCardProps {
-  profileImage: string
-  isOnline: string
-  name: string
-  status?: string
-  special?: string
-  isActive: boolean
-  onClick: () => void
+  profileImage: string;
+  isOnline: string;
+  name: string;
+  status?: string;
+  special?: string;
+  isActive: boolean;
+  onClick: () => void;
 }
 
 const UserCard = ({
@@ -40,18 +40,24 @@ const UserCard = ({
         <p className='w-[151px] text-lg m-0 h-[18px] flex items-center '>
           {name}
         </p>
-        {status ? <div className='flex items-center h-[15px] gap-[3px]'>
-            {status ? <p className='text-[13px] self-stretch flex items-center m-0 '>
+        {status ? (
+          <div className='flex items-center h-[15px] gap-[3px]'>
+            {status ? (
+              <p className='text-[13px] self-stretch flex items-center m-0 '>
                 {status}
-              </p> : null}
-            {special ? <span className='text-[13px] items-center self-stretch flex m-0'>
+              </p>
+            ) : null}
+            {special ? (
+              <span className='text-[13px] items-center self-stretch flex m-0'>
                 {special}
                 <Icon path='richPresence' />
-              </span> : null}
-          </div> : null}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserCard
+export default UserCard;
