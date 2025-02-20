@@ -27,37 +27,28 @@ const DirectMessages = () => {
             profileImage: 'nelly',
             isOnline: 'online',
             name: 'Nelly',
-            status: 'Listening to ',
-            special: 'Spotify',
           },
           { profileImage: 'peppe', isOnline: 'idle', name: 'Peppe' },
           {
             profileImage: 'phibi',
             isOnline: 'dnd',
             name: 'Phibi',
-            status: 'Playing ',
-            special: 'GTA',
           },
           { profileImage: 'cap', isOnline: 'offline', name: 'Cap' },
           {
             profileImage: 'wumpus',
             isOnline: 'streaming',
             name: 'Wumpus',
-            status: 'Streaming ',
-            special: 'Minecraft',
           },
           {
             profileImage: 'locke',
             isOnline: 'phone',
             name: 'Locke',
-            status: `I'm on a hike trip today!`,
           },
           {
             profileImage: 'clyde',
             isOnline: 'online',
             name: 'Clyde',
-            status: 'Playing ',
-            special: 'Among Us',
           },
         ].map((user) => (
           <UserCard
