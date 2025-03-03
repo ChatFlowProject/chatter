@@ -22,12 +22,10 @@ export default function LoginLabel({
     <label className='mt-5 flex flex-col items-stretch' onBlur={handleBlur}>
       <div className='pb-2 text-[#B5BAC1] text-sm text-left'>
         {title}
-        {isRequired && <span className='text-[#fb8d91]'>{` *`}</span>}
+        {isRequired ? <span className='text-[#fb8d91]'>{` *`}</span> : null}
       </div>
       {children}
-      {error && isBlurred && (
-        <div className='pt-1 text-sm text-[#fb8d91] text-left'>{error}</div>
-      )}
+      {error && isBlurred ? <div className='pt-1 text-sm text-[#fb8d91] text-left'>{error}</div> : null}
     </label>
   )
 }

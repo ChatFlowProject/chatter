@@ -58,17 +58,17 @@ export default function DropDown({
   return (
     <div className='relative w-full' ref={dropdownRef}>
       <div
+        className={containerStyle}
         onMouseDown={(e) => {
           e.stopPropagation() // 내부 클릭 이벤트 외부 전파 방지
           toggleDropdown()
         }}
-        className={containerStyle}
       >
         <span>{value || placeholder}</span>
         <svg
           className={iconStyle}
-          viewBox='0 0 20 20'
           fill='none'
+          viewBox='0 0 20 20'
           xmlns='http://www.w3.org/2000/svg'
         >
           <path
@@ -77,12 +77,11 @@ export default function DropDown({
           />
         </svg>
       </div>
-      {isOpen && (
-        <div className={dropdownStyle}>
+      {isOpen ? <div className={dropdownStyle}>
           {options.map((option) => (
             <div
-              key={option}
               className={itemClass(option)} // 선택된 항목 강조와 호버 스타일 적용
+              key={option}
               onMouseDown={(e) => {
                 e.stopPropagation()
                 onChange(option)
@@ -92,8 +91,7 @@ export default function DropDown({
               {option}
             </div>
           ))}
-        </div>
-      )}
+        </div> : null}
     </div>
   )
 }
