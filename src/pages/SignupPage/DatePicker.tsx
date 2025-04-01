@@ -1,4 +1,4 @@
-import DropDown from "@components/DropDown";
+import DropDown from "@components/shared/DropDown.tsx";
 import { useState } from "react";
 
 type DatePickerProps = {
@@ -27,30 +27,30 @@ export default function DatePicker({ onChange }: DatePickerProps) {
         <div className="flex space-x-3">
             <DropDown
                 id="year"
-                options={years}
-                value={year}
                 onChange={(value) => handleChange("year", value)}
-                placeholder="년"
                 openDropdown={openDropdown}
+                options={years}
+                placeholder="년"
                 setOpenDropdown={setOpenDropdown}
+                value={year}
             />
             <DropDown
                 id="month"
-                options={months}
-                value={month}
                 onChange={(value) => handleChange("month", value)}
-                placeholder="월"
                 openDropdown={openDropdown}
+                options={months}
+                placeholder="월"
                 setOpenDropdown={setOpenDropdown}
+                value={month}
             />
             <DropDown
                 id="day"
-                options={days}
-                value={day}
                 onChange={(value) => handleChange("day", value)}
-                placeholder="일"
                 openDropdown={openDropdown}
+                options={days}
+                placeholder="일"
                 setOpenDropdown={setOpenDropdown}
+                value={day}
             />
         </div>
     );

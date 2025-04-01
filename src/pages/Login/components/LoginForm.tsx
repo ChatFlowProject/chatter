@@ -4,7 +4,7 @@ import { signIn } from "@api/authService.ts";
 import { FieldInfos, FieldValue } from "src/types/LoginTypes";
 import { isEmptyString } from "@utils/stringValidations.ts";
 import useForm from "@hooks/useForm";
-import LoginTextInput from "@components/LoginTextInput";
+import LoginTextInput from "@components/user/LoginTextInput.tsx";
 
 const fieldInfos: FieldInfos = {
     email: {
@@ -27,7 +27,7 @@ const fieldInfos: FieldInfos = {
     },
 };
 
-function LoginForm() {
+const LoginForm = () => {
     const { values, errors, isRequired, changeFieldValue } = useForm(
         fieldInfos,
         (formValues) => {
@@ -72,31 +72,31 @@ function LoginForm() {
     return (
         <form className="w-full max-w-lg" onSubmit={handleSubmit}>
             <LoginTextInput
-                name="email"
-                type="email"
-                title="이메일"
-                value={values.email as string}
-                onChange={(e) => changeFieldValue(e.target.value, "email")}
                 error={errors.email}
                 isRequired={isRequired.email}
+                name="email"
+                onChange={(e) => changeFieldValue(e.target.value, "email")}
+                title="이메일"
+                type="email"
+                value={values.email as string}
             />
             <LoginTextInput
-                name="password"
-                type="password"
-                title="비밀번호"
-                value={values.password as string}
-                onChange={(e) => changeFieldValue(e.target.value, "password")}
                 error={errors.password}
                 isRequired={isRequired.password}
+                name="password"
+                onChange={(e) => changeFieldValue(e.target.value, "password")}
+                title="비밀번호"
+                type="password"
+                value={values.password as string}
             />
-            {errorMessage && <p className="text-red-500 text-sm mt-3">{errorMessage}</p>}
+            {errorMessage ? <p className="text-red-500 text-sm mt-3">{errorMessage}</p> : null}
             <p className="text-sm text-left text-[#00a9fb] mt-4 mb-4 hover:underline">
                 비밀번호를 잊으셨나요?
             </p>
             <button
-                type="submit"
                 className="w-full py-2 rounded-[8px] bg-[#5865f2] hover:bg-blue-700 text-white"
                 disabled={loading}
+                type="submit"
             >
                 {loading ? "로그인 중..." : "로그인"}
             </button>
