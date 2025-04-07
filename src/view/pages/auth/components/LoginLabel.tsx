@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 interface LoginLabelProps {
-  title: string
-  error?: string
-  isRequired?: boolean
-  children?: React.ReactNode
+  title: string;
+  error?: string;
+  isRequired?: boolean;
+  children?: React.ReactNode;
 }
 
 export default function LoginLabel({
@@ -13,9 +13,9 @@ export default function LoginLabel({
   isRequired = false,
   children,
 }: LoginLabelProps) {
-  const [isBlurred, setIsBlurred] = useState(false)
+  const [isBlurred, setIsBlurred] = useState(false);
   function handleBlur() {
-    setIsBlurred(true)
+    setIsBlurred(true);
   }
 
   return (
@@ -25,7 +25,9 @@ export default function LoginLabel({
         {isRequired ? <span className='text-[#fb8d91]'>{` *`}</span> : null}
       </div>
       {children}
-      {error && isBlurred ? <div className='pt-1 text-sm text-[#fb8d91] text-left'>{error}</div> : null}
+      {error && isBlurred ? (
+        <div className='pt-1 text-sm text-[#fb8d91] text-left'>{error}</div>
+      ) : null}
     </label>
-  )
+  );
 }

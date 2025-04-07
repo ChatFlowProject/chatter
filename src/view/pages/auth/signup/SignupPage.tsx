@@ -1,5 +1,5 @@
-import SignupForm from './SignupForm.tsx'
-import { Link } from 'react-router-dom'
+import SignupForm from './SignupForm.tsx';
+import { Link } from 'react-router-dom';
 
 export default function SignupPage() {
   return (
@@ -20,5 +20,5 @@ export default function SignupPage() {
         </Link>
       </div>
     </div>
-  )
+  );
 }

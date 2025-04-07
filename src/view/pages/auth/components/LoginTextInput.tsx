@@ -1,11 +1,11 @@
-import { InputHTMLAttributes } from 'react'
-import LoginLabel from './LoginLabel.tsx'
+import { InputHTMLAttributes } from 'react';
+import LoginLabel from './LoginLabel.tsx';
 
 interface LoginTextInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string
-  title: string
-  error?: string
-  isRequired?: boolean
+  name: string;
+  title: string;
+  error?: string;
+  isRequired?: boolean;
 }
 
 export default function LoginTextInput({
@@ -24,5 +24,5 @@ export default function LoginTextInput({
         {...props}
       />
     </LoginLabel>
-  )
+  );
 }
