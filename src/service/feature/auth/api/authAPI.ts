@@ -1,4 +1,4 @@
-import axiosInstance from '../../common/api/axiosInstance.ts';
+import axiosInstance from '../../common/axios/axiosInstance.ts';
 
 export interface LoginRequest {
   email: string;

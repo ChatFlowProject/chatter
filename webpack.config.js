@@ -18,7 +18,7 @@ export default {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      '@api': path.resolve(process.cwd(), 'src/api'),
+      '@api': path.resolve(process.cwd(), 'src/axios'),
       '@assets': path.resolve(process.cwd(), 'src/assets'),
       '@components': path.resolve(process.cwd(), 'src/components'),
       '@hooks': path.resolve(process.cwd(), 'src/hooks'),

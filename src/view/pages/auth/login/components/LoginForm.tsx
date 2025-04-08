@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "@api/authAPI.ts";
+import { signIn } from "@axios/authAPI.ts";
 import { FieldInfos, FieldValue } from "src/types/LoginTypes";
 import { isEmptyString } from "@utils/stringValidations.ts";
 import useForm from "@hooks/useForm";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { signUp } from "@api/authService";
+import { signUp } from "@axios/authService";
 import {
   isEmptyString,
   isLengthBetween,

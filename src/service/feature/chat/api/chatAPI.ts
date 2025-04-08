@@ -1,4 +1,4 @@
-import axiosInstance from "../../common/api/axiosInstance";
+import axiosInstance from "../../common/axios/axiosInstance";
 
 export const fetchChannels = async () => {
   const res = await axiosInstance.get('/channels');
