@@ -1,4 +1,4 @@
-import {LoginInputProps} from "../../../types/Login.ts";
+import {LoginInputProps} from "../../../types/LoginPage.ts";
 
 const LoginInput = ({ id, label, type, value, onChange }: LoginInputProps) => {
   return (

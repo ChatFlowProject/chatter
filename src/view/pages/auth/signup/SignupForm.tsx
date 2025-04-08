@@ -12,8 +12,8 @@ import useForm from "@hooks/useForm.ts";
 import Button from "@components/shared/Button.tsx";
 import Checkbox from "@components/shared/Checkbox.tsx";
 import DatePicker from "./DatePicker.tsx";
-import LoginLabel from "@components/user/LoginLabel.tsx";
-import LoginTextInput from "@components/user/LoginTextInput.tsx";
+import LoginLabel from "@components/Friends/LoginLabel.tsx";
+import LoginTextInput from "@components/Friends/LoginTextInput.tsx";
 
 import type { FieldInfos, FieldValue } from "src/types/LoginTypes";
 
