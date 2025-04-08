@@ -1,6 +1,6 @@
-import Profile from '../../assets/profile.svg';
-import Warning from '../../assets/warning.svg';
-import CancelBtn from '../../assets/cancel-btn.svg';
+import Profile from '../../../../public/assets/profile.svg';
+import Warning from '../../../../public/assets/warning.svg';
+import CancelBtn from '../../../../public/assets/cancel-btn.svg';
 import { createPortal } from 'react-dom';
 import { createContext, useContext, useEffect, useState } from 'react';
 
