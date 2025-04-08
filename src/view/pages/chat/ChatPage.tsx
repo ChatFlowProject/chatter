@@ -5,6 +5,7 @@ import ChatChannel from 'src/feature/channel/ChatChannel';
 import ChatMessage from './components/ChatMessage';
 import ChatInput from './components/ChatInput';
 import AddServerModal from './components/AddServerModal';
+import Navigation from '@pages/home/components/Navigation';
 
 const servers = [
   { id: 1, title: '서버1' },
@@ -27,7 +28,7 @@ export default function ChatPage() {
 
   return (
     <div className='flex w-screen h-screen'>
-      <div className='wrapper'>
+      <div className='wrapper flex'>
         {servers.map((server) => (
           <ChatServer
             isActive={activeServer === server.id}
@@ -41,7 +42,7 @@ export default function ChatPage() {
         {/* 서버 추가하기 */}
         <AddServerModal />
       </div>
-      <div className='sidebar relative'>
+      <div className='sidebar relative flex flex-col w-[303px]'>
         <div className='smoff'>채팅채널</div>
         {channels.map((channel) => (
           <ChatChannel
@@ -55,7 +56,8 @@ export default function ChatPage() {
           user
         </div>
       </div>
-      <div className='chat'>
+      <div className='chat flex-1'>
+        <Navigation />
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message.text} />
         ))}
