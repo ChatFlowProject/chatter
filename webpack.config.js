@@ -1,14 +1,17 @@
-import path from 'path'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+// webpack.config.js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-export default {
-  mode: 'development', // 'production'으로 변경 가능
-  entry: './src/main.tsx', // Vite에서는 main.jsx, index.jsx 같은 파일을 entry로 사용함
+module.exports = {
+  mode: 'development',
+  entry: './src/main.tsx',
   output: {
     filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
+  target: 'web',
   devServer: {
     historyApiFallback: true,
     port: 3000,
@@ -16,22 +19,26 @@ export default {
     open: true,
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs'],
     alias: {
-      '@api': path.resolve(process.cwd(), 'src/axios'),
-      '@assets': path.resolve(process.cwd(), 'src/assets'),
-      '@components': path.resolve(process.cwd(), 'src/components'),
-      '@hooks': path.resolve(process.cwd(), 'src/hooks'),
-      '@store': path.resolve(process.cwd(), 'src/store'),
-      '@types': path.resolve(process.cwd(), 'src/types'),
-      '@utils': path.resolve(process.cwd(), 'src/utils'),
-      '@pages': path.resolve(process.cwd(), 'src/pages'),
+      src: path.resolve(__dirname, 'src'),
+      '@types': path.resolve(process.cwd(), 'src/lib/types'),
+      '@utils': path.resolve(process.cwd(), 'src/lib/utils'),
+      '@assets': path.resolve(process.cwd(), 'src/view/assets'),
+      '@components': path.resolve(process.cwd(), 'src/view/components'),
+      '@pages': path.resolve(process.cwd(), 'src/view/pages'),
+      '@services': path.resolve(process.cwd(), 'src/service'),
+      '@hooks': path.resolve(process.cwd(), 'src/lib/hooks'),
+      '@constants': path.resolve(process.cwd(), 'src/lib/const'),
+      '@styles': path.resolve(process.cwd(), 'src/view/styles'),
+      '@contexts': path.resolve(process.cwd(), 'src/lib/contexts'),
+      '@api': path.resolve(process.cwd(), 'src/service/api'),
     },
   },
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -45,12 +52,13 @@ export default {
         },
       },
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
+            presets: ['@babel/preset-env'],
           },
         },
       },
@@ -67,7 +75,9 @@ export default {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: path.resolve(__dirname, 'public/index.html'),
+      scriptLoading: 'module', // ESM 지원
+      inject: 'body', // body에 script 넣기
     }),
   ],
-}
+};

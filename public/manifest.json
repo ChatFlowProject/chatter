@@ -3,12 +3,12 @@
   "name": "Discord Clone - Chatter",
   "icons": [
     {
-      "src": "/img/logo/chatflow.png",
+      "src": "/assets/img/logo/chatflow.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/img/logo/chatflow.png",
+      "src": "/assets/img/logo/chatflow.png",
       "type": "image/png",
       "sizes": "512x512"
     }

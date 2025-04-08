@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import TeamSidebar from '@/view/';
-import ChannelSidebar from '@/view/ui/Channel/ChannelSidebar';
-import Header from '@/view/ui/Common/Header';
-import UserProfileBar from '@/view/ui/Common/UserProfileBar';
+import TeamSidebar from '@components/layout/sidebar/TeamSidebar.tsx';
+import ChannelSidebar from '@components/layout/sidebar/ChannelSidebar.tsx';
+import UserProfileBar from './sidebar/UserProfileBar';
+import Header from '@components/layout/sidebar/Header.tsx';
 
 const LayoutWithSidebar = () => {
   return (

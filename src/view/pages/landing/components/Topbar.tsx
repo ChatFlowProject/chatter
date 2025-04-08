@@ -1,9 +1,7 @@
-import Navigation from './Navigation.tsx';
-
 const Topbar = () => {
   return (
-    <div className='inline-flex h-[50px] justify-center items-start flex-shrink-0'>
-      <Navigation />
+    <div className='flex w-full h-[36px] justify-center items-center bg-[#313338] text-white'>
+      강윤지님의 서버
     </div>
   );
 };

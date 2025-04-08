@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import Icon from '../../common/Icon.tsx';
 
 const SplashScreen = () => {
   return (
@@ -15,7 +14,7 @@ const SplashScreen = () => {
         transition={{ type: 'spring', stiffness: 120 }}
         className="w-[160px] h-[160px] mb-4"
       >
-        <Icon path="img/logo/splashImage" width={160} height={160} />
+        <img src="/assets/img/logo/splashImage.png" alt="Splash Logo" width={160} height={160} />
       </motion.div>
 
       <motion.h1

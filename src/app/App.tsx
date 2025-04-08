@@ -13,7 +13,7 @@ const App = () => {
       setShowSplash(false);
     } else {
       sessionStorage.setItem('visited', 'true');
-      setTimeout(() => setShowSplash(false), 2000); // 2초간 스플래쉬 보여줌
+      setTimeout(() => setShowSplash(false), 2000);
     }
   }, []);
 
