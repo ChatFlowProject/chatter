@@ -1,30 +1,45 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-
-type AuthContextType = {
-    isAuthenticated: boolean;
-    logout: () => void;
-};
-
-const AuthContext = createContext<AuthContextType | null>(null);
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setUser, logout as logoutAction } from '../store/authSlice';
+import { getProfile } from '../api/authAPI';
+import { useQueryClient } from '@tanstack/react-query';
+import { AuthContext } from './AuthContext';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
-    useEffect(() => {
-        const token = localStorage.getItem("accessToken");
-        setIsAuthenticated(!!token);
-    }, []);
+  useEffect(() => {
+    let isMounted = true;
 
-    const logout = () => {
-        localStorage.removeItem("accessToken");
-        setIsAuthenticated(false);
+    getProfile()
+      .then((user) => {
+        if (isMounted) {
+          dispatch(setUser(user));
+          setIsAuthenticated(true);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setIsAuthenticated(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
     };
+  }, []);
 
-    return <AuthContext.Provider value={{ isAuthenticated, logout }}>{children}</AuthContext.Provider>;
-};
+  const logout = () => {
+    dispatch(logoutAction());
+    setIsAuthenticated(false);
+    queryClient.clear();
+  };
 
-export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (!context) throw new Error("useAuth must be used within an AuthProvider");
-    return context;
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

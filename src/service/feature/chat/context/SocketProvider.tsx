@@ -12,20 +12,19 @@ export const SocketProvider = ({ children }: Props) => {
   const clientRef = useRef<CompatClient | null>(null);
 
   useEffect(() => {
-    // SockJS로 STOMP 연결
-    const socket = new SockJS(import.meta.env.VITE_SOCKET_URL + '/ws'); // ✅ Spring의 WebSocket endpoint
+    const socket = new SockJS(`${process.env.REACT_APP_SOCKET_URL}/ws`);
     const stompClient = Stomp.over(socket);
     clientRef.current = stompClient;
 
     stompClient.connect(
-      {}, // 헤더에 토큰 넣고 싶으면 여기에 추가
+      {},
       () => {
         setIsConnected(true);
-        console.log('✅ STOMP connected');
+        console.log('STOMP connected');
       },
-      (error) => {
+      (error: any) => {
         setIsConnected(false);
-        console.error('❌ STOMP connection error:', error);
+        console.error('STOMP connection error:', error);
       }
     );
 

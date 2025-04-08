@@ -1,43 +1,56 @@
-import axiosInstance from './axiosInstance'
+import axiosInstance from '../../common/api/axiosInstance.ts';
 
-export const signUp = async (userData: {
-  email: string
-  password: string
-  nickname: string
-}) => {
-  try {
-    const response = await axiosInstance.post('/sign-up', userData)
-    return response.data
-  } catch (error: any) {
-    console.error('SignUp Error:', error.response?.data || error.message)
-    throw error
-  }
+export interface LoginRequest {
+  email: string;
+  password: string;
 }
 
-export const signIn = async (credentials: {
-  email: string
-  password: string
-}) => {
-  try {
-    const response = await axiosInstance.post('/sign-in', credentials)
-    const { accessToken } = response.data
-
-    if (accessToken) {
-      localStorage.setItem('accessToken', accessToken)
-    }
-
-    return response.data
-  } catch (error: any) {
-    console.error('SignIn Error:', error.response?.data || error.message)
-    throw error
-  }
+export interface LoginResponse {
+  userId: string;
+  email: string;
+  nickname: string;
 }
 
-export const healthCheck = async () => {
-  try {
-    const response = await axiosInstance.get('/common/health-check')
-    return response.data
-  } catch (error) {
-    throw error
-  }
+export const login = async (data: LoginRequest): Promise<LoginResponse> => {
+  const response = await axiosInstance.post('/sign-in', data, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  nickname: string;
 }
+
+export interface RegisterResponse {
+  userId: string;
+  email: string;
+  nickname: string;
+}
+
+export const register = async (
+  data: RegisterRequest
+): Promise<RegisterResponse> => {
+  const response = await axiosInstance.post('/sign-up', data);
+  return response.data;
+};
+
+export interface ProfileResponse {
+  userId: string;
+  email: string;
+  nickname: string;
+}
+
+export const getProfile = async (): Promise<ProfileResponse> => {
+  const response = await axiosInstance.get('/me', {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+export const healthCheck = async (): Promise<string> => {
+  const response = await axiosInstance.get('/common/health-check');
+  return response.data;
+};
