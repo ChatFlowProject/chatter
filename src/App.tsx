@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 import Login from './view/pages/auth/login/Login';
 import LoginBackground from './feature/auth/component/LoginBackground';
 import SignupPage from './view/pages/auth/signup/SignupPage';
 import ChatPage from './view/pages/chat/ChatPage';
 import Home from './view/pages/home/HomePage';
-import AfterLoginLayout from './components/layout/AfterLoginLayout';
+import AfterLoginLayout from './view/components/layout/AfterLoginLayout';
 
 const App = () => {
   return (
@@ -15,7 +15,11 @@ const App = () => {
           <Route element={<SignupPage />} path='signup' />
         </Route>
         <Route element={<AfterLoginLayout />}>
-          <Route element={<ChatPage />} path='channels' />
+          <Route
+            path='channels'
+            element={<Navigate to='/channels/@me' replace />}
+          />
+          <Route element={<ChatPage />} path='channels/:id' />
           <Route element={<Home />} path='home' />
         </Route>
       </Routes>

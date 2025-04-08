@@ -6,6 +6,7 @@ import ChatMessage from './components/ChatMessage';
 import ChatInput from './components/ChatInput';
 import AddServerModal from './components/AddServerModal';
 import Navigation from '@pages/home/components/Navigation';
+import { useNavigate } from 'react-router-dom';
 
 const servers = [
   { id: 1, title: '서버1' },
@@ -20,10 +21,15 @@ export default function ChatPage() {
   const [activeChannel, setActiveChannel] = useState<number | null>(null);
   const [messages, setMessages] = useState<{ id: string; text: string }[]>([]);
 
-  console.log('채널!!!!');
+  const navigate = useNavigate();
 
   const handleSendMessage = (message: string) => {
     setMessages([...messages, { id: uuidv4(), text: message }]);
+  };
+
+  const handleChannel = (server: { id: number; title: string }) => {
+    setActiveServer(server.id);
+    navigate(`/channels/${server.id}`);
   };
 
   return (
@@ -33,9 +39,7 @@ export default function ChatPage() {
           <ChatServer
             isActive={activeServer === server.id}
             key={server.id}
-            onClick={() => {
-              setActiveServer(server.id);
-            }}
+            onClick={() => handleChannel(server)}
             title={server.title}
           />
         ))}
