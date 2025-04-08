@@ -1,12 +1,19 @@
-import { useState } from 'react';
 import Icon from './Icon';
 import UserCard from './UserCard';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const DirectMessages = () => {
-  const [selectedUser, setSelectedUser] = useState<string | null>(null);
+  const navigation = useNavigate();
+  const params = useParams();
+
+  const userId = Number(params.channelId);
 
   const handlePlus = () => {
     console.log('plus 버튼 클릭');
+  };
+
+  const handleClickUser = (userId: number) => {
+    navigation(`/channels/@me/${userId}`);
   };
 
   return (
@@ -31,28 +38,32 @@ const DirectMessages = () => {
             name: 'Nelly',
             status: 'Listening to ',
             special: 'Spotify',
+            userId: 1,
           },
-          { profileImage: 'peppe', isOnline: 'idle', name: 'Peppe' },
+          { profileImage: 'peppe', isOnline: 'idle', name: 'Peppe', userId: 6 },
           {
             profileImage: 'phibi',
             isOnline: 'dnd',
             name: 'Phibi',
             status: 'Playing ',
             special: 'GTA',
+            userId: 2,
           },
-          { profileImage: 'cap', isOnline: 'offline', name: 'Cap' },
+          { profileImage: 'cap', isOnline: 'offline', name: 'Cap', userId: 7 },
           {
             profileImage: 'wumpus',
             isOnline: 'streaming',
             name: 'Wumpus',
             status: 'Streaming ',
             special: 'Minecraft',
+            userId: 3,
           },
           {
             profileImage: 'locke',
             isOnline: 'phone',
             name: 'Locke',
             status: `I'm on a hike trip today!`,
+            userId: 4,
           },
           {
             profileImage: 'clyde',
@@ -60,13 +71,14 @@ const DirectMessages = () => {
             name: 'Clyde',
             status: 'Playing ',
             special: 'Among Us',
+            userId: 5,
           },
         ].map((user) => (
           <UserCard
             key={user.name}
             {...user}
-            isActive={selectedUser === user.name}
-            onClick={() => setSelectedUser(user.name)}
+            isActive={userId == user.userId}
+            onClick={() => handleClickUser(user.userId!)}
           />
         ))}
       </div>

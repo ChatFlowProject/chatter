@@ -6,7 +6,7 @@ import ChatMessage from './components/ChatMessage';
 import ChatInput from './components/ChatInput';
 import AddServerModal from './components/AddServerModal';
 import Navigation from '@pages/home/components/Navigation';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import DirectBar from '@pages/home/components/DirectBar';
 
 const servers = [
@@ -18,27 +18,39 @@ const channels = [
   { id: 2, title: '일반2' },
 ];
 export default function ChatPage() {
-  const [activeServer, setActiveServer] = useState<number | null>(null);
-  const [activeChannel, setActiveChannel] = useState<number | null>(null);
   const [messages, setMessages] = useState<{ id: string; text: string }[]>([]);
 
   const navigate = useNavigate();
+  const params = useParams();
+  const channelId = params.serverId;
 
   const handleSendMessage = (message: string) => {
     setMessages([...messages, { id: uuidv4(), text: message }]);
   };
 
   const handleChannel = (server: { id: number; title: string }) => {
-    setActiveServer(server.id);
-    navigate(`/channels/${server.id}`);
+    console.log('server: ', server);
+    if (server.id === 0) {
+      navigate(`/channels/@me`);
+    } else {
+      navigate(`/channels/${server.id}`);
+    }
   };
 
   return (
     <div className='flex w-screen h-screen'>
       <div className='wrapper flex'>
+        {/* 자기 채널 */}
+        <ChatServer
+          isActive={channelId === '@me'}
+          onClick={() => handleChannel({ id: 0, title: 'me' })}
+          title={'me'}
+        />
+        <div className='border w-[48px] h-[1px] border-[#42454A]' />
+
         {servers.map((server) => (
           <ChatServer
-            isActive={activeServer === server.id}
+            isActive={channelId === String(server.id)}
             key={server.id}
             onClick={() => handleChannel(server)}
             title={server.title}

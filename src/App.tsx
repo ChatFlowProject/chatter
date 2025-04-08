@@ -19,7 +19,8 @@ const App = () => {
             path='channels'
             element={<Navigate to='/channels/@me' replace />}
           />
-          <Route element={<ChatPage />} path='channels/:id' />
+          <Route element={<ChatPage />} path='/channels/:serverId' />
+          <Route element={<ChatPage />} path='channels/:serverId/:channelId' />
           <Route element={<Home />} path='home' />
         </Route>
       </Routes>
