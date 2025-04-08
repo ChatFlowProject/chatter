@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import NavigationCard from './NavigationCard'
+import { useState } from 'react';
+import NavigationCard from './NavigationCard';
 
 const HomeNavigation = () => {
-  const [selectedPath, setSelectedPath] = useState<string | null>(null)
+  const [selectedPath, setSelectedPath] = useState<string | null>(null);
 
   return (
     <div className='flex flex-col w-full items-start gap-[2px]'>
@@ -13,15 +13,8 @@ const HomeNavigation = () => {
       >
         Friends
       </NavigationCard>
-      <NavigationCard
-        isActive={selectedPath === 'nitro'}
-        onClick={() => setSelectedPath('nitro')}
-        path='nitro'
-      >
-        Nitro
-      </NavigationCard>
     </div>
-  )
-}
+  );
+};
 
-export default HomeNavigation
+export default HomeNavigation;

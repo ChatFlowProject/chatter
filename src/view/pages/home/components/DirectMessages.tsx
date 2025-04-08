@@ -11,8 +11,10 @@ const DirectMessages = () => {
 
   return (
     <div className='flex flex-col justify-center items-center gap-[9px]'>
-      <div className='flex justify-center items-end gap-[76px]'>
-        <p className='text-[13px]'>DIRECT MESSAGES</p>
+      <div className='flex justify-center items-center gap-[76px]'>
+        <p className='text-[13px] text-neutral-400 font-bold'>
+          DIRECT MESSAGES
+        </p>
         <button
           className='w-[11px] h-[11px]'
           onClick={handlePlus}

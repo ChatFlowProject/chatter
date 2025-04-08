@@ -1,15 +1,16 @@
-import DirectMessages from './DirectMessages'
-import HomeNavigation from './HomeNavigation'
+import DirectMessages from './DirectMessages';
+import HomeNavigation from './HomeNavigation';
 
 const DirectBar = () => {
   return (
     <div className='inline-flex py-[7px] px-2 flex-col items-center bg-[#2F3136]'>
-        <div className='flex flex-col justify-center items-center gap-[19px]'>
-          <HomeNavigation />
-          <DirectMessages />
-        </div>
+      <div className='flex flex-col justify-center items-center gap-[19px]'>
+        <HomeNavigation />
+        <div className='border w-full h-[1px] border-[#42454A]' />
+        <DirectMessages />
       </div>
-  )
-}
+    </div>
+  );
+};
 
-export default DirectBar
+export default DirectBar;

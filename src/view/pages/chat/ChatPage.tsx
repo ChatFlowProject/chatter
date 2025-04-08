@@ -7,6 +7,7 @@ import ChatInput from './components/ChatInput';
 import AddServerModal from './components/AddServerModal';
 import Navigation from '@pages/home/components/Navigation';
 import { useNavigate } from 'react-router-dom';
+import DirectBar from '@pages/home/components/DirectBar';
 
 const servers = [
   { id: 1, title: '서버1' },
@@ -46,8 +47,9 @@ export default function ChatPage() {
         {/* 서버 추가하기 */}
         <AddServerModal />
       </div>
+      {/* 채널 사이드바 */}
       <div className='sidebar relative flex flex-col w-[303px]'>
-        <div className='smoff'>채팅채널</div>
+        {/* <div className='smoff'>채팅채널</div>
         {channels.map((channel) => (
           <ChatChannel
             isActive={activeChannel === channel.id}
@@ -58,7 +60,8 @@ export default function ChatPage() {
         ))}
         <div className='bottom-0 absolute h-[52px] bg-panel font-regular text-white text-base '>
           user
-        </div>
+        </div> */}
+        <DirectBar />
       </div>
       <div className='chat flex-1'>
         <Navigation />
