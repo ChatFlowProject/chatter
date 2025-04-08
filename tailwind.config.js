@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    './index.html',
+    './public/index.html',
     './src/components/**/*.{html,ts,tsx,js,jsx}',
-    './src/pages/**/*.{html,ts,tsx,js,jsx}',
+    './src/feature/**/*.{html,ts,tsx,js,jsx}',
+    './src/view/**/*.{html,ts,tsx,js,jsx}',
     './src/App.tsx',
   ],
   theme: {
@@ -74,4 +75,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

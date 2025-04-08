@@ -1,27 +1,27 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 
 interface ChatInputProps extends React.ComponentProps<'input'> {
-  onSendMessage: (message: string) => void
+  onSendMessage: (message: string) => void;
 }
 
 export default function ChatInput({ onSendMessage, ...props }: ChatInputProps) {
-  const [input, setInput] = useState<string>('')
+  const [input, setInput] = useState<string>('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value)
-  }
+    setInput(e.target.value);
+  };
   const sendMessage = () => {
     if (input.trim()) {
-      onSendMessage(input)
-      setInput('')
+      onSendMessage(input);
+      setInput('');
     }
-  }
+  };
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      sendMessage()
+      sendMessage();
     }
-  }
+  };
   return (
     <div className='fixed bottom-0'>
       <input
@@ -34,5 +34,5 @@ export default function ChatInput({ onSendMessage, ...props }: ChatInputProps) {
         value={input}
       />
     </div>
-  )
+  );
 }

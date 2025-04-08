@@ -1,9 +1,9 @@
-import Conversation from '@components/Home/Conversation';
-import DirectBar from '@components/Home/DirectBar';
-import ProfileInfo from '@components/Home/ProfileInfo';
-import Topbar from '@components/Home/Topbar';
-import UserProfile from '@components/Home/UserProfile';
 import { useState } from 'react';
+import Topbar from './components/Topbar';
+import Conversation from './components/Conversation';
+import DirectBar from './components/DirectBar';
+import UserProfile from './components/UserProfile';
+import ProfileInfo from './components/ProfileInfo';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState('');

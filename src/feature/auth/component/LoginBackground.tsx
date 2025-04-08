@@ -1,7 +1,8 @@
-import background from '@assets/Login_Background.png'
-import { Outlet } from 'react-router-dom'
+import background from '@assets/Login_Background.png';
+import { Outlet } from 'react-router-dom';
 
 export default function LoginBackground() {
+  console.log('배경 이미지: ', background);
   return (
     <div className='relative w-screen h-screen'>
       <img
@@ -13,5 +14,5 @@ export default function LoginBackground() {
         <Outlet />
       </div>
     </div>
-  )
+  );
 }
