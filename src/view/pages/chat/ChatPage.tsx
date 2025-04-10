@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import ChatServer from 'src/feature/server/ChatServer';
-import ChatChannel from 'src/feature/channel/ChatChannel';
 import ChatMessage from './components/ChatMessage';
 import ChatInput from './components/ChatInput';
 import AddServerModal from './components/AddServerModal';
-import Navigation from '@pages/home/components/Navigation';
 import { useNavigate } from 'react-router-dom';
+import ChatServer from '../../../service/feature/team/ChatServer.tsx';
+import ChatChannel from '../../../service/feature/chat/legacy/ChatChannel.tsx';
+import Navigation from '@pages/Friends/components/Navigation.tsx';
 
 const servers = [
   { id: 1, title: '서버1' },
