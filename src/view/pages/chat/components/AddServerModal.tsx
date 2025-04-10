@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
 import axios from 'axios';
-import ChatServer from 'src/feature/server/ChatServer';
+
 import Modal from '@components/common/Modal';
+import ChatServer from '../../../../service/feature/team/ChatServer.tsx';
 
 export default function AddServerModal() {
   const [preview, setPreview] = useState<string | null>(null);
