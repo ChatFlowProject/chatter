@@ -1,27 +1,14 @@
-import { useState } from 'react'
-import NavigationCard from './NavigationCard.tsx'
+import { useState } from 'react';
+import NavigationCard from './NavigationCard';
 
 const ChannelNavigation = () => {
-  const [selectedPath, setSelectedPath] = useState<string | null>(null)
-
   return (
     <div className='flex flex-col w-full items-start gap-[2px]'>
-      <NavigationCard
-        isActive={selectedPath === 'friends'}
-        onClick={() => setSelectedPath('friends')}
-        path='friends'
-      >
+      <NavigationCard onClick={() => console.log('friends')} path='friends'>
         Friends
       </NavigationCard>
-      <NavigationCard
-        isActive={selectedPath === 'nitro'}
-        onClick={() => setSelectedPath('nitro')}
-        path='nitro'
-      >
-        Nitro
-      </NavigationCard>
     </div>
-  )
-}
+  );
+};
 
-export default ChannelNavigation
+export default ChannelNavigation;

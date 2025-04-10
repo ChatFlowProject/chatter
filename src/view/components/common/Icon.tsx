@@ -13,7 +13,7 @@ const Icon = ({ path, className, width, height }: IconProps) => {
       <img
         alt={`${path} icon`}
         className='w-full h-full object-contain'
-        src={`/assets/${path}.svg`}
+        src={`/assets/img/${path}.svg`}
         width={width}
         height={height}
       />
