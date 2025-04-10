@@ -3,63 +3,12 @@ import { useGetFriends } from 'src/service/feature/friend/hook/useFriendQuery';
 import { FriendData } from 'src/service/feature/friend/types/friend';
 import FriendCard from './FriendCard';
 import Navigation from '@pages/Friends/components/Navigation';
-
-const mockUsers = [
-  {
-    profileImage: 'nelly',
-    isOnline: 'online',
-    name: 'Nelly',
-    status: '오프라인',
-    userId: 1,
-  },
-  {
-    profileImage: 'peppe',
-    isOnline: 'idle',
-    name: 'Peppe',
-    userId: 6,
-    status: '오프라인',
-  },
-  {
-    profileImage: 'phibi',
-    isOnline: 'dnd',
-    name: 'Phibi',
-    status: '오프라인',
-    userId: 2,
-  },
-  {
-    profileImage: 'cap',
-    isOnline: 'offline',
-    name: 'Cap',
-    userId: 7,
-    status: '오프라인',
-  },
-  {
-    profileImage: 'wumpus',
-    isOnline: 'streaming',
-    name: 'Wumpus',
-    status: '오프라인',
-    userId: 3,
-  },
-  {
-    profileImage: 'locke',
-    isOnline: 'phone',
-    name: 'Locke',
-    status: '온라인',
-    userId: 4,
-  },
-  {
-    profileImage: 'clyde',
-    isOnline: 'online',
-    name: 'Clyde',
-    status: '온라인',
-    userId: 5,
-  },
-];
+import AddFriend from './AddFriend';
 
 export default function Friend() {
   const [activeButton, setActiveButton] = useState<
     'Online' | 'All' | 'Pending' | null
-  >('Online'); // 🔹 기본값 'Online'
+  >('Online');
 
   const { data, isLoading, error } = useGetFriends(activeButton);
 
@@ -82,7 +31,9 @@ export default function Friend() {
         setActiveButton={setActiveButton}
       />
 
-      {activeButton === 'Pending' ? (
+      {activeButton === null ? (
+        <AddFriend />
+      ) : activeButton === 'Pending' ? (
         <div className='flex flex-col items-start gap-[2px]'>
           <p className='mx-5 my-4 text-neutral-300 font-bold'>보냄 - 0명</p>
           <div className='w-full'>

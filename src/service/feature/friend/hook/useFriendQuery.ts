@@ -1,9 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   getAllFriend,
   getOnlineFriend,
   getReceivedFriend,
   getSentFriend,
+  postAddFriend,
 } from '../api/friendApi';
 
 export const useGetFriends = (status: 'Online' | 'All' | 'Pending' | null) => {
@@ -52,4 +53,14 @@ export const useGetFriends = (status: 'Online' | 'All' | 'Pending' | null) => {
   return { data, isLoading, error };
 };
 
-export default { useGetFriends };
+export const useAddFriend = () => {
+  return useMutation({
+    mutationFn: postAddFriend,
+    onSuccess: (data) => {
+      alert(data);
+    },
+    onError: () => {},
+  });
+};
+
+export default { useGetFriends, useAddFriend };

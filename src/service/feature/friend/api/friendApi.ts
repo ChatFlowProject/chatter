@@ -33,9 +33,24 @@ export const getSentFriend = async (): Promise<FriendData[]> => {
   return res.data.data;
 };
 
+export const postAddFriend = async (
+  nickName: string,
+): Promise<'INVALID_REQUEST / ALREADY_FRIENDS / REQUEST_SUCCESS / FRIENDSHIP_ESTABLISHED'> => {
+  const res = await axiosInstance.post(
+    '/friendships',
+    {
+      friendNickname: nickName,
+    },
+    { withCredentials: true },
+  );
+
+  return res.data.data.status;
+};
+
 export default {
   getOnlineFriend,
   getAllFriend,
   getSentFriend,
   getReceivedFriend,
+  postAddFriend,
 };
