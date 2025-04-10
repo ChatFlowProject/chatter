@@ -2,8 +2,13 @@ import { useState } from 'react';
 import Icon from './Icon';
 import NavigationButton from './NavigationButton';
 
-const Navigation = () => {
-  const [activeButton, setActiveButton] = useState<string | null>('Online'); // 🔹 기본값 'Online'
+interface NavigationProps {
+  activeButton: string | null;
+  setActiveButton: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const Navigation = ({ activeButton, setActiveButton }: NavigationProps) => {
+  // const [activeButton, setActiveButton] = useState<string | null>('Online'); // 🔹 기본값 'Online'
 
   const handleButtonClick = (label: string) => {
     setActiveButton(label);
