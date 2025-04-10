@@ -13,8 +13,10 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: async (formValues: unknown) => {
       const result = loginSchema.safeParse(formValues);
+      console.log('formValue: ', formValues, 'result: ', result);
       if (!result.success) {
-        const message = result.error.errors[0]?.message || '입력값이 올바르지 않습니다';
+        const message =
+          result.error.errors[0]?.message || '입력값이 올바르지 않습니다';
         throw new Error(message);
       }
       return login(result.data);

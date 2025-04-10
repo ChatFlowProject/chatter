@@ -1,72 +1,62 @@
-import { useState } from 'react'
-import Icon from '../../../components/common/Icon.tsx'
-import NavigationButton from './NavigationButton.tsx'
+import NavigationButton from './NavigationButton';
+import Icon from '@components/common/Icon';
 
-const Navigation = () => {
-  const [activeButton, setActiveButton] = useState<string | null>('Online') // 🔹 기본값 'Online'
+interface NavigationProps {
+  activeButton: 'Online' | 'All' | 'Pending' | null;
+  setActiveButton: React.Dispatch<
+    React.SetStateAction<'Online' | 'All' | 'Pending' | null>
+  >;
+}
 
-  const handleButtonClick = (label: string) => {
-    setActiveButton(label)
-  }
+const Navigation = ({ activeButton, setActiveButton }: NavigationProps) => {
+  // const [activeButton, setActiveButton] = useState<string | null>('Online'); // 🔹 기본값 'Online'
+
+  const handleButtonClick = (label: 'Online' | 'All' | 'Pending') => {
+    setActiveButton(label);
+  };
 
   const handleAddFriendClick = () => {
-    setActiveButton(null)
-  }
+    setActiveButton(null);
+  };
 
   return (
-    <div className='flex w-[1608px] py-3 justify-end items-center bg-[#36393F]'>
+    <div className='flex w-full py-3 justify-start items-center bg-[#36393F]'>
       <div className='flex h-6 pr-0 justify-center items-start gap-[776px]'>
-        <div className='flex justify-center items-center gap-4'>
+        <div className='flex justify-center items-center gap-4 px-[22px]'>
           <div className='flex justify-center items-center gap-[9px]'>
             <div className='w-[22px] h-[22px]'>
               <Icon path='navfriends' />
             </div>
-            <p className='text-lg font-bold'>Friends</p>
+            <p className='text-lg font-bold text-neutral-400'>친구</p>
           </div>
           <div className='w-[1px] h-[24px] bg-[#42454A]' />
-          <div className='flex justify-center items-center gap-[11px]'>
+          <div className='flex justify-center items-center'>
             <NavigationButton
               isActive={activeButton === 'Online'}
-              label='Online'
+              label='온라인'
               onClick={() => handleButtonClick('Online')}
-              paddingX={7}
             />
             <NavigationButton
               isActive={activeButton === 'All'}
-              label='All'
+              label='모두'
               onClick={() => handleButtonClick('All')}
-              paddingX={15}
             />
             <NavigationButton
               isActive={activeButton === 'Pending'}
-              label='Pending'
+              label='대기 중'
               onClick={() => handleButtonClick('Pending')}
-              paddingX={9}
             />
             <NavigationButton
-              isActive={activeButton === 'Suggestions'}
-              label='Suggestions'
-              onClick={() => handleButtonClick('Suggestions')}
-              paddingX={9}
-            />
-            <NavigationButton
-              isActive={activeButton === 'Blocked'}
-              label='Blocked'
-              onClick={() => handleButtonClick('Blocked')}
-              paddingX={12}
-            />
-            <button
-              className='flex py-[3px] px-[7px] justify-center items-center gap-[10px] rounded-[3px] bg-[#3BA55D]'
+              isActive={activeButton === 'Pending'}
+              isAddFriend={true}
+              label='친구 추가하기'
               onClick={handleAddFriendClick}
-              type='button'
-            >
-              Add Friend
-            </button>
+            />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;

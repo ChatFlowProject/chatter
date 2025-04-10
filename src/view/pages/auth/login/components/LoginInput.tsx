@@ -1,4 +1,4 @@
-import {LoginInputProps} from "../../../types/LoginPage.ts";
+import { LoginInputProps } from 'src/service/lib/types/form/common';
 
 const LoginInput = ({ id, label, type, value, onChange }: LoginInputProps) => {
   return (
@@ -17,7 +17,7 @@ const LoginInput = ({ id, label, type, value, onChange }: LoginInputProps) => {
         value={value}
       />
     </div>
-  )
-}
+  );
+};
 
-export default LoginInput
+export default LoginInput;
