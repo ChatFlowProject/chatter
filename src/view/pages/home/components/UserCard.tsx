@@ -1,13 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import Icon from './Icon';
 
 interface UserCardProps {
   profileImage: string;
   isOnline: string;
   name: string;
+  userId: number;
   status?: string;
   isActive: boolean;
   className?: string;
-  onClick: () => void;
   isMessage?: boolean;
 }
 
@@ -15,20 +16,25 @@ const UserCard = ({
   profileImage,
   isOnline,
   name,
+  userId,
   status,
   isActive,
   className,
-  onClick,
   isMessage,
 }: UserCardProps) => {
+  const navigation = useNavigate();
+
+  const handleClick = () => {
+    navigation(`/channels/@me/${userId}`);
+  };
   return (
     <div
       className={`flex h-[42px] rounded-[8px] text-white cursor-pointer items-center ${
         isActive
           ? 'bg-[#393C43] text-white'
           : 'hover:bg-[#393C43] hover:text-white text-neutral-400'
-      } ${className} ${isMessage && 'w-full justify-between'}`}
-      onClick={onClick}
+      } ${isMessage && 'w-full justify-between'} ${className}`}
+      onClick={handleClick}
     >
       <div className='flex'>
         <div className='w-8 h-8 my-[5px] ml-2 flex items-center justify-center relative mr-3'>

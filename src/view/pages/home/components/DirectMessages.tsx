@@ -3,17 +3,12 @@ import UserCard from './UserCard';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const DirectMessages = () => {
-  const navigation = useNavigate();
   const params = useParams();
 
   const userId = Number(params.channelId);
 
   const handlePlus = () => {
     console.log('plus 버튼 클릭');
-  };
-
-  const handleClickUser = (userId: number) => {
-    navigation(`/channels/@me/${userId}`);
   };
 
   return (
@@ -78,7 +73,6 @@ const DirectMessages = () => {
             key={user.name}
             {...user}
             isActive={userId == user.userId}
-            onClick={() => handleClickUser(user.userId!)}
           />
         ))}
       </div>

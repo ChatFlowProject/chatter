@@ -1,4 +1,3 @@
-import Icon from '@pages/home/components/Icon';
 import Navigation from '@pages/home/components/Navigation';
 import UserCard from '@pages/home/components/UserCard';
 import { useEffect, useState } from 'react';
@@ -78,7 +77,6 @@ const FriendCard = ({
         {...user}
         isActive={false}
         className='text-neutral-300 h-[60px] hover:bg-[#3E4147]'
-        onClick={() => console.log('')}
         isMessage
       />
     </div>
