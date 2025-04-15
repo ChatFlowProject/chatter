@@ -52,10 +52,20 @@ export const postAddFriend = async (
   return res.data.data.status;
 };
 
+// 친구 요청 취소
+export const deleteCancelFriend = async (friendshipId: number) => {
+  const res = await axiosInstance.delete(
+    `/friendships/${friendshipId}/cancel`,
+    { withCredentials: true },
+  );
+  return res.data.data;
+};
+
 export default {
   getOnlineFriend,
   getAllFriend,
   getSentFriend,
   getReceivedFriend,
   postAddFriend,
+  deleteCancelFriend,
 };

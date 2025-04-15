@@ -1,5 +1,6 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
+  deleteCancelFriend,
   getAllFriend,
   getOnlineFriend,
   getReceivedFriend,
@@ -71,15 +72,32 @@ export const useAddFriend = (
     } | null>
   >,
 ) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: postAddFriend,
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['friends', 'sent'] });
       setResultMessage({
         type: ADD_FRIEND_RESULT_TYPE[data],
         message: ADD_FRIEND_MESSAGE[data],
       });
     },
     onError: () => {},
+  });
+};
+
+// 친구 요청 취소
+export const useCancelFriend = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteCancelFriend,
+    onSuccess: (data) => {
+      console.log('친구 요청 취소 완료', data);
+      queryClient.invalidateQueries({ queryKey: ['friends', 'sent'] });
+    },
+    onError: () => {
+      console.log('친구 요청 취소 에러');
+    },
   });
 };
 

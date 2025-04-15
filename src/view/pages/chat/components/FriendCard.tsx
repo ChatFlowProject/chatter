@@ -13,6 +13,7 @@ const FriendCard = ({
       <UserCard
         key={user.friendshipInfo.name}
         user={user.friendshipInfo}
+        friendshipId={user.friendshipId}
         isActive={false}
         className='text-neutral-300 h-[60px] hover:bg-[#3E4147]'
         type={type}

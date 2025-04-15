@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import Icon from '../../../components/common/Icon.tsx';
 import { FriendInfoData } from 'src/service/feature/friend/types/friend.ts';
+import { useCancelFriend } from 'src/service/feature/friend/hook/useFriendQuery.ts';
 
 interface UserCardProps {
   status?: string;
   isActive: boolean;
   className?: string;
+  friendshipId?: number;
   type?: 'sent' | 'received' | 'message';
   user:
     | FriendInfoData
@@ -13,7 +15,7 @@ interface UserCardProps {
         avatarUrl: string;
         state: string;
         name: string;
-        id: number;
+        id: string;
       };
 }
 
@@ -23,6 +25,7 @@ const UserCard = ({
   isActive,
   className,
   type,
+  friendshipId,
 }: UserCardProps) => {
   const navigation = useNavigate();
 
@@ -31,6 +34,10 @@ const UserCard = ({
   const handleClick = () => {
     navigation(`/channels/@me/${id}`);
   };
+
+  // 친구 요청 취소
+  const { mutate: cancleFriendMutate } = useCancelFriend();
+
   return (
     <div
       className={`flex h-[42px] rounded-[8px] text-white cursor-pointer items-center ${
@@ -75,7 +82,7 @@ const UserCard = ({
       {type === 'sent' && (
         <button
           className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
-          onClick={() => console.log('')}
+          onClick={() => cancleFriendMutate(friendshipId!)}
           type='button'
         >
           <Icon path='close' className='text-neutral-300' />
