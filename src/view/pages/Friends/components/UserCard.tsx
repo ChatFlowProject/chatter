@@ -4,6 +4,7 @@ import { FriendInfoData } from 'src/service/feature/friend/types/friend.ts';
 import {
   useAcceptFriend,
   useCancelFriend,
+  useRefuseFriend,
 } from 'src/service/feature/friend/hook/useFriendQuery.ts';
 
 interface UserCardProps {
@@ -43,6 +44,9 @@ const UserCard = ({
 
   // 친구 요청 수락
   const { mutate: acceptFriendMutate } = useAcceptFriend();
+
+  // 친구 요청 거절
+  const { mutate: refuseFriendMutate } = useRefuseFriend();
 
   return (
     <div
@@ -106,7 +110,7 @@ const UserCard = ({
           </button>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-red'
-            onClick={() => console.log('')}
+            onClick={() => refuseFriendMutate(friendshipId!)}
             type='button'
           >
             <Icon path='close' className='hover:text-red' />

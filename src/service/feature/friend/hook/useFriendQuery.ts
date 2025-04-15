@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   deleteCancelFriend,
+  deleteRefuseFriend,
   getAllFriend,
   getOnlineFriend,
   getReceivedFriend,
@@ -117,9 +118,25 @@ export const useAcceptFriend = () => {
   });
 };
 
+// 친구 요청 거절
+export const useRefuseFriend = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteRefuseFriend,
+    onSuccess: (data) => {
+      console.log('친구 요청 거절 완료', data);
+      queryClient.invalidateQueries({ queryKey: ['friends', 'received'] });
+    },
+    onError: () => {
+      console.log('친구 요청 거절 에러');
+    },
+  });
+};
+
 export default {
   useGetFriends,
   useAddFriend,
   useCancelFriend,
   useAcceptFriend,
+  useRefuseFriend,
 };
