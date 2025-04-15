@@ -38,7 +38,7 @@ export default function FriendList({ activeButton }: NavigationProps) {
               </p>
               <div className='w-full'>
                 {data.sent?.map((user: FriendData, idx: number) => (
-                  <FriendCard key={`sent-${idx}`} user={user} />
+                  <FriendCard key={`sent-${idx}`} user={user} type='sent' />
                 ))}
               </div>
             </>
@@ -50,7 +50,11 @@ export default function FriendList({ activeButton }: NavigationProps) {
               </p>
               <div className='w-full'>
                 {data.received?.map((user: FriendData, idx: number) => (
-                  <FriendCard key={`received-${idx}`} user={user} />
+                  <FriendCard
+                    key={`received-${idx}`}
+                    user={user}
+                    type='received'
+                  />
                 ))}
               </div>
             </>

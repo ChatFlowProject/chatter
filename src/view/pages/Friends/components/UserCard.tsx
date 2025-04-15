@@ -6,7 +6,7 @@ interface UserCardProps {
   status?: string;
   isActive: boolean;
   className?: string;
-  isMessage?: boolean;
+  type?: 'sent' | 'received' | 'message';
   user:
     | FriendInfoData
     | {
@@ -22,7 +22,7 @@ const UserCard = ({
   status,
   isActive,
   className,
-  isMessage,
+  type,
 }: UserCardProps) => {
   const navigation = useNavigate();
 
@@ -37,7 +37,7 @@ const UserCard = ({
         isActive
           ? 'bg-[#393C43] text-white'
           : 'hover:bg-[#393C43] hover:text-white text-neutral-400'
-      } ${isMessage && 'w-full justify-between'} ${className}`}
+      } ${type && 'w-full justify-between'} ${className}`}
       onClick={handleClick}
     >
       <div className='flex'>
@@ -63,14 +63,42 @@ const UserCard = ({
           ) : null}
         </div>
       </div>
-      {isMessage && (
+      {type === 'message' && (
         <button
-          className='w-5 h-5'
+          className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
           onClick={() => console.log('')}
           type='button'
         >
-          <Icon path='message' className='text-neutral-300' />
+          <Icon path='more' className='text-neutral-300' />
         </button>
+      )}
+      {type === 'sent' && (
+        <button
+          className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
+          onClick={() => console.log('')}
+          type='button'
+        >
+          <Icon path='close' className='text-neutral-300' />
+        </button>
+      )}
+
+      {type === 'received' && (
+        <div className='flex mr-2 gap-2'>
+          <button
+            className='w-7 h-7 bg-[#37393F] rounded-full hover:text-blue-500'
+            onClick={() => console.log('')}
+            type='button'
+          >
+            <Icon path='check' className='hover:text-blue-500' />
+          </button>
+          <button
+            className='w-7 h-7 bg-[#37393F] rounded-full hover:text-red'
+            onClick={() => console.log('')}
+            type='button'
+          >
+            <Icon path='close' className='hover:text-red' />
+          </button>
+        </div>
       )}
     </div>
   );
