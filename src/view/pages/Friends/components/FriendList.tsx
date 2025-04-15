@@ -3,6 +3,7 @@ import AddFriend from './AddFriend';
 import FriendCard from './FriendCard';
 import { useGetFriends } from 'src/service/feature/friend/hook/useFriendQuery';
 import { useState } from 'react';
+import SearchFriends from './SearchFriends';
 
 interface NavigationProps {
   activeButton: 'Online' | 'All' | 'Pending' | null;
@@ -33,7 +34,9 @@ export default function FriendList({ activeButton }: NavigationProps) {
       {activeButton === null ? (
         <AddFriend />
       ) : activeButton === 'Pending' ? (
-        <div className='flex flex-col items-start gap-[2px]'>
+        <div className='items-start gap-[2px]'>
+          <SearchFriends />
+
           {data && 'sent' in data && (
             <>
               <p className='mx-5 my-4 text-neutral-300 font-bold'>
@@ -64,7 +67,9 @@ export default function FriendList({ activeButton }: NavigationProps) {
           )}
         </div>
       ) : (
-        <div className='flex flex-col items-start gap-[2px]'>
+        <div className=' items-start gap-[2px]'>
+          <SearchFriends />
+
           <p className='mx-5 my-4 text-neutral-300 font-bold'>
             {title} - {Array.isArray(data) && data.length}명
           </p>
