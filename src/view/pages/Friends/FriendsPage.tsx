@@ -1,17 +1,19 @@
-import Friend from '@pages/chat/components/Friend';
+import Navigation from './components/Navigation';
+import FriendList from '@pages/chat/components/FriendList';
+import { useState } from 'react';
 
 export default function FriendsPage() {
+  const [activeButton, setActiveButton] = useState<
+    'Online' | 'All' | 'Pending' | null
+  >('Online');
+
   return (
-    // 임시
-    // <div className="flex flex-col h-screen bg-[#18191C]">
-    //   <div className="flex items-center justify-between p-4 bg-[#242526]">
-    //     <h1 className="text-white text-2xl">Friends</h1>
-    //   </div>
-    //   <div className="flex-grow overflow-y-auto p-4">
-    //     {/* Add your friends list or content here */}
-    //     <p className="text-white">List of friends will be displayed here.</p>
-    //   </div>
-    // </div>
-    <Friend />
+    <div className='bg-[#37393F] h-screen'>
+      <Navigation
+        activeButton={activeButton}
+        setActiveButton={setActiveButton}
+      />
+      <FriendList activeButton={activeButton} />
+    </div>
   );
 }

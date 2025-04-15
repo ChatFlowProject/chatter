@@ -17,6 +17,8 @@ export const useGetFriends = (status: 'Online' | 'All' | 'Pending' | null) => {
     queryKey: ['friends', 'sent'],
     queryFn: getSentFriend,
     enabled: status === 'Pending',
+    staleTime: 3 * 60 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 
   const {
@@ -27,6 +29,8 @@ export const useGetFriends = (status: 'Online' | 'All' | 'Pending' | null) => {
     queryKey: ['friends', 'received'],
     queryFn: getReceivedFriend,
     enabled: status === 'Pending',
+    staleTime: 3 * 60 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 
   const {
@@ -37,6 +41,8 @@ export const useGetFriends = (status: 'Online' | 'All' | 'Pending' | null) => {
     queryKey: ['friends', status],
     queryFn: status === 'Online' ? getOnlineFriend : getAllFriend,
     enabled: status !== 'Pending' && status !== null,
+    staleTime: 3 * 60 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 
   const data =

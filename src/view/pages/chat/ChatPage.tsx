@@ -8,7 +8,7 @@ import ChatChannel from '../../../service/feature/chat/legacy/ChatChannel.tsx';
 import Navigation from '@pages/Friends/components/Navigation.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
 // import DirectBar from '@pages/home/components/DirectBar';
-import Friend from './components/Friend';
+// import Friend from './components/Friend';
 import DirectBar from '@components/layout/sidebar/component/right/DirectBar.tsx';
 // import DirectBar from '@pages/landing/components/DirectBar.tsx';
 
@@ -79,7 +79,7 @@ export default function ChatPage() {
         <DirectBar />
       </div>
       <div className='chat flex-1'>
-        <Friend />
+        {/* <Friend /> */}
         {/* <Navigation /> */}
         {/* {messages.map((message) => (
           <ChatMessage key={message.id} message={message.text} />
