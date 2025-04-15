@@ -80,6 +80,14 @@ export const deleteRefuseFriend = async (friendshipId: number) => {
   return res.data.data;
 };
 
+// 친구 삭제
+export const deleteRemoveFriend = async (friendshipId: number) => {
+  const res = await axiosInstance.delete(`/friendships/${friendshipId}`, {
+    withCredentials: true,
+  });
+  return res.data.data;
+};
+
 export default {
   getOnlineFriend,
   getAllFriend,
@@ -89,4 +97,5 @@ export default {
   deleteCancelFriend,
   patchAcceptFriend,
   deleteRefuseFriend,
+  deleteRemoveFriend,
 };

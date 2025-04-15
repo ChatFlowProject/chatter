@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useRemoveFriend } from 'src/service/feature/friend/hook/useFriendQuery';
 
 interface MoreMenuProps {
   children: React.ReactNode;
@@ -18,8 +19,12 @@ const MoreMenu = ({
 
   const menuRef = useRef<HTMLDivElement>(null);
 
+  // 친구 삭제하기
+  const { mutate } = useRemoveFriend();
+
   const handleClick = () => {
     console.log('친구 삭제하기');
+    mutate(ownId!);
   };
 
   // 외부 클릭 감지
