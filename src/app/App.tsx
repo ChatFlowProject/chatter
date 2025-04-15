@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
 import AppProviders from './Provider';
 import AppRouter from './Router';
 import SplashScreen from '../view/components/layout/splash/SplashScreen.tsx';
+import { persistor } from './store';
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -20,7 +22,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <AppProviders>
-        {showSplash ? <SplashScreen /> : <AppRouter />}
+        <PersistGate loading={null} persistor={persistor}>
+          {showSplash ? <SplashScreen /> : <AppRouter />}
+        </PersistGate>
       </AppProviders>
     </BrowserRouter>
   );

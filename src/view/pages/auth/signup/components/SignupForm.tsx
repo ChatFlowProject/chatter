@@ -1,16 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema, RegisterFormData } from '../../../../service/feature/auth/schema/authSchema';
-import { useRegister } from '../../../../service/feature/auth'
+import { registerSchema, RegisterFormData } from '../../../../../service/feature/auth/schema/authSchema';
 import DatePicker from './DatePicker';
-// import Button from '@/components/shared/Button';
-// import Checkbox from '@/components/shared/Checkbox';
 import { useState } from 'react';
-import { toast } from 'sonner';
 import Button from '@components/common/Button';
 import Checkbox from '@components/common/Checkbox';
-import LoginTextInput from '@pages/auth/components/LoginTextInput.tsx';
-import LoginLabel from '@pages/auth/components/LoginLabel.tsx';
+import LoginTextInput from '@pages/auth/components/LoginTextInput';
+import LoginLabel from '@pages/auth/components/LoginLabel';
+import { useRegister } from '../../../../../service/feature/auth';
 
 export default function SignupForm() {
   const {
@@ -22,27 +19,26 @@ export default function SignupForm() {
     resolver: zodResolver(registerSchema),
   });
 
-  const [birthdate, setBirthdate] = useState<{ year: number | ''; month: number | ''; day: number | '' }>({
+  const { mutateAsync } = useRegister();
+
+  const [birth, setbirth] = useState<{ year: number | ''; month: number | ''; day: number | '' }>({
     year: '',
     month: '',
     day: '',
   });
 
   const onSubmit = async (data: RegisterFormData) => {
-    try {
-      await useRegister(data);
-      toast.success('회원가입 성공! 로그인 해주세요.');
-      // navigate('/login');
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || '회원가입에 실패했습니다.');
-    }
+      await mutateAsync(data);
   };
 
-  // 생년월일 조합
-  const handleBirthChange = (date: typeof birthdate) => {
-    setBirthdate(date);
-    const formatted = `${date.year}-${date.month}-${date.day}`;
-    setValue('birthdate', formatted); // react-hook-form에 넣어줌
+  const handleBirthChange = (date: typeof birth) => {
+    setbirth(date);
+
+    const paddedMonth = String(date.month).padStart(2, '0');
+    const paddedDay = String(date.day).padStart(2, '0');
+
+    const formatted = `${date.year}-${paddedMonth}-${paddedDay}`;
+    setValue('birth', formatted);
   };
 
   return (
@@ -79,8 +75,8 @@ export default function SignupForm() {
       <LoginLabel title="생년월일">
         <DatePicker onChange={handleBirthChange} />
       </LoginLabel>
-      {errors.birthdate && (
-        <p className="text-red-500 text-sm mt-1">{errors.birthdate.message}</p>
+      {errors.birth && (
+        <p className="text-red-500 text-sm mt-1">{errors.birth.message}</p>
       )}
 
       <label className="mt-3 flex items-center">

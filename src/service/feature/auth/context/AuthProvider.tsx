@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUser, logout as logoutAction } from '../store/authSlice';
 import { getProfile } from '../api/authAPI';
@@ -7,28 +7,26 @@ import { AuthContext } from './AuthContext';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    let isMounted = true;
-
     getProfile()
       .then((user) => {
-        if (isMounted) {
-          dispatch(setUser(user));
-          setIsAuthenticated(true);
-        }
+        dispatch(setUser({
+          userId: user.userId,
+          email: user.email,
+          nickname: user.nickname,
+        }));
+        setIsAuthenticated(true);
       })
       .catch(() => {
-        if (isMounted) {
-          setIsAuthenticated(false);
-        }
+        setIsAuthenticated(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   const logout = () => {
@@ -38,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

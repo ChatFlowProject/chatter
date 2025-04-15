@@ -27,7 +27,7 @@ module.exports = {
       '@assets': path.resolve(process.cwd(), 'src/view/assets'),
       '@components': path.resolve(process.cwd(), 'src/view/components'),
       '@pages': path.resolve(process.cwd(), 'src/view/pages'),
-      '@service': path.resolve(process.cwd(), 'src/service'),
+      '@services': path.resolve(process.cwd(), 'src/service'),
       '@hooks': path.resolve(process.cwd(), 'src/lib/hooks'),
       '@constants': path.resolve(process.cwd(), 'src/lib/const'),
       '@styles': path.resolve(process.cwd(), 'src/view/styles'),
