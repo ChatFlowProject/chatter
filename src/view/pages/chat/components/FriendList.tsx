@@ -2,13 +2,20 @@ import { FriendData } from 'src/service/feature/friend/types/friend';
 import AddFriend from './AddFriend';
 import FriendCard from './FriendCard';
 import { useGetFriends } from 'src/service/feature/friend/hook/useFriendQuery';
+import { useState } from 'react';
 
 interface NavigationProps {
   activeButton: 'Online' | 'All' | 'Pending' | null;
 }
 
 export default function FriendList({ activeButton }: NavigationProps) {
+  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+
   const { data, isLoading, error } = useGetFriends(activeButton);
+
+  const handleToggleMenu = (id: number) => {
+    setOpenMenuId((prev) => (prev === id ? null : id));
+  };
 
   const title =
     activeButton === 'Online'
@@ -68,7 +75,12 @@ export default function FriendList({ activeButton }: NavigationProps) {
           <div className='w-full'>
             {Array.isArray(data) &&
               data.map((user: FriendData, idx: number) => (
-                <FriendCard key={`friend-${idx}`} user={user} />
+                <FriendCard
+                  key={`friend-${idx}`}
+                  user={user}
+                  onToggle={() => handleToggleMenu(user.friendshipId)}
+                  isOpen={openMenuId === user.friendshipId}
+                />
               ))}
           </div>
         </div>

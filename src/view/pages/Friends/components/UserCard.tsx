@@ -6,12 +6,15 @@ import {
   useCancelFriend,
   useRefuseFriend,
 } from 'src/service/feature/friend/hook/useFriendQuery.ts';
+import MoreMenu from './MoreMenu.tsx';
 
 interface UserCardProps {
   status?: string;
   isActive: boolean;
   className?: string;
   friendshipId?: number;
+  onToggle?: () => void;
+  isOpen?: boolean;
   type?: 'sent' | 'received' | 'message';
   user:
     | FriendInfoData
@@ -30,6 +33,8 @@ const UserCard = ({
   className,
   type,
   friendshipId,
+  onToggle,
+  isOpen,
 }: UserCardProps) => {
   const navigation = useNavigate();
 
@@ -81,13 +86,15 @@ const UserCard = ({
         </div>
       </div>
       {type === 'message' && (
-        <button
-          className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
-          onClick={() => console.log('')}
-          type='button'
-        >
-          <Icon path='more' className='text-neutral-300' />
-        </button>
+        <MoreMenu onToggle={onToggle!} isOpen={isOpen!}>
+          <button
+            className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
+            onClick={() => console.log('')}
+            type='button'
+          >
+            <Icon path='more' className='text-neutral-300' />
+          </button>
+        </MoreMenu>
       )}
       {type === 'sent' && (
         <button
