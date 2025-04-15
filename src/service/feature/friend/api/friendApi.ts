@@ -61,6 +61,14 @@ export const deleteCancelFriend = async (friendshipId: number) => {
   return res.data.data;
 };
 
+// 친구 요청 수락
+export const patchAcceptFriend = async (friendshipId: number) => {
+  const res = await axiosInstance.patch(`/friendships/${friendshipId}`, {
+    withCredentials: true,
+  });
+  return res.data.data;
+};
+
 export default {
   getOnlineFriend,
   getAllFriend,
@@ -68,4 +76,5 @@ export default {
   getReceivedFriend,
   postAddFriend,
   deleteCancelFriend,
+  patchAcceptFriend,
 };

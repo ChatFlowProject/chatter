@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import Icon from '../../../components/common/Icon.tsx';
 import { FriendInfoData } from 'src/service/feature/friend/types/friend.ts';
-import { useCancelFriend } from 'src/service/feature/friend/hook/useFriendQuery.ts';
+import {
+  useAcceptFriend,
+  useCancelFriend,
+} from 'src/service/feature/friend/hook/useFriendQuery.ts';
 
 interface UserCardProps {
   status?: string;
@@ -37,6 +40,9 @@ const UserCard = ({
 
   // 친구 요청 취소
   const { mutate: cancleFriendMutate } = useCancelFriend();
+
+  // 친구 요청 수락
+  const { mutate: acceptFriendMutate } = useAcceptFriend();
 
   return (
     <div
@@ -93,7 +99,7 @@ const UserCard = ({
         <div className='flex mr-2 gap-2'>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-blue-500'
-            onClick={() => console.log('')}
+            onClick={() => acceptFriendMutate(friendshipId!)}
             type='button'
           >
             <Icon path='check' className='hover:text-blue-500' />

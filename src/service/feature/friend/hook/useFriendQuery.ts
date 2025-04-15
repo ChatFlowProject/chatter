@@ -5,6 +5,7 @@ import {
   getOnlineFriend,
   getReceivedFriend,
   getSentFriend,
+  patchAcceptFriend,
   postAddFriend,
 } from '../api/friendApi';
 import {
@@ -101,4 +102,24 @@ export const useCancelFriend = () => {
   });
 };
 
-export default { useGetFriends, useAddFriend };
+// 친구 요청 수락
+export const useAcceptFriend = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: patchAcceptFriend,
+    onSuccess: (data) => {
+      console.log('친구 요청 수락 완료', data);
+      queryClient.invalidateQueries({ queryKey: ['friends', 'received'] });
+    },
+    onError: () => {
+      console.log('친구 요청 수락 에러');
+    },
+  });
+};
+
+export default {
+  useGetFriends,
+  useAddFriend,
+  useCancelFriend,
+  useAcceptFriend,
+};
