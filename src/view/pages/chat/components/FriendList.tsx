@@ -13,10 +13,6 @@ export default function FriendList({ activeButton }: NavigationProps) {
 
   const { data, isLoading, error } = useGetFriends(activeButton);
 
-  const handleToggleMenu = (id: number) => {
-    setOpenMenuId((prev) => (prev === id ? null : id));
-  };
-
   const title =
     activeButton === 'Online'
       ? '온라인'
@@ -78,8 +74,8 @@ export default function FriendList({ activeButton }: NavigationProps) {
                 <FriendCard
                   key={`friend-${idx}`}
                   user={user}
-                  onToggle={() => handleToggleMenu(user.friendshipId)}
-                  isOpen={openMenuId === user.friendshipId}
+                  setOpenMenuId={setOpenMenuId}
+                  openMenuId={openMenuId}
                 />
               ))}
           </div>

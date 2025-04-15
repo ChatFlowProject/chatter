@@ -12,10 +12,10 @@ interface UserCardProps {
   status?: string;
   isActive: boolean;
   className?: string;
-  friendshipId?: number;
-  onToggle?: () => void;
-  isOpen?: boolean;
+  friendshipId: number;
   type?: 'sent' | 'received' | 'message';
+  openMenuId?: number | null;
+  setOpenMenuId?: React.Dispatch<React.SetStateAction<number | null>>;
   user:
     | FriendInfoData
     | {
@@ -33,8 +33,8 @@ const UserCard = ({
   className,
   type,
   friendshipId,
-  onToggle,
-  isOpen,
+  setOpenMenuId,
+  openMenuId,
 }: UserCardProps) => {
   const navigation = useNavigate();
 
@@ -86,7 +86,11 @@ const UserCard = ({
         </div>
       </div>
       {type === 'message' && (
-        <MoreMenu onToggle={onToggle!} isOpen={isOpen!}>
+        <MoreMenu
+          ownId={friendshipId}
+          openMenuId={openMenuId!}
+          setOpenMenuId={setOpenMenuId!}
+        >
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
             onClick={() => console.log('')}
@@ -99,7 +103,7 @@ const UserCard = ({
       {type === 'sent' && (
         <button
           className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
-          onClick={() => cancleFriendMutate(friendshipId!)}
+          onClick={() => cancleFriendMutate(friendshipId)}
           type='button'
         >
           <Icon path='close' className='text-neutral-300' />
@@ -110,14 +114,14 @@ const UserCard = ({
         <div className='flex mr-2 gap-2'>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-blue-500'
-            onClick={() => acceptFriendMutate(friendshipId!)}
+            onClick={() => acceptFriendMutate(friendshipId)}
             type='button'
           >
             <Icon path='check' className='hover:text-blue-500' />
           </button>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-red'
-            onClick={() => refuseFriendMutate(friendshipId!)}
+            onClick={() => refuseFriendMutate(friendshipId)}
             type='button'
           >
             <Icon path='close' className='hover:text-red' />
