@@ -1,9 +1,12 @@
-import { useState } from 'react';
-import Icon from '../../../../common/Icon.tsx';
-import UserCard from '../../../../../pages/Friends/components/UserCard.tsx';
+import Icon from '@components/common/Icon.tsx';
+import UserCard from '@pages/Friends/components/UserCard';
+// import UserCard from './UserCard.tsx';
+import { useParams } from 'react-router-dom';
 
 const DirectMessages = () => {
-  const [selectedUser, setSelectedUser] = useState<string | null>(null);
+  const params = useParams();
+
+  const userId = Number(params.channelId);
 
   const handlePlus = () => {
     console.log('plus 버튼 클릭');
@@ -11,8 +14,10 @@ const DirectMessages = () => {
 
   return (
     <div className='flex flex-col justify-center items-center gap-[9px]'>
-      <div className='flex justify-center items-end gap-[76px]'>
-        <p className='text-[13px]'>DIRECT MESSAGES</p>
+      <div className='flex justify-center items-center gap-[76px]'>
+        <p className='text-[13px] text-neutral-400 font-bold'>
+          DIRECT MESSAGES
+        </p>
         <button
           className='w-[11px] h-[11px]'
           onClick={handlePlus}
@@ -24,48 +29,49 @@ const DirectMessages = () => {
       <div className='flex flex-col items-start gap-[2px]'>
         {[
           {
-            profileImage: 'nelly',
-            isOnline: 'online',
+            avatarUrl: 'nelly',
+            state: 'online',
             name: 'Nelly',
-            status: 'Listening to ',
-            special: 'Spotify',
+            id: 1,
           },
-          { profileImage: 'peppe', isOnline: 'idle', name: 'Peppe' },
           {
-            profileImage: 'phibi',
-            isOnline: 'dnd',
+            avatarUrl: 'peppe',
+            state: 'idle',
+            name: 'Peppe',
+            id: 6,
+          },
+          {
+            avatarUrl: 'phibi',
+            state: 'dnd',
             name: 'Phibi',
-            status: 'Playing ',
-            special: 'GTA',
+            id: 2,
           },
-          { profileImage: 'cap', isOnline: 'offline', name: 'Cap' },
           {
-            profileImage: 'wumpus',
-            isOnline: 'streaming',
+            avatarUrl: 'cap',
+            state: 'offline',
+            name: 'Cap',
+            id: 7,
+          },
+          {
+            avatarUrl: 'wumpus',
+            state: 'streaming',
             name: 'Wumpus',
-            status: 'Streaming ',
-            special: 'Minecraft',
+            id: 3,
           },
           {
-            profileImage: 'locke',
-            isOnline: 'phone',
+            avatarUrl: 'locke',
+            state: 'phone',
             name: 'Locke',
-            status: `I'm on a hike trip today!`,
+            id: 4,
           },
           {
-            profileImage: 'clyde',
-            isOnline: 'online',
+            avatarUrl: 'clyde',
+            state: 'online',
             name: 'Clyde',
-            status: 'Playing ',
-            special: 'Among Us',
+            id: 5,
           },
         ].map((user) => (
-          <UserCard
-            key={user.name}
-            {...user}
-            isActive={selectedUser === user.name}
-            onClick={() => setSelectedUser(user.name)}
-          />
+          <UserCard key={user.name} user={user} isActive={userId == user.id} />
         ))}
       </div>
     </div>

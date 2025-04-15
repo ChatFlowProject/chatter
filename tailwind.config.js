@@ -59,6 +59,7 @@ export default {
         'off': '#8E9297',
         'des': '#DCDDDE',
         'primary': '#5865F2',
+        'primary-hover': 'rgb(70, 84, 192)',
         'panel': '#292b2f',
         'blurple': '#5865F2', // CMYK 80, 60, 0, 0
         'green': '#57F287', // CMYK 50, 0, 55, 0
