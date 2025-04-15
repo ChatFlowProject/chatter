@@ -6,6 +6,10 @@ import {
   getSentFriend,
   postAddFriend,
 } from '../api/friendApi';
+import {
+  ADD_FRIEND_MESSAGE,
+  ADD_FRIEND_RESULT_TYPE,
+} from '../constant/constant';
 
 export const useGetFriends = (status: 'Online' | 'All' | 'Pending' | null) => {
   // 모두 무조건 호출
@@ -59,11 +63,21 @@ export const useGetFriends = (status: 'Online' | 'All' | 'Pending' | null) => {
   return { data, isLoading, error };
 };
 
-export const useAddFriend = () => {
+export const useAddFriend = (
+  setResultMessage: React.Dispatch<
+    React.SetStateAction<{
+      type: string;
+      message: string;
+    } | null>
+  >,
+) => {
   return useMutation({
     mutationFn: postAddFriend,
     onSuccess: (data) => {
-      alert(data);
+      setResultMessage({
+        type: ADD_FRIEND_RESULT_TYPE[data],
+        message: ADD_FRIEND_MESSAGE[data],
+      });
     },
     onError: () => {},
   });
