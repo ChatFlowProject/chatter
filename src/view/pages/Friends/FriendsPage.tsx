@@ -1,5 +1,5 @@
 import Navigation from './components/Navigation';
-import FriendList from '@pages/chat/components/FriendList';
+import FriendList from '@pages/Friends/components/FriendList';
 import { useState } from 'react';
 
 export default function FriendsPage() {
