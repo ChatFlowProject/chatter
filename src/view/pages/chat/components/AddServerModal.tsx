@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
-import axios from 'axios';
 
 import Modal from '@components/common/Modal';
 import ChatServer from '../../../../service/feature/team/ChatServer.tsx';
+import axiosInstance from 'src/service/feature/common/axios/axiosInstance.ts';
 
 export default function AddServerModal() {
   const [preview, setPreview] = useState<string | null>(null);
@@ -23,17 +23,30 @@ export default function AddServerModal() {
     }
 
     try {
+      // 이미지가 있는 경우, 먼저 업로드
+      let iconUrl = '';
       const formData = new FormData();
-      formData.append('name', name);
+
       if (fileRef.current) {
-        formData.append('icon', fileRef.current);
+        formData.append('file', fileRef.current);
+
+        const res = await axiosInstance.post('/images', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        iconUrl = res.data.message;
       }
 
-      const response = await axios.post('/api/servers', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      // 서버 생성 요청
+      const response = await axiosInstance.post(
+        '/teams',
+        {
+          name,
+          iconUrl,
         },
-      });
+        { withCredentials: true },
+      );
 
       console.log('서버 생성 성공', response.data);
       // TODO: 성공 시 모달 닫거나 페이지 이동 등의 후속 처리
@@ -49,11 +62,14 @@ export default function AddServerModal() {
     if (file) {
       const url = URL.createObjectURL(file);
       setPreview(url);
+      fileRef.current = file;
     }
   };
+
   const handleClick = () => {
     inputRef.current?.click();
   };
+
   return (
     <Modal.Root>
       <Modal.Trigger>
