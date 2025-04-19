@@ -1,27 +1,29 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 import { ERROR_MESSAGES } from '../../../lib/const/toast/errorMessage.ts';
+import { getCookie } from '../../auth/lib/getCookie.ts';
 
-const API_BASE_URL = 'http://flowchat.shop:30002';
+const baseDomain = 'http://flowchat.shop';
+const memberPort = '30002';
 
 const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
-
+  baseURL: `${baseDomain}:${memberPort}`,
   headers: {
     'Content-Type': 'application/json',
   },
   withCredentials: true,
 });
 
+
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('accessToken');
+    const token = getCookie('accessToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => Promise.reject(error),
+  (error) => Promise.reject(error)
 );
 
 axiosInstance.interceptors.response.use(
@@ -53,7 +55,7 @@ axiosInstance.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export default axiosInstance;

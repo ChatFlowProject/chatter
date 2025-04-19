@@ -6,19 +6,15 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  accessToken: string;
-  user: {
-    id: number;
-    email: string;
-    nickname: string;
-  };
+  id: string;
+  name: string;
+  type: 'MEMBER' | 'ADMIN' | string;
+  token: string;
 }
 
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
-  const response = await axiosInstance.post('/sign-in', data, {
-    withCredentials: true,
-  });
-  return response.data;
+  const response = await axiosInstance.post('/sign-in', data);
+  return response.data.data;
 };
 
 export interface RegisterRequest {
@@ -47,8 +43,7 @@ export interface ProfileResponse {
 }
 
 export const getProfile = async (): Promise<ProfileResponse> => {
-  const response = await axiosInstance.get('/me', {
-    withCredentials: true,
+  const response = await axiosInstance.get('/members', {
   });
   return response.data;
 };

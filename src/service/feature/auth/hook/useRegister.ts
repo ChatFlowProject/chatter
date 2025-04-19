@@ -2,13 +2,13 @@ import { useMutation } from '@tanstack/react-query';
 import { register, RegisterRequest, RegisterResponse } from '../api/authAPI';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { registerSchema } from '../schema/authSchema.ts';
+import { registerSchema } from '../schema/authSchema';
 
-export const useRegister = (data: RegisterFormData) => {
+export const useRegister = () => {
   const navigate = useNavigate();
 
   return useMutation<RegisterResponse, Error, RegisterRequest>({
-    mutationFn: async (formValues: unknown) => {
+    mutationFn: async (formValues) => {
       const result = registerSchema.safeParse(formValues);
       if (!result.success) throw new Error('회원가입 양식이 올바르지 않습니다');
       return register(result.data);
