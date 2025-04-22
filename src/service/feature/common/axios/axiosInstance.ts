@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { ERROR_MESSAGES } from '../../../lib/const/toast/errorMessage.ts';
 
-const API_BASE_URL = 'http://flowchat.shop:30002';
+const API_BASE_URL = 'http://flowchat.shop:30003';
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,

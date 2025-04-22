@@ -3,10 +3,13 @@ import { useRef, useState } from 'react';
 import Modal from '@components/common/Modal';
 import ChatServer from '../../../../service/feature/team/ChatServer.tsx';
 import axiosInstance from 'src/service/feature/common/axios/axiosInstance.ts';
+import { useCreateTeam } from 'src/service/feature/team/hooks/useTeamSidebar.ts';
 
 export default function AddServerModal() {
   const [preview, setPreview] = useState<string | null>(null);
   const [name, setName] = useState<string>('누구님의 서버');
+
+  const { mutate } = useCreateTeam();
 
   console.log('서버 추가 보이냐');
 
@@ -37,18 +40,8 @@ export default function AddServerModal() {
         });
         iconUrl = res.data.message;
       }
+      mutate({ name, iconUrl });
 
-      // 서버 생성 요청
-      const response = await axiosInstance.post(
-        '/teams',
-        {
-          name,
-          iconUrl,
-        },
-        { withCredentials: true },
-      );
-
-      console.log('서버 생성 성공', response.data);
       // TODO: 성공 시 모달 닫거나 페이지 이동 등의 후속 처리
     } catch (error) {
       console.error('서버 생성 실패', error);
@@ -73,11 +66,7 @@ export default function AddServerModal() {
   return (
     <Modal.Root>
       <Modal.Trigger>
-        <ChatServer
-          isActive={false}
-          onClick={handleClickAddServer}
-          title={'추가'}
-        />
+        <ChatServer isActive={false} onClick={handleClickAddServer} isAdd />
       </Modal.Trigger>
       <Modal.Portal>
         <Modal.Overlay />

@@ -1,10 +1,14 @@
+import { Team } from './types/team';
+
 interface ChatServerProps {
-  title: string;
+  server?: Team;
   isActive: boolean;
   onClick: () => void;
+  isAdd?: boolean;
 }
 export default function ChatServer({
-  title,
+  isAdd,
+  server,
   isActive,
   onClick,
 }: ChatServerProps) {
@@ -15,7 +19,16 @@ export default function ChatServer({
       onClick={onClick}
       type='button'
     >
-      <div className='text-center text-lg'>{title}</div>
+      {isAdd ? (
+        <div className='text-center text-lg'>추가</div>
+      ) : (
+        !server && <div className='text-center text-lg'>me</div>
+      )}
+      {server?.iconUrl ? (
+        <img src={server.iconUrl} alt={server.name} />
+      ) : (
+        <div className='text-center text-lg'>{server?.name}</div>
+      )}
     </button>
   );
 }
