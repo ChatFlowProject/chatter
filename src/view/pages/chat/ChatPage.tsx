@@ -42,42 +42,6 @@ export default function ChatPage() {
 
   return (
     <div className='flex w-full h-screen'>
-      <div className='wrapper flex'>
-        {/* 자기 채널 */}
-        <ChatServer
-          isActive={channelId === '@me'}
-          onClick={() => handleChannel({ id: 0, title: 'me' })}
-          title={'me'}
-        />
-        <div className='border w-[48px] h-[1px] border-[#42454A]' />
-
-        {servers.map((server) => (
-          <ChatServer
-            isActive={channelId === String(server.id)}
-            key={server.id}
-            onClick={() => handleChannel(server)}
-            title={server.title}
-          />
-        ))}
-        {/* 서버 추가하기 */}
-        <AddServerModal />
-      </div>
-      {/* 채널 사이드바 */}
-      <div className='sidebar relative flex flex-col w-[303px]'>
-        {/* <div className='smoff'>채팅채널</div>
-        {channels.map((channel) => (
-          <ChatChannel
-            isActive={activeChannel === channel.id}
-            key={channel.id}
-            onClick={() => setActiveChannel(channel.id)}
-            title={channel.title}
-          />
-        ))}
-        <div className='bottom-0 absolute h-[52px] bg-panel font-regular text-white text-base '>
-          user
-        </div> */}
-        <DirectBar />
-      </div>
       <div className='chat flex-1'>
         <Friend />
         {/* <Navigation /> */}

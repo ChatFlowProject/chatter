@@ -16,7 +16,7 @@ const LoginPanel = () => {
       <p className='text-[13.6px] text-left text-[#949aa3] mt-2'>
         계정이 필요하신가요?{' '}
         <Link className='text-[#00a9fb] hover:underline' to='/signup'>
-          가입하기
+          가입하기pn
         </Link>
       </p>
     </div>
