@@ -29,7 +29,7 @@
       "@assets/*": ["src/view/assets/*"],
       "@components/*": ["src/view/components/*"],
       "@pages/*": ["src/view/pages/*"],
-      "@services/*": ["src/services*"],
+      "@service/*": ["src/service/*"],
     }
   },
   "include": ["src"]
