@@ -14,7 +14,7 @@ const LayoutWithSidebar = () => {
       <aside className='w-[72px] bg-gray-800 text-white'>
         <TeamSidebar />
       </aside>
-      <aside className='w-[240px] bg-gray-700 text-white flex flex-col'>
+      <aside className='w-[240px] bg-gray-700 text-white flex flex-col justify-between'>
         {isDMView ? <DirectChannelSidebar /> : <ServerChannelSidebar />}
         <UserProfileBar />
       </aside>

@@ -16,7 +16,6 @@ export default function AddServerModal() {
   const handleClickAddServer = () => {};
 
   const handleSubmit = async () => {
-    // 백엔드에서 multipart/form-data를 받을 수 있어야 해.
     if (!name.trim()) {
       alert('서버 이름을 입력해주세요.');
       return;
@@ -29,7 +28,7 @@ export default function AddServerModal() {
         formData.append('icon', fileRef.current);
       }
 
-      const response = await axios.post('/api/servers', formData, {
+      const response = await axios.post('http://flowchat.shop:30003/teams', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

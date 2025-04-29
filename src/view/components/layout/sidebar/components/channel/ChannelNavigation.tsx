@@ -1,4 +1,4 @@
-import NavigationCard from '@components/layout/sidebar/channel/components/NavigationCard.tsx';
+import NavigationCard from '@components/layout/sidebar/components/channel/NavigationCard.tsx';
 
 const ChannelNavigation = () => {
   const menus = [
