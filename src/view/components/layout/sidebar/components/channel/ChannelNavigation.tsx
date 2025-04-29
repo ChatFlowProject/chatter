@@ -1,10 +1,8 @@
-import NavigationCard from '@components/layout/sidebar/channel/components/NavigationCard.tsx';
+import NavigationCard from './NavigationCard';
 
 const ChannelNavigation = () => {
   const menus = [
-    { name: 'Friends', path: '/channels/@me' },
-    { name: 'Explore', path: '/channels/explore' },
-    { name: 'Nitro', path: '/channels/nitro' },
+    { name: 'Friends', path: '/channels/@me', iconPath: 'friends' },
   ];
 
   return (
@@ -14,7 +12,7 @@ const ChannelNavigation = () => {
           key={menu.name}
           path={menu.path}
           route={''}
-          iconPath={''}
+          iconPath={menu.iconPath}
         >
           {menu.name}
         </NavigationCard>
