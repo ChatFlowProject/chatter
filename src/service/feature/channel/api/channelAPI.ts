@@ -3,7 +3,7 @@ import { createAxiosInstance } from '@service/feature/common/axios/axiosInstance
 const axios = createAxiosInstance('team');
 
 export const getChannelList = async (teamId: string) => {
-  const res = await axios.get(`/team/${teamId}/channels`);
+  const res = await axios.get(`/teams/${teamId}/channels`);
   return res.data;
 };
 
