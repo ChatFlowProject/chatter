@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 import Modal from '@components/common/Modal';
-import ChatServer from '../../../../service/feature/team/ChatServer.tsx';
+import ChatServer from '../../../components/layout/sidebar/components/team/ChatServer.tsx';
 import axiosInstance from 'src/service/feature/common/axios/axiosInstance.ts';
 import { useCreateTeam } from 'src/service/feature/team/hooks/useTeamSidebar.ts';
 

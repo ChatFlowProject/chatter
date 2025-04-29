@@ -1,11 +1,9 @@
 interface IconProps {
   path: string;
   className?: string;
-  width?: number;
-  height?: number;
 }
 
-const Icon = ({ path, className, width, height }: IconProps) => {
+const Icon = ({ path, className }: IconProps) => {
   return (
     <div
       className={`w-full h-full flex items-center justify-center ${className}`}
@@ -14,8 +12,6 @@ const Icon = ({ path, className, width, height }: IconProps) => {
         alt={`${path} icon`}
         className='w-full h-full object-contain'
         src={`/assets/img/${path}.svg`}
-        width={width}
-        height={height}
       />
     </div>
   );

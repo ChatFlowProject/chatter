@@ -1,18 +1,15 @@
 import AddServerModal from '@pages/chat/components/AddServerModal';
 import { useNavigate, useParams } from 'react-router-dom';
-import ChatServer from 'src/service/feature/team/ChatServer';
+import ChatServer from '@components/layout/sidebar/components/team/ChatServer';
 import { useGetTeam } from 'src/service/feature/team/hooks/useTeamSidebar';
 
-// 대충 넣은 것
 const TeamSidebar = () => {
   const params = useParams();
   const channelId = params.serverId;
   const navigate = useNavigate();
 
   // 팀 목록 불러오기
-  const { data: servers, isLoading } = useGetTeam();
-
-  if (isLoading) return <div>로딩중....</div>;
+  const { data: servers } = useGetTeam();
 
   const handleChannel = (id: string) => {
     if (id === '') {
@@ -21,6 +18,7 @@ const TeamSidebar = () => {
       navigate(`/channels/${id}`);
     }
   };
+
   return (
     <div className='wrapper flex'>
       {/* 자기 채널 */}

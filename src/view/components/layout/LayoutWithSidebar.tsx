@@ -1,11 +1,10 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import UserProfileBar from '@components/layout/UserProfileBar.tsx';
-import TeamSidebar from '@components/layout/sidebar/TeamSidebar.tsx';
+import TeamSidebar from '@components/layout/sidebar/team/TeamSidebar.tsx';
 import DirectChannelSidebar from './sidebar/channel/DirectChannelSidebar.tsx';
 import ServerChannelSidebar from './sidebar/channel/ServerChannelSidebar.tsx';
 
 const LayoutWithSidebar = () => {
-
   const location = useLocation();
   const isDMView = location.pathname.startsWith('/channels/@me');
 

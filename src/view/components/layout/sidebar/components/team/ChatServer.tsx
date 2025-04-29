@@ -1,4 +1,5 @@
-import { Team } from './types/team';
+import Icon from '@components/common/Icon';
+import { Team } from '../../../../../../service/feature/team/types/team';
 
 interface ChatServerProps {
   server?: Team;
@@ -20,7 +21,7 @@ export default function ChatServer({
       type='button'
     >
       {isAdd ? (
-        <div className='text-center text-lg'>추가</div>
+        <Icon path='plus' className='!w-5 !h-5' />
       ) : (
         !server && <div className='text-center text-lg'>me</div>
       )}
