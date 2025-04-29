@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { register, RegisterRequest, RegisterResponse } from '../api/authAPI';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { registerSchema } from '../schema/authSchema';
+import { RegisterRequest, RegisterResponse } from '@service/feature/auth/types/auth.ts';
+import { register } from '@service/feature/auth';
 
 export const useRegister = () => {
   const navigate = useNavigate();

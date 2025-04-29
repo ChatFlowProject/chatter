@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import ChannelCategory from './ChannelCategory.tsx';
 import { useChannelListQuery } from '@service/feature/channel/hook/query/useChannelQuery.ts';
+import { Channel } from '@service/feature/channel/types/channel.ts';
 
 const ServerChannelList = () => {
   const { serverId } = useParams<{ serverId: string }>();
@@ -11,21 +12,21 @@ const ServerChannelList = () => {
 
   const categories =
     channels?.reduce(
-      (acc: { [x: string]: any[] }, channel: { category: string | number }) => {
+      (acc: Record<string, Channel[]>, channel: Channel) => {
         if (!acc[channel.category]) acc[channel.category] = [];
         acc[channel.category].push(channel);
         return acc;
       },
-      {} as Record<string, typeof channels>,
+      {},
     ) ?? {};
 
   return (
-    <div className="flex flex-col w-full gap-2 mt-2">
+    <div className='flex flex-col w-full gap-2 mt-2'>
       {Object.entries(categories).map(([categoryName, categoryChannels]) => (
         <ChannelCategory
           key={categoryName}
           title={categoryName}
-          type="text"
+          type='text'
           defaultItems={categoryChannels}
         />
       ))}

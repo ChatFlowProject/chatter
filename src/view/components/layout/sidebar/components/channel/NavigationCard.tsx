@@ -1,33 +1,33 @@
 import { PropsWithChildren } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
-import Icon from '@components/common/Icon.tsx';
+import { Users } from 'lucide-react';
 
 interface NavigationCardProps {
-  route: string;
-  iconPath: string;
-  isActive?: boolean;
   path: string;
-  onClick?: () => void;
 }
 
-const NavigationCard = ({ route, iconPath, isActive = false, onClick, children,
-                        }: PropsWithChildren<NavigationCardProps>) => {
+const NavigationCard = ({ path, children }: PropsWithChildren<NavigationCardProps>) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isActive = location.pathname === path;
 
   const handleClick = () => {
-    if (onClick) onClick();
-    navigate(route);
+    navigate(path);
   };
 
   return (
-    <div className={clsx(
+    <div
+      className={clsx(
         'flex w-full py-[10px] pl-[13px] justify-start items-center gap-[17px] cursor-pointer rounded-[5px] hover:bg-[#393C43]',
-        isActive && 'bg-[#393C43]')} onClick={handleClick}>
-      <div className='h-[22px] w-[22px]'>
-        <Icon path={iconPath} />
+        isActive && 'bg-[#393C43]'
+      )}
+      onClick={handleClick}
+    >
+      <div className="h-[22px] w-[22px] text-white">
+        <Users size={22} />
       </div>
-      <p className='text-white text-lg'>{children}</p>
+      <p className="text-white text-lg">{children}</p>
     </div>
   );
 };

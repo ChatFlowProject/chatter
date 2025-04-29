@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import Icon from '../../../components/common/Icon.tsx';
 import { FriendInfoData } from 'src/service/feature/friend/types/friend.ts';
+import Icon from '@components/common/Icon.tsx';
 
 interface UserCardProps {
   status?: string;

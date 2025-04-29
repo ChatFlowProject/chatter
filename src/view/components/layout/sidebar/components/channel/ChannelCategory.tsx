@@ -7,12 +7,7 @@ import {
 } from '@dnd-kit/sortable';
 import { ChevronDown, ChevronRight, Plus } from 'lucide-react';
 import ChannelItem from './ChannelItem.tsx';
-
-interface Channel {
-  id: string;
-  name: string;
-  type?: 'text' | 'voice' | 'event';
-}
+import { Channel } from '@service/feature/channel/types/channel.ts';
 
 const ChannelCategory = ({
                            title,
