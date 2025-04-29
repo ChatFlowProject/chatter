@@ -1,14 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../service/feature/auth/store/authSlice';
-import chatReducer from '../service/feature/chat/store/chatSlice';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { authReducer } from '../service/feature/auth/store/authSlice.ts';
+
+const persistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['user', 'isAuthenticated'],
+};
+
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
-    chat: chatReducer,
-    // TODO 추가 리듀서
+    auth: persistedAuthReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
+
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

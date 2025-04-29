@@ -22,17 +22,25 @@ export const useLogin = () => {
       return login(result.data);
     },
     onSuccess: (data) => {
-      const user = {
-        userId: data.user.id.toString(),
-        email: data.user.email,
-        nickname: data.user.nickname,
-      };
-      dispatch(setUser(user));
+      if (!data.id || !data.token) {
+        toast.error('로그인에 성공했지만 사용자 정보가 올바르지 않습니다.');
+        return;
+      }
+
+      document.cookie = `accessToken=${data.token}; path=/; secure;`;
+
+      dispatch(setUser({
+        userId: data.id,
+        nickname: data.name,
+        email: '',
+      }));
+
       toast.success('로그인 성공!');
       navigate('/channels/intro');
     },
     onError: (error: any) => {
-      toast.error(error.message || '로그인 실패');
-    },
+      const message = error?.response?.data?.message || '회원가입에 실패했습니다.';
+      toast.error(message);
+    }
   });
 };

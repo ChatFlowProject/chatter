@@ -28,7 +28,8 @@
       "@utils/*": ["src/lib/utils/*"],
       "@assets/*": ["src/view/assets/*"],
       "@components/*": ["src/view/components/*"],
-      "@pages/*": ["src/view/pages/*"]
+      "@pages/*": ["src/view/pages/*"],
+      "@service/*": ["src/service/*"],
     }
   },
   "include": ["src"]
