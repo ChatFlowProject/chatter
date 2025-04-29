@@ -1,7 +1,9 @@
 import NavigationCard from './NavigationCard';
 
 const ChannelNavigation = () => {
-  const menus = [{ name: 'Friends', path: '/channels/@me' }];
+  const menus = [
+    { name: 'Friends', path: '/channels/@me', iconPath: 'friends' },
+  ];
 
   return (
     <div className='flex flex-col w-full items-start gap-[2px]'>
@@ -10,7 +12,7 @@ const ChannelNavigation = () => {
           key={menu.name}
           path={menu.path}
           route={''}
-          iconPath={''}
+          iconPath={menu.iconPath}
         >
           {menu.name}
         </NavigationCard>
