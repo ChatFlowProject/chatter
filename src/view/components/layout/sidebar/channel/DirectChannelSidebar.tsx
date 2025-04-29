@@ -1,6 +1,6 @@
-import ChannelNavigation from '@components/layout/sidebar/channel/components/ChannelNavigation.tsx';
-import DirectMessages from '@components/layout/sidebar/component/right/DirectMessages.tsx';
-import { SidebarLayout } from './components/SidebarLayout.tsx';
+import ChannelNavigation from '@components/layout/sidebar/components/channel/ChannelNavigation.tsx';
+import DirectMessages from '@components/layout/sidebar/components/channel/DirectMessages.tsx';
+import { SidebarLayout } from '@components/layout/sidebar/components/channel/SidebarLayout.tsx';
 
 const DirectChannelSidebar = () => {
   return (

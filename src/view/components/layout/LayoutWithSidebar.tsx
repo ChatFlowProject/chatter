@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import UserProfileBar from '@components/layout/sidebar/UserProfileBar.tsx';
+import UserProfileBar from '@components/layout/UserProfileBar.tsx';
 import TeamSidebar from '@components/layout/sidebar/TeamSidebar.tsx';
 import DirectChannelSidebar from './sidebar/channel/DirectChannelSidebar.tsx';
 import ServerChannelSidebar from './sidebar/channel/ServerChannelSidebar.tsx';
