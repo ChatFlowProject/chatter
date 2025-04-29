@@ -1,8 +1,9 @@
-import axiosInstance from '../../common/axios/axiosInstance';
 import { FriendData } from '../types/friend';
+import createAxiosInstance from '@service/feature/common/axios/axiosInstance.ts';
 
+const axios = createAxiosInstance('member');
 export const getOnlineFriend = async (): Promise<FriendData[]> => {
-  const res = await axiosInstance.get('/friendships/online', {
+  const res = await axios.get('/friendships/online', {
     withCredentials: true,
   });
 
@@ -10,7 +11,7 @@ export const getOnlineFriend = async (): Promise<FriendData[]> => {
 };
 
 export const getAllFriend = async (): Promise<FriendData[]> => {
-  const res = await axiosInstance.get('/friendships', {
+  const res = await axios.get('/friendships', {
     withCredentials: true,
   });
 
@@ -18,7 +19,7 @@ export const getAllFriend = async (): Promise<FriendData[]> => {
 };
 
 export const getReceivedFriend = async (): Promise<FriendData[]> => {
-  const res = await axiosInstance.get('/friendships/received', {
+  const res = await axios.get('/friendships/received', {
     withCredentials: true,
   });
 
@@ -26,7 +27,7 @@ export const getReceivedFriend = async (): Promise<FriendData[]> => {
 };
 
 export const getSentFriend = async (): Promise<FriendData[]> => {
-  const res = await axiosInstance.get('/friendships/sent', {
+  const res = await axios.get('/friendships/sent', {
     withCredentials: true,
   });
 
@@ -41,7 +42,7 @@ export const postAddFriend = async (
   | 'REQUEST_SUCCESS'
   | 'FRIENDSHIP_ESTABLISHED'
 > => {
-  const res = await axiosInstance.post(
+  const res = await axios.post(
     '/friendships',
     {
       friendNickname: nickName,
@@ -54,7 +55,7 @@ export const postAddFriend = async (
 
 // 친구 요청 취소
 export const deleteCancelFriend = async (friendshipId: number) => {
-  const res = await axiosInstance.delete(
+  const res = await axios.delete(
     `/friendships/${friendshipId}/cancel`,
     { withCredentials: true },
   );
@@ -63,7 +64,7 @@ export const deleteCancelFriend = async (friendshipId: number) => {
 
 // 친구 요청 수락
 export const patchAcceptFriend = async (friendshipId: number) => {
-  const res = await axiosInstance.patch(`/friendships/${friendshipId}`, {
+  const res = await axios.patch(`/friendships/${friendshipId}`, {
     withCredentials: true,
   });
   return res.data.data;
@@ -71,7 +72,7 @@ export const patchAcceptFriend = async (friendshipId: number) => {
 
 // 친구 요청 거절
 export const deleteRefuseFriend = async (friendshipId: number) => {
-  const res = await axiosInstance.delete(
+  const res = await axios.delete(
     `/friendships/${friendshipId}/refuse`,
     {
       withCredentials: true,
@@ -82,7 +83,7 @@ export const deleteRefuseFriend = async (friendshipId: number) => {
 
 // 친구 삭제
 export const deleteRemoveFriend = async (friendshipId: number) => {
-  const res = await axiosInstance.delete(`/friendships/${friendshipId}`, {
+  const res = await axios.delete(`/friendships/${friendshipId}`, {
     withCredentials: true,
   });
   return res.data.data;
