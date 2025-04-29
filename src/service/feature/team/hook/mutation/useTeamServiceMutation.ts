@@ -29,7 +29,7 @@ export const useTeamServiceMutation = () => {
     }
 
     try {
-      const result = await createTeam(name, file ?? undefined);
+      const result = await createTeam({ name, file: file ?? undefined });
       toast.success('서버 생성 성공!');
       return result;
     } catch (e) {
