@@ -1,16 +1,18 @@
-import axiosInstance from "../../common/axios/axiosInstance";
+import { createAxiosInstance } from '../../common/axios/axiosInstance';
+
+const axios = createAxiosInstance('team');
 
 export const fetchChannels = async () => {
-  const res = await axiosInstance.get('/channels');
+  const res = await axios.get('/channels');
   return res.data;
 };
 
 export const fetchMessages = async (channelId: string) => {
-  const res = await axiosInstance.get(`/channels/${channelId}/messages`);
+  const res = await axios.get(`/channels/${channelId}/messages`);
   return res.data;
 };
 
 export const deleteMessage = async (messageId: string) => {
-  const res = await axiosInstance.delete(`/messages/${messageId}`);
+  const res = await axios.delete(`/messages/${messageId}`);
   return res.data;
 };

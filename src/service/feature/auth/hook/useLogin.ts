@@ -27,7 +27,7 @@ export const useLogin = () => {
         return;
       }
 
-      document.cookie = `accessToken=${data.token}; path=/; secure;`;
+      document.cookie = `accessToken=${data.token}; path=/;`;
 
       dispatch(setUser({
         userId: data.id,
