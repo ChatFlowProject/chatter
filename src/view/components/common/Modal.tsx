@@ -195,7 +195,6 @@ Modal.LongText = ({ label }: { label?: string }) => {
 };
 
 Modal.Profile = ({
-  profile,
   name,
   message,
   date,

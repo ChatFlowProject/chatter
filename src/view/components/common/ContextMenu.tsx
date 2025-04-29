@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
-import RightArrow from '../../assets/right-arrow.svg'
+import { ArrowRight } from 'lucide-react';
 
 function Item({
   name,
@@ -24,7 +24,7 @@ function Item({
       </div>
       {isDropdown && (
         <div>
-          <img src={RightArrow} alt='dropdown btn' />
+          <ArrowRight />
         </div>
       )}
       {children}

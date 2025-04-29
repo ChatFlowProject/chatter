@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { useNavigate } from 'react-router-dom';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import Icon from '@components/common/Icon.tsx';
 
 interface NavigationCardProps {

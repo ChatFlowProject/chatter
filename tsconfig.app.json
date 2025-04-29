@@ -29,8 +29,9 @@
       "@assets/*": ["src/view/assets/*"],
       "@components/*": ["src/view/components/*"],
       "@pages/*": ["src/view/pages/*"],
-      "@service/*": ["src/service/*"],
-    }
+      "@service/*": ["src/service/*"]
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"]
 }

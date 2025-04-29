@@ -1,5 +1,5 @@
 export { useChat } from './hook/useChat';
-export { useChannelList } from '../channel/hook/useChannelList.ts';
+export { useChannelListQuery } from '../channel/hook/query/useChannelQuery.ts';
 export { useMessageHistory } from './hook/useMessageHistory';
 export { useSendMessage } from './hook/useSendMessage';
 export { useSocket } from './context/useSocket';

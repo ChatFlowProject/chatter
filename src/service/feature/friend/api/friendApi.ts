@@ -1,8 +1,9 @@
-import axiosInstance from '../../common/axios/axiosInstance';
 import { FriendData } from '../types/friend';
+import createAxiosInstance from '@service/feature/common/axios/axiosInstance.ts';
 
+const axios = createAxiosInstance('member');
 export const getOnlineFriend = async (): Promise<FriendData[]> => {
-  const res = await axiosInstance.get('/friendships/online', {
+  const res = await axios.get('/friendships/online', {
     withCredentials: true,
   });
 
@@ -10,7 +11,7 @@ export const getOnlineFriend = async (): Promise<FriendData[]> => {
 };
 
 export const getAllFriend = async (): Promise<FriendData[]> => {
-  const res = await axiosInstance.get('/friendships', {
+  const res = await axios.get('/friendships', {
     withCredentials: true,
   });
 
@@ -18,7 +19,7 @@ export const getAllFriend = async (): Promise<FriendData[]> => {
 };
 
 export const getReceivedFriend = async (): Promise<FriendData[]> => {
-  const res = await axiosInstance.get('/friendships/received', {
+  const res = await axios.get('/friendships/received', {
     withCredentials: true,
   });
 
@@ -26,7 +27,7 @@ export const getReceivedFriend = async (): Promise<FriendData[]> => {
 };
 
 export const getSentFriend = async (): Promise<FriendData[]> => {
-  const res = await axiosInstance.get('/friendships/sent', {
+  const res = await axios.get('/friendships/sent', {
     withCredentials: true,
   });
 
@@ -36,7 +37,7 @@ export const getSentFriend = async (): Promise<FriendData[]> => {
 export const postAddFriend = async (
   nickName: string,
 ): Promise<'INVALID_REQUEST / ALREADY_FRIENDS / REQUEST_SUCCESS / FRIENDSHIP_ESTABLISHED'> => {
-  const res = await axiosInstance.post(
+  const res = await axios.post(
     '/friendships',
     {
       friendNickname: nickName,
