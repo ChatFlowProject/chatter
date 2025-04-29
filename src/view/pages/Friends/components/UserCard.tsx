@@ -1,19 +1,28 @@
 import { useNavigate } from 'react-router-dom';
 import { FriendInfoData } from 'src/service/feature/friend/types/friend.ts';
 import Icon from '@components/common/Icon.tsx';
+import {
+  useAcceptFriend,
+  useCancelFriend,
+  useRefuseFriend,
+} from 'src/service/feature/friend/hook/useFriendQuery.ts';
+import MoreMenu from './MoreMenu.tsx';
 
 interface UserCardProps {
   status?: string;
   isActive: boolean;
   className?: string;
-  isMessage?: boolean;
+  friendshipId: number;
+  type?: 'sent' | 'received' | 'message';
+  openMenuId?: number | null;
+  setOpenMenuId?: React.Dispatch<React.SetStateAction<number | null>>;
   user:
     | FriendInfoData
     | {
         avatarUrl: string;
         state: string;
         name: string;
-        id: number;
+        id: string;
       };
 }
 
@@ -22,7 +31,10 @@ const UserCard = ({
   status,
   isActive,
   className,
-  isMessage,
+  type,
+  friendshipId,
+  setOpenMenuId,
+  openMenuId,
 }: UserCardProps) => {
   const navigation = useNavigate();
 
@@ -31,13 +43,23 @@ const UserCard = ({
   const handleClick = () => {
     navigation(`/channels/@me/${id}`);
   };
+
+  // 친구 요청 취소
+  const { mutate: cancleFriendMutate } = useCancelFriend();
+
+  // 친구 요청 수락
+  const { mutate: acceptFriendMutate } = useAcceptFriend();
+
+  // 친구 요청 거절
+  const { mutate: refuseFriendMutate } = useRefuseFriend();
+
   return (
     <div
       className={`flex h-[42px] rounded-[8px] text-white cursor-pointer items-center ${
         isActive
           ? 'bg-[#393C43] text-white'
           : 'hover:bg-[#393C43] hover:text-white text-neutral-400'
-      } ${isMessage && 'w-full justify-between'} ${className}`}
+      } ${type && 'w-full justify-between'} ${className}`}
       onClick={handleClick}
     >
       <div className='flex'>
@@ -63,14 +85,48 @@ const UserCard = ({
           ) : null}
         </div>
       </div>
-      {isMessage && (
+      {type === 'message' && (
+        <MoreMenu
+          ownId={friendshipId}
+          openMenuId={openMenuId!}
+          setOpenMenuId={setOpenMenuId!}
+        >
+          <button
+            className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
+            onClick={() => console.log('')}
+            type='button'
+          >
+            <Icon path='more' className='text-neutral-300' />
+          </button>
+        </MoreMenu>
+      )}
+      {type === 'sent' && (
         <button
-          className='w-5 h-5'
-          onClick={() => console.log('')}
+          className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
+          onClick={() => cancleFriendMutate(friendshipId)}
           type='button'
         >
-          <Icon path='message' className='text-neutral-300' />
+          <Icon path='close' className='text-neutral-300' />
         </button>
+      )}
+
+      {type === 'received' && (
+        <div className='flex mr-2 gap-2'>
+          <button
+            className='w-7 h-7 bg-[#37393F] rounded-full hover:text-blue-500'
+            onClick={() => acceptFriendMutate(friendshipId)}
+            type='button'
+          >
+            <Icon path='check' className='hover:text-blue-500' />
+          </button>
+          <button
+            className='w-7 h-7 bg-[#37393F] rounded-full hover:text-red'
+            onClick={() => refuseFriendMutate(friendshipId)}
+            type='button'
+          >
+            <Icon path='close' className='hover:text-red' />
+          </button>
+        </div>
       )}
     </div>
   );
