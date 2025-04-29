@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import Modal from '@components/common/Modal';
-import ChatServer from '@service/feature/team/ChatServer.tsx';
-import { useCreateTeamMutation } from '@service/feature/team/hook/mutation/useCreateTeamMutation.ts';
-import { toast } from 'sonner';
+import ChatServer from '../../../components/layout/sidebar/components/team/ChatServer.tsx';
+import axiosInstance from 'src/service/feature/common/axios/axiosInstance.ts';
+import { useCreateTeam } from 'src/service/feature/team/hooks/useTeamSidebar.ts';
 
 export default function AddServerModal() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -10,32 +10,66 @@ export default function AddServerModal() {
   const [name, setName] = useState<string>('누구님의 서버');
   const [file, setFile] = useState<File | null>(null);
 
-  const createTeamMutation = useCreateTeamMutation();
+  const { mutate } = useCreateTeam();
 
-  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  console.log('서버 추가 보이냐');
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const fileRef = useRef<File | null>(null); // 이미지 실제 파일
+
+  const handleClickAddServer = () => {};
+
+  const handleSubmit = async () => {
+    // 백엔드에서 multipart/form-data를 받을 수 있어야 해.
+    if (!name.trim()) {
+      alert('서버 이름을 입력해주세요.');
+      return;
+    }
+
+    try {
+      // 이미지가 있는 경우, 먼저 업로드
+      let iconUrl = '';
+      const formData = new FormData();
+
+      if (fileRef.current) {
+        formData.append('file', fileRef.current);
+
+        const res = await axiosInstance.post('/images', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        iconUrl = res.data.message;
+      }
+      mutate({ name, iconUrl });
+
+      // TODO: 성공 시 모달 닫거나 페이지 이동 등의 후속 처리
+    } catch (error) {
+      console.error('서버 생성 실패', error);
+      alert('서버 생성에 실패했습니다.');
+    }
+  };
+
+  // 이미지 변경
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const createTeamMutation = useCreateTeamMutation();
     const file = e.target.files?.[0];
     if (file) {
       setFile(file);
       const url = URL.createObjectURL(file);
       setPreview(url);
+      fileRef.current = file;
     }
   };
 
-  const handleClickAddServer = () => {
+  const handleClick = () => {
     inputRef.current?.click();
-  };
-
-  const handleSubmit = () => {
-    if (!name.trim()) {
-      return toast.error('서버 이름을 입력해주세요.');
-    }
-    createTeamMutation.mutate({ name, file: file ?? undefined });
   };
 
   return (
     <Modal.Root>
       <Modal.Trigger>
-        <ChatServer isActive={false} onClick={handleClickAddServer} title="추가" />
+        <ChatServer isActive={false} onClick={handleClickAddServer} isAdd />
       </Modal.Trigger>
       <Modal.Portal>
         <Modal.Overlay />

@@ -22,7 +22,6 @@ interface ErrorResponse {
 
 const handleAxiosError = (error: AxiosError<ErrorResponse>) => {
   const { response } = error;
-
   if (!response) {
     toast.error('네트워크 오류 또는 서버 응답 없음');
     return Promise.reject(error);
