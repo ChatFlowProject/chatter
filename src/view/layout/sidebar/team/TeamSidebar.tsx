@@ -1,15 +1,14 @@
-import AddServerModal from '@pages/chat/components/AddServerModal';
+import AddTeamModal from '../components/team/AddTeamModal.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
-import ChatServer from '@components/layout/sidebar/components/team/ChatServer';
-import { useGetTeam } from 'src/service/feature/team/hooks/useTeamSidebar';
+import { useTeamListQuery } from '@service/feature/team/hook/query/useTeamServiceQuery.ts';
+import ChatServer from '../components/team/ChatServer.tsx';
 
 const TeamSidebar = () => {
   const params = useParams();
   const channelId = params.serverId;
   const navigate = useNavigate();
 
-  // 팀 목록 불러오기
-  const { data: servers } = useGetTeam();
+  const { data: servers } = useTeamListQuery()
 
   const handleChannel = (id: string) => {
     if (id === '') {
@@ -37,7 +36,7 @@ const TeamSidebar = () => {
         />
       ))}
       {/* 서버 추가하기 */}
-      <AddServerModal />
+      <AddTeamModal />
     </div>
   );
 };

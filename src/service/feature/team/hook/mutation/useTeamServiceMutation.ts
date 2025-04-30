@@ -10,14 +10,14 @@ import {
 
 export const useTeamServiceMutation = () => {
   const [preview, setPreview] = useState<string | null>(null);
-  const [name, setName] = useState<string>('누구님의 서버');
-  const [file, setFile] = useState<File | null>(null);
+  const [name, setName] = useState<string>('Chat Flow 서버');
+  const [iconUrl, setIconUrl] = useState<string | null>(null);
 
-  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFile(file);
-      const url = URL.createObjectURL(file);
+  const handleChangeIconUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const iconUrl = e.target.files?.[0];
+    if (iconUrl) {
+      setIconUrl(iconUrl);
+      const url = URL.createObjectURL(iconUrl);
       setPreview(url);
     }
   };
@@ -29,7 +29,7 @@ export const useTeamServiceMutation = () => {
     }
 
     try {
-      const result = await createTeam({ name, file: file ?? undefined });
+      const result = await createTeam({ name, iconUrl: iconUrl ?? undefined });
       toast.success('서버 생성 성공!');
       return result;
     } catch (e) {
@@ -72,7 +72,7 @@ export const useTeamServiceMutation = () => {
     preview,
     name,
     setName,
-    handleChangeFile,
+    handleChangeIconUrl,
     handleCreate,
     fetchTeams,
     fetchTeamById,

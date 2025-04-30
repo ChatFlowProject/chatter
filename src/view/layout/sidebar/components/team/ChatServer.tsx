@@ -1,5 +1,5 @@
 import Icon from '@components/common/Icon';
-import { Team } from '../../../../../../service/feature/team/types/team';
+import { Team } from '@service/feature/team/types/team.ts';
 
 interface ChatServerProps {
   server?: Team;

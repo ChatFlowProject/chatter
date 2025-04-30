@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import Icon from '../../../../common/Icon.tsx';
+import Icon from '@components/common/Icon.tsx';
 
 interface ProfileInfoProps {
   profileImage: string;

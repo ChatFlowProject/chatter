@@ -1,6 +1,5 @@
 import Icon from '@components/common/Icon.tsx';
 import UserCard from '@pages/Friends/components/UserCard';
-// import UserCard from './UserCard.tsx';
 import { useParams } from 'react-router-dom';
 
 const DirectMessages = () => {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Icon from '../../../../common/Icon.tsx';
+import Icon from '@components/common/Icon.tsx';
 
 const Interactions = () => {
   const [mute, setMute] = useState(false);

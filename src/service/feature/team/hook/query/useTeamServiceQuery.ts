@@ -1,7 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { toast } from 'sonner';
-import { createTeam, deleteTeam, updateTeam } from '@service/feature/team/api/teamsServiceAPI.ts';
+import { createTeam, deleteTeam, getTeamList, updateTeam } from '@service/feature/team/api/teamsServiceAPI.ts';
+import { Team } from '@service/feature/team/types/team.ts';
 
 export const useCreateTeamMutation = () => {
   const queryClient = useQueryClient();
@@ -12,6 +13,14 @@ export const useCreateTeamMutation = () => {
       toast.success('팀 생성 성공!');
       queryClient.invalidateQueries({ queryKey: ['teamList'] });
     },
+  });
+};
+
+export const useTeamListQuery = () => {
+  return useQuery<Team[]>({
+    queryKey: ['teamList'],
+    queryFn: getTeamList,
+    staleTime: 5 * 60 * 1000,
   });
 };
 

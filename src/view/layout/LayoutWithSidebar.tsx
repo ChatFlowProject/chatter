@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import UserProfileBar from '@components/layout/UserProfileBar.tsx';
-import TeamSidebar from '@components/layout/sidebar/team/TeamSidebar.tsx';
 import DirectChannelSidebar from './sidebar/channel/DirectChannelSidebar.tsx';
 import ServerChannelSidebar from './sidebar/channel/ServerChannelSidebar.tsx';
+import TeamSidebar from './sidebar/team/TeamSidebar.tsx';
+import UserProfileBar from './UserProfileBar.tsx';
 
 const LayoutWithSidebar = () => {
   const location = useLocation();
