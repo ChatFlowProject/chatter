@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUser, logout as logoutAction } from '../store/authSlice';
+import { setUser, logout as logoutAction } from '../store/auth/authSlice.ts';
 import { getProfile } from '../api/authAPI';
 import { useQueryClient } from '@tanstack/react-query';
 import { AuthContext } from './AuthContext';

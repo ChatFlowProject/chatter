@@ -3,7 +3,6 @@ import { useUserProfile } from '@service/feature/auth/hook/useProfileQuery.ts';
 import Avatar from '@components/common/user/Avatar.tsx';
 import UserStatus from '@components/common/user/UserStatus.tsx';
 
-
 const UserProfileBar = () => {
   const { data: user } = useUserProfile();
 

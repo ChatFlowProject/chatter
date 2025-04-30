@@ -2,7 +2,7 @@
 export * from './api/authAPI';
 
 // Store
-export { setUser, logout } from './store/authSlice';
+export { setUser, logout } from './store/auth/authSlice.ts';
 
 // Hook
 export { useLogin } from './hook/useLogin';

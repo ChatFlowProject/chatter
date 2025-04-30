@@ -1,0 +1,1 @@
+docker build --build-arg BUILD_DATE=$(date +'%y%m%d.%H%M%S') .
