@@ -19,8 +19,8 @@ const NavigationCard = ({ path, children }: PropsWithChildren<NavigationCardProp
   return (
     <div
       className={clsx(
-        'flex w-full py-[10px] pl-[13px] justify-start items-center gap-[17px] cursor-pointer rounded-[5px] hover:bg-[#393C43]',
-        isActive && 'bg-[#393C43]'
+        'flex w-full py-[10px] pl-[13px] justify-start items-center gap-[17px] cursor-pointer rounded-[5px] hover:bg-chat',
+        isActive && 'bg-chat'
       )}
       onClick={handleClick}
     >

@@ -19,7 +19,7 @@ const TeamSidebar = () => {
   };
 
   return (
-    <div className='wrapper flex'>
+    <div className='wrapper flex pt-5'>
       {/* 자기 채널 */}
       <ChatServer
         isActive={channelId === '@me'}

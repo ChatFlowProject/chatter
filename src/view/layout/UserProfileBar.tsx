@@ -1,7 +1,7 @@
 // 대충 임시
 const UserProfileBar = () => {
   return (
-    <div className="h-16 flex items-center justify-between px-4 border-t border-gray-600 bg-gray-700">
+    <div className="h-16 flex items-center justify-between px-4 border-t border-gray-600 bg-chat">
       <div className="flex items-center space-x-2">
         <div className="w-8 h-8 bg-gray-500 rounded-full" />
         <div>
