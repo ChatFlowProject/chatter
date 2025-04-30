@@ -1,82 +1,39 @@
-import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createTeam, updateTeam, deleteTeam } from '@service/feature/team/api/teamsServiceAPI';
 import { toast } from 'sonner';
-import {
-  createTeam,
-  deleteTeam,
-  getTeamById,
-  getTeamList,
-  updateTeam,
-} from '@service/feature/team/api/teamsServiceAPI.ts';
 
-export const useTeamServiceMutation = () => {
-  const [preview, setPreview] = useState<string | null>(null);
-  const [name, setName] = useState<string>('Chat Flow 서버');
-  const [iconUrl, setIconUrl] = useState<string | null>(null);
+export const useCreateTeamMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createTeam,
+    onSuccess: () => {
+      toast.success('팀 생성 성공!');
+      queryClient.invalidateQueries({ queryKey: ['teamList'] });
+    },
+    onError: () => {
+      toast.error('팀 생성 실패');
+    },
+  });
+};
 
-  const handleChangeIconUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const iconUrl = e.target.files?.[0];
-    if (iconUrl) {
-      setIconUrl(iconUrl);
-      const url = URL.createObjectURL(iconUrl);
-      setPreview(url);
-    }
-  };
+export const useUpdateTeamMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateTeam,
+    onSuccess: () => {
+      toast.success('팀 수정 성공!');
+      queryClient.invalidateQueries({ queryKey: ['teamList'] });
+    },
+  });
+};
 
-  const handleCreate = async () => {
-    if (!name.trim()) {
-      toast.error('서버 이름을 입력해주세요.');
-      return;
-    }
-
-    try {
-      const result = await createTeam({ name, iconUrl: iconUrl ?? undefined });
-      toast.success('서버 생성 성공!');
-      return result;
-    } catch (e) {
-    }
-  };
-
-  const fetchTeams = async () => {
-    try {
-      return await getTeamList();
-    } catch (e) {}
-  };
-
-  const fetchTeamById = async (teamId: string) => {
-    try {
-      return await getTeamById(teamId);
-    } catch (e) {}
-  };
-
-  const removeTeam = async (teamId: string) => {
-    try {
-      await deleteTeam(teamId);
-      toast.success('삭제 완료!');
-    } catch (e) {}
-  };
-
-  const editTeam = async ({ teamId, name, masterId, iconUrl }: {
-    teamId: string;
-    name: string;
-    masterId: string;
-    iconUrl?: string;
-  }) => {
-    try {
-      const result = await updateTeam({ teamId, name, masterId, iconUrl });
-      toast.success('팀 정보 수정 성공');
-      return result;
-    } catch (e) {}
-  };
-
-  return {
-    preview,
-    name,
-    setName,
-    handleChangeIconUrl,
-    handleCreate,
-    fetchTeams,
-    fetchTeamById,
-    removeTeam,
-    editTeam,
-  };
+export const useDeleteTeamMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteTeam,
+    onSuccess: () => {
+      toast.success('팀 삭제 성공!');
+      queryClient.invalidateQueries({ queryKey: ['teamList'] });
+    },
+  });
 };

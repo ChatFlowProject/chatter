@@ -2,15 +2,13 @@ import { useRef, useState } from 'react';
 import Modal from '@components/common/Modal.tsx';
 import { postImage } from '@service/feature/image/imageApi.ts';
 import ChatServer from './ChatServer.tsx';
-import { useCreateTeamMutation } from '@service/feature/team/hook/query/useTeamServiceQuery.ts';
+import { useCreateTeamMutation } from '@service/feature/team/hook/mutation/useTeamServiceMutation.ts';
 
 export default function AddTeamModal() {
   const [preview, setPreview] = useState<string | null>(null);
   const [name, setName] = useState<string>('누구님의 서버');
 
   const { mutate } = useCreateTeamMutation()
-
-  console.log('서버 추가 보이냐');
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const fileRef = useRef<File | null>(null); // 이미지 실제 파일
