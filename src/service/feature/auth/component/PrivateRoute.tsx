@@ -1,7 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth }  from '../context/useAuth';
-import SplashScreen from '@components/layout/splash/SplashScreen.tsx';
-
+import SplashScreen from '../../../../view/layout/splash/SplashScreen.tsx';
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useAuth();

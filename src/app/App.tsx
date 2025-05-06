@@ -3,8 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import AppProviders from './Provider';
 import AppRouter from './Router';
-import SplashScreen from '../view/components/layout/splash/SplashScreen.tsx';
 import { persistor } from './store';
+import SplashScreen from '../view/layout/splash/SplashScreen.tsx';
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);

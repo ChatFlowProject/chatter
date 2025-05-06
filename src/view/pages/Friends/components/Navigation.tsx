@@ -1,5 +1,5 @@
 import NavigationButton from './NavigationButton';
-import Icon from '@components/common/Icon';
+import Icon from '@components/common/Icon.tsx';
 
 interface NavigationProps {
   activeButton: 'Online' | 'All' | 'Pending' | null;

@@ -26,7 +26,7 @@
     "paths": {
       "@types/*": ["src/lib/types/*"],
       "@utils/*": ["src/lib/utils/*"],
-      "@assets/*": ["src/view/assets/*"],
+      "@assets/*": ["public/assets/*"],
       "@components/*": ["src/view/components/*"],
       "@pages/*": ["src/view/pages/*"],
       "@service/*": ["src/service/*"]

@@ -4,14 +4,14 @@ const axios = createAxiosInstance('team');
 
 export const createTeam = async ({
                                    name,
-                                   file,
+                                   iconUrl,
                                  }: {
   name: string;
-  file?: File;
+  iconUrl?: string;
 }) => {
   const formData = new FormData();
   formData.append('name', name);
-  if (file) formData.append('iconUrl', file);
+  if (iconUrl) formData.append('iconUrl', iconUrl);
 
   const response = await axios.post('/teams', formData, {
     headers: {

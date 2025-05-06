@@ -24,7 +24,7 @@ module.exports = {
       src: path.resolve(__dirname, 'src'),
       '@types': path.resolve(process.cwd(), 'src/lib/types'),
       '@utils': path.resolve(process.cwd(), 'src/lib/utils'),
-      '@assets': path.resolve(process.cwd(), 'src/view/assets'),
+      '@assets': path.resolve(process.cwd(), 'public/assets'),
       '@components': path.resolve(process.cwd(), 'src/view/components'),
       '@pages': path.resolve(process.cwd(), 'src/view/pages'),
       '@service': path.resolve(process.cwd(), 'src/service'),

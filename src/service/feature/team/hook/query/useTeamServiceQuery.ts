@@ -1,40 +1,22 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { getTeamList, getTeamById } from '@service/feature/team/api/teamsServiceAPI';
+import { Team } from '@service/feature/team/types/team';
 
-import { toast } from 'sonner';
-import { createTeam, deleteTeam, updateTeam } from '@service/feature/team/api/teamsServiceAPI.ts';
-
-export const useCreateTeamMutation = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: createTeam,
-    onSuccess: () => {
-      toast.success('팀 생성 성공!');
-      queryClient.invalidateQueries({ queryKey: ['teamList'] });
+export const useTeamListQuery = () => {
+  return useQuery<Team[]>({
+    queryKey: ['teamList'],
+    queryFn: async () => {
+      const res = await getTeamList();
+      return res.data;
     },
+    staleTime: 5 * 60 * 1000,
   });
 };
 
-export const useDeleteTeamMutation = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: deleteTeam,
-    onSuccess: () => {
-      toast.success('팀 삭제 성공!');
-      queryClient.invalidateQueries({ queryKey: ['teamList'] });
-    },
-  });
-};
-
-export const useUpdateTeamMutation = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: updateTeam,
-    onSuccess: () => {
-      toast.success('팀 정보 수정 완료');
-      queryClient.invalidateQueries({ queryKey: ['teamList'] });
-    },
+export const useTeamDetailQuery = (teamId: string) => {
+  return useQuery<Team>({
+    queryKey: ['teamDetail', teamId],
+    queryFn: () => getTeamById(teamId),
+    enabled: !!teamId,
   });
 };

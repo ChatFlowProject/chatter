@@ -21,9 +21,3 @@ export interface RegisterResponse {
   email: string;
   nickname: string;
 }
-
-export interface ProfileResponse {
-  userId: string;
-  email: string;
-  nickname: string;
-}
