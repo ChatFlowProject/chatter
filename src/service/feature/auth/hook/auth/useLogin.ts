@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { login } from '../api/authAPI';
+import { login } from '../../api/authAPI.ts';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../store/auth/authSlice.ts';
+import { setUser } from '../../store/auth/authSlice.ts';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { loginSchema } from '../schema/authSchema';
+import { loginSchema } from '../../schema/authSchema.ts';
 
 export const useLogin = () => {
   const dispatch = useDispatch();

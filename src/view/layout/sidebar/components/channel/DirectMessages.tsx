@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 const DirectMessages = () => {
   const params = useParams();
 
-  const userId = Number(params.channelId);
+  const userId = params.channelId;
 
   const handlePlus = () => {
     console.log('plus 버튼 클릭');
@@ -28,49 +28,30 @@ const DirectMessages = () => {
       <div className='flex flex-col items-start gap-[2px]'>
         {[
           {
-            avatarUrl: 'nelly',
-            state: 'online',
-            name: 'Nelly',
-            id: 1,
+            id: 'dsfsd',
+            name: '사용자1',
+            state: 'ONLINE',
+            avatarUrl: '/logo.svg',
           },
           {
-            avatarUrl: 'peppe',
-            state: 'idle',
-            name: 'Peppe',
-            id: 6,
+            id: 'dfsd',
+            name: '사용자2',
+            state: 'IDLE',
+            avatarUrl: '/logo.svg',
           },
           {
-            avatarUrl: 'phibi',
-            state: 'dnd',
-            name: 'Phibi',
-            id: 2,
-          },
-          {
-            avatarUrl: 'cap',
-            state: 'offline',
-            name: 'Cap',
-            id: 7,
-          },
-          {
-            avatarUrl: 'wumpus',
-            state: 'streaming',
-            name: 'Wumpus',
-            id: 3,
-          },
-          {
-            avatarUrl: 'locke',
-            state: 'phone',
-            name: 'Locke',
-            id: 4,
-          },
-          {
-            avatarUrl: 'clyde',
-            state: 'online',
-            name: 'Clyde',
-            id: 5,
+            id: 'sdfsdf',
+            name: '사용자3',
+            state: 'DND',
+            avatarUrl: '/logo.svg',
           },
         ].map((user) => (
-          <UserCard key={user.name} user={user} isActive={userId == user.id} />
+          <UserCard
+            key={user.name}
+            user={user}
+            isActive={userId === user.id}
+            friendshipId={0}
+          />
         ))}
       </div>
     </div>
