@@ -1,6 +1,6 @@
 import Icon from '@components/common/Icon';
 import { useState } from 'react';
-// import Inbox from '../components/top/Inbox';
+import Inbox from '../components/top/Inbox';
 
 const TopSidebar = () => {
   const [toggle, setToggle] = useState(false);
@@ -15,7 +15,7 @@ const TopSidebar = () => {
       >
         <Icon path='inbox' />
       </button>
-      {/* {toggle && <Inbox />} */}
+      {toggle && <Inbox />}
     </div>
   );
 };
