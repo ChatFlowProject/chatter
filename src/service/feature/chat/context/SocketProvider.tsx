@@ -12,7 +12,7 @@ export const SocketProvider = ({ children }: Props) => {
   const clientRef = useRef<CompatClient | null>(null);
 
   useEffect(() => {
-    const socket = new SockJS(`${process.env.REACT_APP_SOCKET_URL}/ws`);
+    const socket = new SockJS('http://nps.flowchat.shop:30004/ws/chat?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYzgxMGZmMy1hMTU2LTQxMGMtODBkYi05Mzk0NDA1MDdkYzM6TUVNQkVSIiwiaXNzIjoiamVycnkwMzM5IiwiaWF0IjoxNzQ4MzUzMjY0LCJleHAiOjE3ODA3NTMyNjR9.LQjgAXMs64eZbmmbkQZVZM-ohu9Rn0WZBgNvelqZOyh2CGc8paAvChI3kjBIp0v2s21_woSae7srlf7Qfvzc0w');
     const stompClient = Stomp.over(socket);
     clientRef.current = stompClient;
 

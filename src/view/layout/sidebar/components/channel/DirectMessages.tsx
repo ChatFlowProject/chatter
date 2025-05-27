@@ -28,22 +28,10 @@ const DirectMessages = () => {
       <div className='flex flex-col items-start gap-[2px]'>
         {[
           {
-            id: 'dsfsd',
-            name: '사용자1',
-            state: 'ONLINE',
-            avatarUrl: '/logo.svg',
-          },
-          {
-            id: 'dfsd',
-            name: '사용자2',
-            state: 'IDLE',
-            avatarUrl: '/logo.svg',
-          },
-          {
             id: 'sdfsdf',
             name: '사용자3',
             state: 'DND',
-            avatarUrl: '/logo.svg',
+            avatarUrl: 'profile',
           },
         ].map((user) => (
           <UserCard

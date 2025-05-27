@@ -11,9 +11,9 @@ const UserProfileBar = () => {
     <div className="h-16 flex items-center justify-between px-4 border-t border-gray-600 bg-chat">
       <div className="flex items-center space-x-2">
         <Avatar
-          src={profile?.avatarUrl || undefined}
+          src={profile?.avatarUrl}
           alt={profile?.nickname}
-          fallback="/logo.svg"
+          fallback="/assets/img/profile.svg"
           size={32}
         />
         <div>
