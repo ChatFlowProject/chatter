@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { login } from '../../api/authAPI.ts';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../store/auth/authSlice.ts';
+import { setUser } from '@service/feature/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { loginSchema } from '../../schema/authSchema.ts';
