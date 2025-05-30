@@ -11,34 +11,46 @@ import LayoutWithSidebar from '../view/layout/LayoutWithSidebar.tsx';
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/channels" element={
-        <AuthProvider>
-          <LayoutWithSidebar />
-        </AuthProvider>
-      }>
-        <Route path="@me" element={
-          <PrivateRoute>
-            <FriendsPage />
-          </PrivateRoute>
-        } />
+      <Route path='/' element={<LandingPage />} />
+      <Route path='/login' element={<LoginPage />} />
+      <Route path='/signup' element={<SignupPage />} />
+      <Route
+        path='/channels'
+        element={
+          <AuthProvider>
+            <LayoutWithSidebar />
+          </AuthProvider>
+        }
+      >
+        <Route
+          path='@me'
+          element={
+            <PrivateRoute>
+              <FriendsPage />
+            </PrivateRoute>
+          }
+        />
 
-        <Route path="@me/:channelId" element={
-          <PrivateRoute>
-            <ChatPage />
-          </PrivateRoute>
-        } />
+        <Route
+          path='@me/:channelId'
+          element={
+            <PrivateRoute>
+              <ChatPage />
+            </PrivateRoute>
+          }
+        />
 
-        <Route path=":serverId/:channelId" element={
-          <PrivateRoute>
-            <ChatPage />
-          </PrivateRoute>
-        } />
+        <Route
+          path=':serverId/:channelId'
+          element={
+            <PrivateRoute>
+              <ChatPage />
+            </PrivateRoute>
+          }
+        />
       </Route>
 
-      <Route path="*" element={<Navigate to="/channels/@me" replace />} />
+      <Route path='*' element={<Navigate to='/channels/@me' replace />} />
     </Routes>
   );
 };
