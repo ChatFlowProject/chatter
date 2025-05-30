@@ -1,7 +1,7 @@
 import { FriendData } from '../types/friend';
 import createAxiosInstance from '@service/feature/common/axios/axiosInstance.ts';
 
-const axios = createAxiosInstance('members');
+const axios = createAxiosInstance();
 export const getOnlineFriend = async (): Promise<FriendData[]> => {
   const res = await axios.get('/friendships/online', {
     withCredentials: true,

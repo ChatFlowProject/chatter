@@ -58,8 +58,8 @@ export const ChatMessageItem = ({ msg, isMine, showMeta }: Props) => {
         <div
           className={`px-3 py-2 rounded-lg ${
             isMine
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-700 text-gray-100'
+              ? 'bg-blurple text-white'
+              : 'bg-off text-gray-100'
           }`}
         >
           {renderContent()}

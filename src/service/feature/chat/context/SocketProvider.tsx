@@ -13,13 +13,15 @@ export const SocketProvider = ({ children }: Props) => {
   const clientRef = useRef<CompatClient | null>(null);
 
   useEffect(() => {
-    const token = getTokenFromCookie();
-    if (token === null) {
-      console.error('토큰을 찾을 수 없습니다.');
-      return;
-    }
+    // const token = getTokenFromCookie();
+    // if (token === null) {
+    //   console.error('토큰을 찾을 수 없습니다.');
+    //   return;
+    // }
 
-    const socket = new SockJS(`https://flowchat.shop:30200/ws/chat?token=${token}`);
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYzgxMGZmMy1hMTU2LTQxMGMtODBkYi05Mzk0NDA1MDdkYzM6TUVNQkVSIiwiaXNzIjoiamVycnkwMzM5IiwiaWF0IjoxNzQ4NjE5MDY0LCJleHAiOjE3ODEwMTkwNjR9.IO6VIqIfoS1EosqkAMTDd8Xv34HhmTbtp-CDppDcidjnsOOIpMyjNTnHgDS-2RsmFLIWQzvZjBKd-rvdebxkBA';
+
+    const socket = new SockJS(`http://flowchat.shop:30100/ws/chat?token=${token}`);
     const stompClient = Stomp.over(socket);
     clientRef.current = stompClient;
 
@@ -51,15 +53,15 @@ export const SocketProvider = ({ children }: Props) => {
   );
 };
 
-function getTokenFromCookie(): string | null {
-  const cookies = document.cookie;
-  const cookieArray = cookies.split('; ');
-
-  for (const cookie of cookieArray) {
-    const [name, value] = cookie.split('=');
-    if (name === 'accessToken' && value && value.startsWith('ey')) {
-      return value;
-    }
-  }
-  return null;
-}
+// function getTokenFromCookie(): string | null {
+//   const cookies = document.cookie;
+//   const cookieArray = cookies.split('; ');
+//
+//   for (const cookie of cookieArray) {
+//     const [name, value] = cookie.split('=');
+//     if (name === 'accessToken' && value && value.startsWith('ey')) {
+//       return value;
+//     }
+//   }
+//   return null;
+// }

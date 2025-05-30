@@ -7,7 +7,7 @@ import {
   UpdateMemberStatusRequest,
 } from '@service/feature/member/types/memberAPI.ts';
 
-const axios = createAxiosInstance('members');
+const axios = createAxiosInstance();
 
 export const getMemberById = async (memberId: string): Promise<MemberInfo> => {
   const res = await axios.get(`/members/${memberId}`);

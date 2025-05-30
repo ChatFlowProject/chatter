@@ -2,7 +2,7 @@ import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 const subscribeUrl = '/sub/message/25ffc7bf-874f-444e-b331-26ed864a76ba';
-const sendUrl = '/pub/message/send';
+const sendUrl = '/pub/message/25ffc7bf-874f-444e-b331-26ed864a76ba';
 
 export interface ChatMessage {
   channelId: string;
