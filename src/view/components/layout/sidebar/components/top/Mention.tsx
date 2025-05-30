@@ -1,5 +1,6 @@
 import Icon from '@components/common/Icon';
 import ChatMessage from './ChatMessage';
+import { useNavigate } from 'react-router-dom';
 
 const Mention = ({
   data,
@@ -27,10 +28,14 @@ const Mention = ({
     category_name,
     author,
   } = data;
-  console.log('?????');
+  const navigate = useNavigate();
+  const handleClick = () => {
+    // 나중에 수정
+    navigate(`/channels/${team_name}/${channel_id}`);
+  };
 
   return (
-    <div className=''>
+    <div onClick={handleClick} className='hover:cursor-pointer'>
       <div className='flex justify-between items-center'>
         <div className='flex gap-[8px] p-[12px] '>
           <div className='w-[40px] h-[40px] mr-3'>
@@ -53,7 +58,6 @@ const Mention = ({
         >
           <Icon path='more' className='text-neutral-300 transform:rotate-90' />
         </button>
-        {/* 메시지 정보 */}
       </div>
       <ChatMessage message={content} />
     </div>

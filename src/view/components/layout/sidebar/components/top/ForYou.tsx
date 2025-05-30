@@ -1,4 +1,5 @@
 import Icon from '@components/common/Icon';
+import { useNavigate } from 'react-router-dom';
 
 const ForYou = ({
   data,
@@ -13,6 +14,7 @@ const ForYou = ({
   };
 }) => {
   const { notiId, type, time, userName, userNotiId, userNotiProfile } = data;
+  const navigate = useNavigate();
   console.log('?????');
   const printTypeMsg = (
     type: 'FRIEND_REQUES' | 'FRIEND_REQUEST_ACCEPTED',
@@ -24,8 +26,15 @@ const ForYou = ({
       return `${userName} 님이 친구 요청을 수락했어요.`;
   };
 
+  const handleClick = () => {
+    navigate('/channels/@me');
+  };
+
   return (
-    <div className='flex justify-between items-center'>
+    <div
+      className='flex justify-between items-center hover:bg-[#393c43] hover:cursor-pointer'
+      onClick={handleClick}
+    >
       <div className='flex gap-[8px] p-[12px] '>
         <div className='w-[40px] h-[40px]'>
           <img src={userNotiProfile} className='w-full rounded-full' />
