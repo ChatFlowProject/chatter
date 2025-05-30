@@ -1,28 +1,43 @@
-import { useEffect } from 'react';
-import { useSocket } from '../context/useSocket';
-import { useDispatch } from 'react-redux';
-import { addMessage } from '../store/chatSlice';
+import { Client } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
 
-export const useChat = () => {
-  const { client, isConnected } = useSocket();
-  const dispatch = useDispatch();
+const subscribeUrl = '/sub/message/25ffc7bf-874f-444e-b331-26ed864a76ba';
+const sendUrl = '/pub/message/send';
 
-  useEffect(() => {
-    if (!client || !isConnected) return;
+export interface ChatMessage {
+  channelId: string;
+  senderId: string;
+  content: string;
+  type: 'TEXT' | 'IMAGE';
+}
 
-    const subscription = client.subscribe('/topic/chat', (message) => {
-      try {
-        const body = JSON.parse(message.body);
-        dispatch(addMessage(body));
-      } catch (err) {
-        console.error('Message parse error:', err);
-      }
-    });
+export const useChat = (onMessage: (msg: ChatMessage) => void) => {
+  const client = new Client({
+    webSocketFactory: () => new SockJS('http://flowchat.shop:30100/ws/chat'),
+    debug: (str) => console.log('[STOMP DEBUG]', str),
+    reconnectDelay: 5000,
+    onConnect: () => {
+      console.log('WebSocket 연결 완료');
 
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [client, isConnected, dispatch]);
+      client.subscribe(subscribeUrl, (message) => {
+        const parsed: ChatMessage = JSON.parse(message.body);
+        onMessage(parsed);
+      });
+    },
+  });
 
-  return {};
+  client.activate();
+
+  const sendMessage = (msg: ChatMessage) => {
+    if (client.connected) {
+      client.publish({
+        destination: sendUrl,
+        body: JSON.stringify(msg),
+      });
+    } else {
+      console.warn('WebSocket 연결 전입니다.');
+    }
+  };
+
+  return { sendMessage };
 };

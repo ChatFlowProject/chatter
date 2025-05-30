@@ -150,6 +150,18 @@ export const useRemoveFriend = () => {
   });
 };
 
+// 모든 친구 확인
+export const useGetAllFriends = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['friends', 'All'],
+    queryFn: getAllFriend,
+    staleTime: 3 * 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
+
+  return { data, isLoading, error };
+};
+
 export default {
   useGetFriends,
   useAddFriend,
@@ -157,4 +169,5 @@ export default {
   useAcceptFriend,
   useRefuseFriend,
   useRemoveFriend,
+  useGetAllFriends,
 };

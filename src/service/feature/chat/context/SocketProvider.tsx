@@ -19,7 +19,7 @@ export const SocketProvider = ({ children }: Props) => {
       return;
     }
 
-    const socket = new SockJS(`http://nps.flowchat.shop:30004/ws/chat?token=${token}`);
+    const socket = new SockJS(`https://flowchat.shop:30200/ws/chat?token=${token}`);
     const stompClient = Stomp.over(socket);
     clientRef.current = stompClient;
 
@@ -52,6 +52,14 @@ export const SocketProvider = ({ children }: Props) => {
 };
 
 function getTokenFromCookie(): string | null {
-    // 실제 구현에서는 쿠키에서 토큰을 찾아 반환하거나 null을 반환해야 합니다
-    return null;
+  const cookies = document.cookie;
+  const cookieArray = cookies.split('; ');
+
+  for (const cookie of cookieArray) {
+    const [name, value] = cookie.split('=');
+    if (name === 'accessToken' && value && value.startsWith('ey')) {
+      return value;
+    }
+  }
+  return null;
 }

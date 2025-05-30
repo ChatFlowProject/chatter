@@ -3,17 +3,13 @@ import { toast } from 'sonner';
 import { ERROR_MESSAGES } from '../../../lib/const/toast/errorMessage';
 import { getCookie } from '../../auth/lib/getCookie';
 
-export type ServiceType = 'member' | 'team';
+export type ServiceType = 'members' | 'teams' | 'dialog';
 
 const API_CONFIG = {
-  BASE_DOMAIN: 'http://flowchat.shop',
-  PORTS: {
-    member: '30002',
-    team: '30003'
-  },
+  BASE_DOMAIN: 'https://flowchat.shop:30200',
   HEADERS: {
-    JSON: 'application/json'
-  }
+    JSON: 'application/json',
+  },
 } as const;
 
 interface ErrorResponse {
@@ -30,11 +26,15 @@ const handleAxiosError = (error: AxiosError<ErrorResponse>) => {
   const errorMessages: Record<number, string> = {
     401: ERROR_MESSAGES.UNAUTHORIZED,
     403: ERROR_MESSAGES.FORBIDDEN,
-    500: ERROR_MESSAGES.SERVER_ERROR
+    500: ERROR_MESSAGES.SERVER_ERROR,
   };
 
-  toast.error(errorMessages[response.status] || (response.data && response.data.message) || ERROR_MESSAGES.DEFAULT_ERROR);
-  
+  toast.error(
+    errorMessages[response.status] ||
+      (response.data && response.data.message) ||
+      ERROR_MESSAGES.DEFAULT_ERROR,
+  );
+
   if (response.status === 401) {
     // TODO: logout 처리 또는 /login 리디렉션
   }
@@ -42,13 +42,13 @@ const handleAxiosError = (error: AxiosError<ErrorResponse>) => {
   return Promise.reject(error);
 };
 
-export const createAxiosInstance = (serviceType: ServiceType): AxiosInstance => {
+export const createAxiosInstance = (): AxiosInstance => {
   const instance = axios.create({
-    baseURL: `${API_CONFIG.BASE_DOMAIN}:${API_CONFIG.PORTS[serviceType]}`,
+    baseURL: API_CONFIG.BASE_DOMAIN,
     headers: {
-      'Content-Type': API_CONFIG.HEADERS.JSON
+      'Content-Type': API_CONFIG.HEADERS.JSON,
     },
-    withCredentials: true
+    withCredentials: true,
   });
 
   instance.interceptors.request.use(
