@@ -18,9 +18,17 @@ const Modal = ({ children }: { children: React.ReactNode }) => {
 };
 Modal.Root = Modal;
 
-Modal.Content = ({ children }: { children: React.ReactNode }) => {
+Modal.Content = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className: string;
+}) => {
   return (
-    <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-h-[166px] flex flex-col justify-between gap-[0.75rem] w-[22.0625rem] bg-[#36393F] shadow-[0px_5px_20px_0px_rgba(0,0,0,0.2)] rounded-[4px]'>
+    <div
+      className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-h-[166px] flex flex-col justify-between gap-[0.75rem] w-[22.0625rem] bg-[#36393F] shadow-[0px_5px_20px_0px_rgba(0,0,0,0.2)] rounded-[4px] ${className}`}
+    >
       {children}
     </div>
   );
