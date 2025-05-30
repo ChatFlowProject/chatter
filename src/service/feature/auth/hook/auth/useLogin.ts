@@ -29,18 +29,21 @@ export const useLogin = () => {
 
       document.cookie = `accessToken=${data.token}; path=/;`;
 
-      dispatch(setUser({
-        userId: data.id,
-        nickname: data.name,
-        email: '',
-      }));
+      dispatch(
+        setUser({
+          userId: data.id,
+          nickname: data.name,
+          email: '',
+        }),
+      );
 
       toast.success('로그인 성공!');
-      navigate('/channels/intro');
+      navigate('/channels/@me');
     },
     onError: (error: any) => {
-      const message = error?.response?.data?.message || '회원가입에 실패했습니다.';
+      const message =
+        error?.response?.data?.message || '회원가입에 실패했습니다.';
       toast.error(message);
-    }
+    },
   });
 };

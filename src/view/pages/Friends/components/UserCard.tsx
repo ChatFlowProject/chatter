@@ -64,8 +64,11 @@ const UserCard = ({
     >
       <div className='flex'>
         <div className='w-8 h-8 my-[5px] ml-2 flex items-center justify-center relative mr-3'>
-          {/* 추후 user avatarUrl로 변경 */}
-          <Icon path={avatarUrl} />
+          <img
+            className='rounded-full'
+            src={avatarUrl || '/logo.png'}
+            alt={user.name}
+          />
           <div className='absolute right-0 bottom-0 w-[10px] h-[10px]'>
             <Icon path={`${isOnline}`} />
           </div>

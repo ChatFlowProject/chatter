@@ -41,6 +41,15 @@ const AppRouter = () => {
         />
 
         <Route
+          path=':serverId'
+          element={
+            <PrivateRoute>
+              <ChatPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
           path=':serverId/:channelId'
           element={
             <PrivateRoute>

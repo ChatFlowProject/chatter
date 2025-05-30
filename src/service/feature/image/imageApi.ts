@@ -1,6 +1,6 @@
 import createAxiosInstance from '../common/axios/axiosInstance';
 
-const axios = createAxiosInstance('team');
+const axios = createAxiosInstance('teams');
 
 export const postImage = async (formData: FormData): Promise<string> => {
   const res = await axios.post('/images', formData, {

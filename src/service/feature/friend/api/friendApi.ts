@@ -1,7 +1,7 @@
 import { FriendData } from '../types/friend';
 import createAxiosInstance from '@service/feature/common/axios/axiosInstance.ts';
 
-const axios = createAxiosInstance('member');
+const axios = createAxiosInstance('members');
 export const getOnlineFriend = async (): Promise<FriendData[]> => {
   const res = await axios.get('/friendships/online', {
     withCredentials: true,
@@ -55,10 +55,9 @@ export const postAddFriend = async (
 
 // 친구 요청 취소
 export const deleteCancelFriend = async (friendshipId: number) => {
-  const res = await axios.delete(
-    `/friendships/${friendshipId}/cancel`,
-    { withCredentials: true },
-  );
+  const res = await axios.delete(`/friendships/${friendshipId}/cancel`, {
+    withCredentials: true,
+  });
   return res.data.data;
 };
 
@@ -72,12 +71,9 @@ export const patchAcceptFriend = async (friendshipId: number) => {
 
 // 친구 요청 거절
 export const deleteRefuseFriend = async (friendshipId: number) => {
-  const res = await axios.delete(
-    `/friendships/${friendshipId}/refuse`,
-    {
-      withCredentials: true,
-    },
-  );
+  const res = await axios.delete(`/friendships/${friendshipId}/refuse`, {
+    withCredentials: true,
+  });
   return res.data.data;
 };
 
