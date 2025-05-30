@@ -6,14 +6,16 @@ import {
   RegisterResponse,
 } from '@service/feature/auth/types/auth.ts';
 
-const axios = createAxiosInstance('member');
+const axios = createAxiosInstance('members');
 
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
   const response = await axios.post('/sign-in', data);
   return response.data.data;
 };
 
-export const register = async (data: RegisterRequest): Promise<RegisterResponse> => {
+export const register = async (
+  data: RegisterRequest,
+): Promise<RegisterResponse> => {
   const response = await axios.post('/sign-up', data);
   return response.data;
 };
