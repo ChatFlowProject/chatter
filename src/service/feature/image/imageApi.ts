@@ -11,3 +11,11 @@ export const postImage = async (formData: FormData): Promise<string> => {
 
   return res.data.message;
 };
+
+export const deleteImage = async (url: string): Promise<string> => {
+  const res = await axios.delete('/images', {
+    params: { url },
+  });
+
+  return res.data.message;
+};

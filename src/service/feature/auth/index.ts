@@ -2,11 +2,11 @@
 export * from './api/authAPI';
 
 // Store
-export { setUser, logout } from './store/authSlice';
+export { setUser, logout } from './store/auth/authSlice.ts';
 
 // Hook
-export { useLogin } from './hook/useLogin';
-export { useRegister } from './hook/useRegister';
+export { useLogin } from './hook/auth/useLogin.ts';
+export { useRegister } from './hook/auth/useRegister.ts';
 
 // Context
 export { useAuth } from './context/useAuth';
