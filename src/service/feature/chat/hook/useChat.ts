@@ -1,28 +1,36 @@
 import { useEffect } from 'react';
 import { useSocket } from '../context/useSocket';
-import { useDispatch } from 'react-redux';
-import { addMessage } from '../store/chatSlice';
+import { ChatMessage } from './types';
 
-export const useChat = () => {
+const subscribeUrl = '/sub/message/25ffc7bf-874f-444e-b331-26ed864a76ba';
+const sendUrl = '/pub/message/25ffc7bf-874f-444e-b331-26ed864a76ba';
+
+export const useChat = (onMessage: (msg: ChatMessage) => void) => {
   const { client, isConnected } = useSocket();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!client || !isConnected) return;
 
-    const subscription = client.subscribe('/topic/chat', (message) => {
-      try {
-        const body = JSON.parse(message.body);
-        dispatch(addMessage(body));
-      } catch (err) {
-        console.error('Message parse error:', err);
-      }
+    const subscription = client.subscribe(subscribeUrl, (message) => {
+      const parsed: ChatMessage = JSON.parse(message.body);
+      onMessage(parsed);
     });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [client, isConnected, dispatch]);
+  }, [client, isConnected, onMessage]);
 
-  return {};
+  const sendMessage = (msg: ChatMessage) => {
+    if (client && client.connected) {
+      client.publish({
+        destination: sendUrl,
+        body: JSON.stringify(msg),
+      });
+    } else {
+      console.warn('WebSocket이 아직 연결되지 않았습니다.');
+    }
+  };
+
+  return { sendMessage };
 };

@@ -1,6 +1,6 @@
 import { createAxiosInstance } from '@service/feature/common/axios/axiosInstance.ts';
 
-const axios = createAxiosInstance('teams');
+const axios = createAxiosInstance();
 
 export const createTeam = async ({
   name,

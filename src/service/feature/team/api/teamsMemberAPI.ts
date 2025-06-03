@@ -1,6 +1,6 @@
 import { createAxiosInstance } from '@service/feature/common/axios/axiosInstance';
 
-const axios = createAxiosInstance('teams');
+const axios = createAxiosInstance();
 
 export const leaveTeam = async (teamId: string) => {
   const res = await axios.delete(`/teams/${teamId}/members`);

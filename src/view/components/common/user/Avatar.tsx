@@ -8,7 +8,7 @@ interface AvatarProps {
 }
 
 const Avatar = ({ 
-  src, 
+  src,
   alt, 
   fallback = fallbackIcon, 
   size = 32 
