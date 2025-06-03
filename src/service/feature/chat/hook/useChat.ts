@@ -1,41 +1,34 @@
-import { Client } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
+import { useEffect } from 'react';
+import { useSocket } from '../context/useSocket';
+import { ChatMessage } from './types';
 
 const subscribeUrl = '/sub/message/25ffc7bf-874f-444e-b331-26ed864a76ba';
 const sendUrl = '/pub/message/25ffc7bf-874f-444e-b331-26ed864a76ba';
 
-export interface ChatMessage {
-  channelId: string;
-  senderId: string;
-  content: string;
-  type: 'TEXT' | 'IMAGE';
-}
-
 export const useChat = (onMessage: (msg: ChatMessage) => void) => {
-  const client = new Client({
-    webSocketFactory: () => new SockJS('http://flowchat.shop:30100/ws/chat'),
-    debug: (str) => console.log('[STOMP DEBUG]', str),
-    reconnectDelay: 5000,
-    onConnect: () => {
-      console.log('WebSocket 연결 완료');
+  const { client, isConnected } = useSocket();
 
-      client.subscribe(subscribeUrl, (message) => {
-        const parsed: ChatMessage = JSON.parse(message.body);
-        onMessage(parsed);
-      });
-    },
-  });
+  useEffect(() => {
+    if (!client || !isConnected) return;
 
-  client.activate();
+    const subscription = client.subscribe(subscribeUrl, (message) => {
+      const parsed: ChatMessage = JSON.parse(message.body);
+      onMessage(parsed);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [client, isConnected, onMessage]);
 
   const sendMessage = (msg: ChatMessage) => {
-    if (client.connected) {
+    if (client && client.connected) {
       client.publish({
         destination: sendUrl,
         body: JSON.stringify(msg),
       });
     } else {
-      console.warn('WebSocket 연결 전입니다.');
+      console.warn('WebSocket이 아직 연결되지 않았습니다.');
     }
   };
 

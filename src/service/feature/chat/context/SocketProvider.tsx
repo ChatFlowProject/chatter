@@ -26,7 +26,9 @@ export const SocketProvider = ({ children }: Props) => {
     clientRef.current = stompClient;
 
     stompClient.connect(
-      {},
+      {
+        Authorization: `Bearer ${token}`,
+      },
       () => {
         setIsConnected(true);
         console.log('STOMP connected');
