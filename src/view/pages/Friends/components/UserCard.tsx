@@ -96,7 +96,6 @@ const UserCard = ({
         >
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
-            onClick={() => console.log('')}
             type='button'
           >
             <Icon path='more' className='text-neutral-300' />
@@ -106,7 +105,10 @@ const UserCard = ({
       {type === 'sent' && (
         <button
           className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
-          onClick={() => cancleFriendMutate(friendshipId)}
+          onClick={(e) => {
+            e.stopPropagation();
+            cancleFriendMutate(friendshipId);
+          }}
           type='button'
         >
           <Icon path='close' className='text-neutral-300' />
@@ -117,14 +119,20 @@ const UserCard = ({
         <div className='flex mr-2 gap-2'>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-blue-500'
-            onClick={() => acceptFriendMutate(friendshipId)}
+            onClick={(e) => {
+              e.stopPropagation();
+              acceptFriendMutate(friendshipId);
+            }}
             type='button'
           >
             <Icon path='check' className='hover:text-blue-500' />
           </button>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-red'
-            onClick={() => refuseFriendMutate(friendshipId)}
+            onClick={(e) => {
+              e.stopPropagation();
+              refuseFriendMutate(friendshipId);
+            }}
             type='button'
           >
             <Icon path='close' className='hover:text-red' />

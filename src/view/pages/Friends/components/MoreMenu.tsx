@@ -41,12 +41,13 @@ const MoreMenu = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, setOpenMenuId]);
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
     setOpenMenuId((prev) => (prev === ownId ? null : ownId));
   };
 
   return (
-    <div ref={menuRef} onClick={handleToggle} className='relative'>
+    <div ref={menuRef} onClick={(e) => handleToggle(e)} className='relative'>
       {children}
       {isOpen && (
         <div className='absolute px-3 py-2 right-[38px] bg-[#37393F] border border-neutral-600 rounded-[8px]'>
