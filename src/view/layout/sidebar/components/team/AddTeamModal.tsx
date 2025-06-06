@@ -4,10 +4,13 @@ import { postImage } from '@service/feature/image/imageApi.ts';
 import ChatServer from './ChatServer.tsx';
 import { useCreateTeamMutation } from '@service/feature/team/hook/mutation/useTeamServiceMutation.ts';
 import { toast } from 'sonner';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/app/store.ts';
 
 export default function AddTeamModal() {
   const [preview, setPreview] = useState<string | null>(null);
-  const [name, setName] = useState<string>('누구님의 서버');
+  const user = useSelector((state: RootState) => state.auth.user);
+  const [name, setName] = useState<string>(`${user?.nickname} 님의 서버`);
 
   const { mutate } = useCreateTeamMutation();
 
