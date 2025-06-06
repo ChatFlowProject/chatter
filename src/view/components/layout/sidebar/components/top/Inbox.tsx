@@ -90,21 +90,21 @@ export default function Inbox() {
   console.log('selected: ', selected);
   return (
     <div className='absolute top-[45px] right-[20px]'>
-      <div className='bg-[#292B2F] text-white w-[580px]'>
+      <div className='bg-[#292B2F] text-white w-[580px] rounded-[8px]'>
         <div className='flex p-4'>
           <Icon path='inbox' className='!w-[20px] !h-[20px] mr-2' />
           <h1 className='text-heading-md font-bold'>받은 편지함</h1>
         </div>
         <div>
-          <ul className='flex gap-6 border-b border-[#42454A]'>
+          <ul className='flex gap-6 border-b-[2px] border-[#42454A]'>
             <li
-              className={`px-4 text-[#D4D4D4] hover:text-white hover:border-b hover:border-primary ${selected === 'myAlarm' && 'text-primary border-b border-primary'}`}
+              className={`px-4 mb-[-2px] text-[#D4D4D4] font-bold hover:text-white hover:border-b-[2px] hover:border-primary ${selected === 'myAlarm' && 'text-primary border-b-[2px] border-primary'}`}
               onClick={() => handleChangeTag('myAlarm')}
             >
               나의 알림
             </li>
             <li
-              className={`px-4 text-[#D4D4D4] hover:text-white hover:border-b hover:border-primary ${selected === 'unReaded' && 'text-primary border-b border-primary'}`}
+              className={`px-4 mb-[-2px] text-[#D4D4D4] font-bold hover:text-white hover:border-b-[2px] hover:border-primary ${selected === 'unReaded' && 'text-primary border-b-[2px] border-primary'}`}
               onClick={() => handleChangeTag('unReaded')}
             >
               읽지 않음
@@ -120,7 +120,7 @@ export default function Inbox() {
               ))}
         </div>
       </div>
-      <Alarm img={''} name={'name'} message={'message'} />
+      {/* <Alarm img={''} name={'name'} message={'message'} /> */}
     </div>
   );
 }
