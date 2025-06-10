@@ -14,6 +14,7 @@ import {
   ADD_FRIEND_MESSAGE,
   ADD_FRIEND_RESULT_TYPE,
 } from '../constant/constant';
+import { toast } from 'sonner';
 
 export const useGetFriends = (status: 'Online' | 'All' | 'Pending' | null) => {
   // 모두 무조건 호출
@@ -84,8 +85,16 @@ export const useAddFriend = (
         type: ADD_FRIEND_RESULT_TYPE[data],
         message: ADD_FRIEND_MESSAGE[data],
       });
+
+      if (ADD_FRIEND_RESULT_TYPE[data]) {
+        toast.error(ADD_FRIEND_MESSAGE[data]);
+      } else {
+        toast.success('친구 요청에 성공했습니다.');
+      }
     },
-    onError: () => {},
+    onError: () => {
+      toast.error('친구 요청에 실패했습니다.');
+    },
   });
 };
 
@@ -97,8 +106,10 @@ export const useCancelFriend = () => {
     onSuccess: (data) => {
       console.log('친구 요청 취소 완료', data);
       queryClient.invalidateQueries({ queryKey: ['friends', 'sent'] });
+      toast.success('친구 요청을 취소하였습니다.');
     },
     onError: () => {
+      toast.error('친구 요청 취소에 실패했습니다.');
       console.log('친구 요청 취소 에러');
     },
   });
@@ -112,9 +123,12 @@ export const useAcceptFriend = () => {
     onSuccess: (data) => {
       console.log('친구 요청 수락 완료', data);
       queryClient.invalidateQueries({ queryKey: ['friends', 'received'] });
+      queryClient.refetchQueries({ queryKey: ['friends', 'All'] });
+      toast.success('친구 요청을 수락하였습니다.');
     },
     onError: () => {
       console.log('친구 요청 수락 에러');
+      toast.error('친구 요청 수락에 실패했습니다.');
     },
   });
 };
@@ -127,9 +141,11 @@ export const useRefuseFriend = () => {
     onSuccess: (data) => {
       console.log('친구 요청 거절 완료', data);
       queryClient.invalidateQueries({ queryKey: ['friends', 'received'] });
+      toast.success('친구 요청을 거절하였습니다.');
     },
     onError: () => {
       console.log('친구 요청 거절 에러');
+      toast.error('친구 요청 거절에 실패했습니다.');
     },
   });
 };
@@ -143,9 +159,11 @@ export const useRemoveFriend = () => {
       console.log('친구 삭제 완료', data);
       queryClient.invalidateQueries({ queryKey: ['friends', 'Online'] });
       queryClient.invalidateQueries({ queryKey: ['friends', 'All'] });
+      toast.success('친구를 삭제했습니다.');
     },
     onError: () => {
       console.log('친구 삭제 에러');
+      toast.error('친구 삭제에 실패했습니다.');
     },
   });
 };

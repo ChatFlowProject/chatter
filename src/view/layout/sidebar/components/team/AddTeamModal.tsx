@@ -3,12 +3,16 @@ import Modal from '@components/common/Modal.tsx';
 import { postImage } from '@service/feature/image/imageApi.ts';
 import ChatServer from './ChatServer.tsx';
 import { useCreateTeamMutation } from '@service/feature/team/hook/mutation/useTeamServiceMutation.ts';
+import { toast } from 'sonner';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/app/store.ts';
 
 export default function AddTeamModal() {
   const [preview, setPreview] = useState<string | null>(null);
-  const [name, setName] = useState<string>('누구님의 서버');
+  const user = useSelector((state: RootState) => state.auth.user);
+  const [name, setName] = useState<string>(`${user?.nickname} 님의 서버`);
 
-  const { mutate } = useCreateTeamMutation()
+  const { mutate } = useCreateTeamMutation();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const fileRef = useRef<File | null>(null); // 이미지 실제 파일
@@ -18,7 +22,12 @@ export default function AddTeamModal() {
   const handleSubmit = async () => {
     // 백엔드에서 multipart/form-data를 받을 수 있어야 해.
     if (!name.trim()) {
-      alert('서버 이름을 입력해주세요.');
+      toast.error('서버 이름을 입력해주세요.');
+      return;
+    }
+
+    if (!fileRef.current) {
+      toast.error('서버 아이콘을 설정해주세요.');
       return;
     }
 
@@ -31,6 +40,7 @@ export default function AddTeamModal() {
         formData.append('file', fileRef.current);
         iconUrl = await postImage(formData);
       }
+      toast.success('팀 생성 중...');
       mutate({ name, iconUrl });
 
       // TODO: 성공 시 모달 닫거나 페이지 이동 등의 후속 처리
@@ -93,7 +103,7 @@ export default function AddTeamModal() {
             </div>
             <input
               type='file'
-              accept='image/*'
+              accept='image/jpeg, image/png, image/gif, image/webp'
               ref={inputRef}
               onChange={handleChange}
               className='hidden'

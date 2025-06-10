@@ -4,6 +4,9 @@ import { useGetFriends } from 'src/service/feature/friend/hook/useFriendQuery';
 import AddFriend from './AddFriend';
 import FriendCard from './FriendCard';
 import SearchFriends from './SearchFriends';
+import SkeletonFriendList from './Skeletons/SkeletonFriendList';
+import Empty from './Skeletons/Empty';
+import { EMPTY_MESSAGE } from '@service/lib/const/stateMsg/empty';
 
 interface NavigationProps {
   activeButton: 'Online' | 'All' | 'Pending' | null;
@@ -54,8 +57,16 @@ export default function FriendList({ activeButton }: NavigationProps) {
 
   if (isLoading) {
     return (
-      <div className='flex flex-col items-start gap-[2px]'>
+      <div className='items-start gap-[2px]'>
+        <SearchFriends setKeyword={setKeyword} keyword={keyword} />
         <p className='mx-5 my-4 text-neutral-300 font-bold'>{title}</p>
+        <SkeletonFriendList />
+        {title === '보냄' && (
+          <>
+            <p className='mx-5 my-4 text-neutral-300 font-bold'>받음</p>
+            <SkeletonFriendList />
+          </>
+        )}
       </div>
     );
   }
@@ -80,6 +91,12 @@ export default function FriendList({ activeButton }: NavigationProps) {
                 {searchData.sent?.map((user: FriendData, idx: number) => (
                   <FriendCard key={`sent-${idx}`} user={user} type='sent' />
                 ))}
+                {searchData.sent?.length === 0 && (
+                  <Empty
+                    message={EMPTY_MESSAGE.FRIEND['sent']}
+                    className='m-5 mt-8'
+                  />
+                )}
               </div>
             </>
           )}
@@ -96,6 +113,12 @@ export default function FriendList({ activeButton }: NavigationProps) {
                     type='received'
                   />
                 ))}
+                {searchData.received?.length === 0 && (
+                  <Empty
+                    message={EMPTY_MESSAGE.FRIEND['received']}
+                    className='m-5 mt-8'
+                  />
+                )}
               </div>
             </>
           )}
@@ -116,6 +139,12 @@ export default function FriendList({ activeButton }: NavigationProps) {
                   openMenuId={openMenuId}
                 />
               ))}
+            {Array.isArray(searchData) && searchData?.length === 0 && (
+              <Empty
+                message={EMPTY_MESSAGE.FRIEND[activeButton]}
+                className='m-5 mt-8'
+              />
+            )}
           </div>
         </div>
       )}
