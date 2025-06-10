@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { FriendInfoData } from 'src/service/feature/friend/types/friend.ts';
-import Icon from '@components/common/Icon.tsx';
 import {
   useAcceptFriend,
   useCancelFriend,
   useRefuseFriend,
 } from 'src/service/feature/friend/hook/useFriendQuery.ts';
 import MoreMenu from './MoreMenu.tsx';
+import { Check, EllipsisVertical, X } from 'lucide-react';
+import Icon from '@components/common/Icon.tsx';
 
 interface UserCardProps {
   status?: string;
@@ -99,7 +100,7 @@ const UserCard = ({
             onClick={() => console.log('')}
             type='button'
           >
-            <Icon path='more' className='text-neutral-300' />
+            <EllipsisVertical />
           </button>
         </MoreMenu>
       )}
@@ -109,7 +110,7 @@ const UserCard = ({
           onClick={() => cancleFriendMutate(friendshipId)}
           type='button'
         >
-          <Icon path='close' className='text-neutral-300' />
+          <X className='text-neutral-300' />
         </button>
       )}
 
@@ -120,14 +121,14 @@ const UserCard = ({
             onClick={() => acceptFriendMutate(friendshipId)}
             type='button'
           >
-            <Icon path='check' className='hover:text-blue-500' />
+            <Check className='hover:text-blue-500' />
           </button>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-red'
             onClick={() => refuseFriendMutate(friendshipId)}
             type='button'
           >
-            <Icon path='close' className='hover:text-red' />
+            <X className='hover:text-red' />
           </button>
         </div>
       )}

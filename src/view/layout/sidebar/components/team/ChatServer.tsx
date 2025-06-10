@@ -1,5 +1,5 @@
-import Icon from '@components/common/Icon.tsx';
 import { Team } from '@service/feature/team/types/team.ts';
+import { Plus } from 'lucide-react';
 
 interface ChatServerProps {
   server?: Team;
@@ -21,7 +21,7 @@ export default function ChatServer({
       type='button'
     >
       {isAdd ? (
-        <Icon path='plus' className='!w-5 !h-5' />
+        <Plus className='!w-5 !h-5' />
       ) : (
         !server && <div className='text-center text-lg'>me</div>
       )}

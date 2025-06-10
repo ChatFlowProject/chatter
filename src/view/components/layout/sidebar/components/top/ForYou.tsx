@@ -1,5 +1,5 @@
-import Icon from '@components/common/Icon';
 import { useNavigate } from 'react-router-dom';
+import { EllipsisVertical } from 'lucide-react';
 
 const ForYou = ({
   data,
@@ -13,7 +13,7 @@ const ForYou = ({
     userNotiProfile: string;
   };
 }) => {
-  const { notiId, type, time, userName, userNotiId, userNotiProfile } = data;
+  const { type, userName, userNotiProfile } = data;
   const navigate = useNavigate();
   console.log('?????');
   const printTypeMsg = (
@@ -54,7 +54,7 @@ const ForYou = ({
         onClick={() => console.log('')}
         type='button'
       >
-        <Icon path='more' className='text-neutral-300 transform:rotate-90' />
+        <EllipsisVertical  className='text-neutral-300 transform:rotate-90' />
       </button>
     </div>
   );

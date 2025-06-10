@@ -1,5 +1,5 @@
 import NavigationButton from './NavigationButton';
-import Icon from '@components/common/Icon.tsx';
+import { UsersRound } from 'lucide-react';
 
 interface NavigationProps {
   activeButton: 'Online' | 'All' | 'Pending' | null;
@@ -25,7 +25,7 @@ const Navigation = ({ activeButton, setActiveButton }: NavigationProps) => {
         <div className='flex justify-center items-center gap-4 px-[22px]'>
           <div className='flex justify-center items-center gap-[9px]'>
             <div className='w-[22px] h-[22px]'>
-              <Icon path='navfriends' />
+              <UsersRound />
             </div>
             <p className='text-lg font-bold text-neutral-400'>친구</p>
           </div>
