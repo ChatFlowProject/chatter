@@ -1,35 +1,58 @@
 import { useState } from 'react';
-import { ChatView } from '@pages/chat/components/ChatView.tsx';
-import { ChatInput } from '@pages/chat/components/ChatInput.tsx';
 import { useChat } from '@service/feature/chat/hook/useChat.ts';
-import { ChannelHeader } from '@pages/chat/components/ChannelHeader.tsx';
 import { ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
-
+import { ChannelHeader } from './components/layout/ChannelHeader';
+import { ChatInput } from '@pages/chat/components/layout/ChatInput.tsx';
+import { ChatView } from '@pages/chat/components/layout/ChatView.tsx';
 
 const CHAT_ID = '25ffc7bf-874f-444e-b331-26ed864a76ba';
 const MY_ID = 'tester';
 
-export default function ChatPage() {
+export function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const { sendMessage } = useChat((msg) => {
     setMessages((prev) => [...prev, msg]);
   });
 
-  const handleSend = (text: string) => {
-    const msg: ChatMessage = {
-      channelId: CHAT_ID,
-      senderId: MY_ID,
-      content: text,
-      type: 'TEXT',
-    };
+  const uploadImage = async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append('file', file);
 
-    sendMessage(msg);
-    setMessages((prev) => [...prev, msg]);
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      return data.url;
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error);
+      throw error;
+    }
+  };
+
+  const handleSend = async (text: string, files?: File[]) => {
+      let imageUrls: string[] = [];
+
+      if (files && files.length > 0) {
+        const uploadPromises = files.map(file => uploadImage(file));
+        imageUrls = await Promise.all(uploadPromises);
+      }
+
+      const msg: ChatMessage = {
+        channelId: CHAT_ID,
+        sender: MY_ID,
+        content: text,
+        timestamp: new Date().toISOString(),
+        images: imageUrls.length > 0 ? imageUrls : undefined,
+      };
+
+      sendMessage(msg);
   };
 
   return (
-    <div className="flex h-screen flex-col bg-chat text-white ">
+    <div className="flex h-screen flex-col bg-chat text-white">
       <ChannelHeader channelName="일반" />
       <ChatView messages={messages} myId={MY_ID} />
       <ChatInput onSend={handleSend} />
