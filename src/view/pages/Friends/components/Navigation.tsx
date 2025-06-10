@@ -1,3 +1,4 @@
+import { Users } from 'lucide-react';
 import NavigationButton from './NavigationButton';
 import Icon from '@components/common/Icon.tsx';
 
@@ -25,7 +26,8 @@ const Navigation = ({ activeButton, setActiveButton }: NavigationProps) => {
         <div className='flex justify-center items-center gap-4 px-[22px] min-w-[500px]'>
           <div className='flex justify-center items-center gap-[9px]'>
             <div className='w-[22px] h-[22px]'>
-              <Icon path='navfriends' />
+              {/* <Icon path='navfriends' /> */}
+              <Users size={22} color='#d4d4d4' />
             </div>
             <p className='text-lg font-bold text-neutral-400'>친구</p>
           </div>

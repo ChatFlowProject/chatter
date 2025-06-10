@@ -7,6 +7,7 @@ import {
   useRefuseFriend,
 } from 'src/service/feature/friend/hook/useFriendQuery.ts';
 import MoreMenu from './MoreMenu.tsx';
+import { Check, EllipsisVertical, X } from 'lucide-react';
 
 interface UserCardProps {
   status?: string;
@@ -98,7 +99,7 @@ const UserCard = ({
             className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
             type='button'
           >
-            <Icon path='more' className='text-neutral-300' />
+            <EllipsisVertical color='#d4d4d4' className='w-full' />
           </button>
         </MoreMenu>
       )}
@@ -111,7 +112,8 @@ const UserCard = ({
           }}
           type='button'
         >
-          <Icon path='close' className='text-neutral-300' />
+          {/* <Icon path='close' className='text-neutral-300' /> */}
+          <X color='#d4d4d4' />
         </button>
       )}
 
@@ -125,7 +127,8 @@ const UserCard = ({
             }}
             type='button'
           >
-            <Icon path='check' className='hover:text-blue-500' />
+            {/* <Icon path='check' className='hover:text-blue-500' /> */}
+            <Check color='#d4d4d4' />
           </button>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-red'
@@ -135,7 +138,9 @@ const UserCard = ({
             }}
             type='button'
           >
-            <Icon path='close' className='hover:text-red' />
+            {/* <Icon path='close' className='hover:text-red' /> */}
+            {/* TODO: 호버 시 색상 바꾸기 */}
+            <X color='#d4d4d4' />
           </button>
         </div>
       )}

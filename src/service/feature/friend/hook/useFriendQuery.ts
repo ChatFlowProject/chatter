@@ -85,7 +85,12 @@ export const useAddFriend = (
         type: ADD_FRIEND_RESULT_TYPE[data],
         message: ADD_FRIEND_MESSAGE[data],
       });
-      toast.success('친구 요청에 성공했습니다.');
+
+      if (ADD_FRIEND_RESULT_TYPE[data]) {
+        toast.error(ADD_FRIEND_MESSAGE[data]);
+      } else {
+        toast.success('친구 요청에 성공했습니다.');
+      }
     },
     onError: () => {
       toast.error('친구 요청에 실패했습니다.');
