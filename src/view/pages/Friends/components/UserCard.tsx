@@ -97,6 +97,7 @@ const UserCard = ({
         >
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
+            onClick={() => console.log('')}
             type='button'
           >
             <EllipsisVertical color='#d4d4d4' className='w-full' />
@@ -138,9 +139,7 @@ const UserCard = ({
             }}
             type='button'
           >
-            {/* <Icon path='close' className='hover:text-red' /> */}
-            {/* TODO: 호버 시 색상 바꾸기 */}
-            <X color='#d4d4d4' />
+            <X className='hover:text-red' />
           </button>
         </div>
       )}

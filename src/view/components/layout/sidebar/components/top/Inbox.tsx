@@ -1,8 +1,8 @@
 import Alarm from '@components/common/Alarm';
-import Icon from '@components/common/Icon';
 import { useState } from 'react';
 import ForYou from './ForYou';
 import Mention from './Mention';
+import { Archive } from 'lucide-react';
 
 export default function Inbox() {
   const [selected, setSelected] = useState('myAlarm');
@@ -92,7 +92,7 @@ export default function Inbox() {
     <div className='absolute top-[45px] right-[20px]'>
       <div className='bg-[#292B2F] text-white w-[580px] rounded-[8px]'>
         <div className='flex p-4'>
-          <Icon path='inbox' className='!w-[20px] !h-[20px] mr-2' />
+          <Archive className='!w-[20px] !h-[20px] mr-2' />
           <h1 className='text-heading-md font-bold'>받은 편지함</h1>
         </div>
         <div>
