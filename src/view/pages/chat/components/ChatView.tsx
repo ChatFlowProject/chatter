@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { ChatMessageItem } from '@pages/chat/components/ChatMessageItem.tsx';
 import { ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
+import { ChatMessageItem } from '@pages/chat/components/message/ChatMessageItem.tsx';
 
 export const ChatView = ({
                            messages,
