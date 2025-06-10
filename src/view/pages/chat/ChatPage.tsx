@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { ChatView } from '@pages/chat/components/ChatView.tsx';
 import { ChatInput } from '@pages/chat/components/ChatInput.tsx';
-import { ChatMessage, useChat } from '@service/feature/chat/hook/useChat.ts';
+import { useChat } from '@service/feature/chat/hook/useChat.ts';
 import { ChannelHeader } from '@pages/chat/components/ChannelHeader.tsx';
+import { ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
 
 const CHAT_ID = '25ffc7bf-874f-444e-b331-26ed864a76ba';
 const MY_ID = 'tester';
@@ -17,9 +18,8 @@ export default function ChatPage() {
   const handleSend = (text: string) => {
     const msg: ChatMessage = {
       channelId: CHAT_ID,
-      senderId: MY_ID,
+      sender: MY_ID,
       content: text,
-      type: 'TEXT',
     };
 
     sendMessage(msg);

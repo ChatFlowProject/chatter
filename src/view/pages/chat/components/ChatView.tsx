@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { ChatMessageItem } from '@pages/chat/components/ChatMessageItem.tsx';
-import { ChatMessage } from '@service/feature/chat/hook/useChat.ts';
+import { ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
 
 export const ChatView = ({
                            messages,
@@ -19,14 +19,14 @@ export const ChatView = ({
     <div className="flex-1 overflow-y-auto flex flex-col gap-1 p-4">
       {messages.map((msg, index) => {
         const prev = messages[index - 1];
-        const isSameSender = prev?.senderId === msg.senderId;
+        const isSameSender = prev?.sender === msg.sender;
         const showMeta = !isSameSender;
 
         return (
           <ChatMessageItem
             key={index}
             msg={msg}
-            isMine={msg.senderId === myId}
+            isMine={msg.sender === myId}
             showMeta={showMeta}
           />
         );
