@@ -24,7 +24,7 @@ Modal.Content = ({
   className,
 }: {
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }) => {
   return (
     <div

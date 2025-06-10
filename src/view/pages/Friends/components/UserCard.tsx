@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { FriendInfoData } from 'src/service/feature/friend/types/friend.ts';
+import Icon from '@components/common/Icon.tsx';
 import {
   useAcceptFriend,
   useCancelFriend,
@@ -7,7 +8,6 @@ import {
 } from 'src/service/feature/friend/hook/useFriendQuery.ts';
 import MoreMenu from './MoreMenu.tsx';
 import { Check, EllipsisVertical, X } from 'lucide-react';
-import Icon from '@components/common/Icon.tsx';
 
 interface UserCardProps {
   status?: string;
@@ -100,17 +100,21 @@ const UserCard = ({
             onClick={() => console.log('')}
             type='button'
           >
-            <EllipsisVertical />
+            <EllipsisVertical color='#d4d4d4' className='w-full' />
           </button>
         </MoreMenu>
       )}
       {type === 'sent' && (
         <button
           className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
-          onClick={() => cancleFriendMutate(friendshipId)}
+          onClick={(e) => {
+            e.stopPropagation();
+            cancleFriendMutate(friendshipId);
+          }}
           type='button'
         >
-          <X className='text-neutral-300' />
+          {/* <Icon path='close' className='text-neutral-300' /> */}
+          <X color='#d4d4d4' />
         </button>
       )}
 
@@ -118,14 +122,21 @@ const UserCard = ({
         <div className='flex mr-2 gap-2'>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-blue-500'
-            onClick={() => acceptFriendMutate(friendshipId)}
+            onClick={(e) => {
+              e.stopPropagation();
+              acceptFriendMutate(friendshipId);
+            }}
             type='button'
           >
-            <Check className='hover:text-blue-500' />
+            {/* <Icon path='check' className='hover:text-blue-500' /> */}
+            <Check color='#d4d4d4' />
           </button>
           <button
             className='w-7 h-7 bg-[#37393F] rounded-full hover:text-red'
-            onClick={() => refuseFriendMutate(friendshipId)}
+            onClick={(e) => {
+              e.stopPropagation();
+              refuseFriendMutate(friendshipId);
+            }}
             type='button'
           >
             <X className='hover:text-red' />
