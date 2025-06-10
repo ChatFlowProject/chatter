@@ -1,4 +1,4 @@
-import Icon from '@components/common/Icon';
+import { EllipsisVertical } from 'lucide-react';
 
 const Message = ({
   data,
@@ -18,25 +18,12 @@ const Message = ({
   };
 }) => {
   const {
-    id,
-    content,
-    channel_id,
     channel_name,
     team_name,
     category_name,
     author,
   } = data;
   console.log('?????');
-  const printTypeMsg = (
-    type: 'FRIEND_REQUES' | 'FRIEND_REQUEST_ACCEPTED',
-    userName: string,
-  ) => {
-    if (type === 'FRIEND_REQUES')
-      return `${userName} 님이 친구 요청을 보냈어요.`;
-    if (type === 'FRIEND_REQUEST_ACCEPTED')
-      return `${userName} 님이 친구 요청을 수락했어요.`;
-  };
-
   return (
     <div className='flex justify-between items-center'>
       <div className='flex gap-[8px] p-[12px] '>
@@ -58,9 +45,8 @@ const Message = ({
         onClick={() => console.log('')}
         type='button'
       >
-        <Icon path='more' className='text-neutral-300 transform:rotate-90' />
+        <EllipsisVertical className='text-neutral-300 transform:rotate-90' />
       </button>
-      {/* 메시지 정보 */}
     </div>
   );
 };
