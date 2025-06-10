@@ -1,9 +1,7 @@
 import { useEffect, useRef } from 'react';
-
 import { ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
 import { DateDivider } from '@pages/chat/components/message/DateDivider.tsx';
 import { ChatMessageItem } from '@pages/chat/components/message/ChatMessageItem.tsx';
-
 
 export const ChatView = ({
   messages,

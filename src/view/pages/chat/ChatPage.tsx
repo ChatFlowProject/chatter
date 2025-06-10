@@ -40,15 +40,22 @@ export function ChatPage() {
         imageUrls = await Promise.all(uploadPromises);
       }
 
-      const msg: ChatMessage = {
-        channelId: CHAT_ID,
-        sender: MY_ID,
-        content: text,
-        timestamp: new Date().toISOString(),
-        images: imageUrls.length > 0 ? imageUrls : undefined,
-      };
+    const msg: ChatMessage = {
+      chatId: CHAT_ID,
+      sender: {
+        memberId: MY_ID,
+        username: 'tester',
+        avatarUrl: '',
+      },
+      content: text,
+      createdAt: new Date().toISOString(),
+      attachments:
+        imageUrls.length > 0
+          ? imageUrls.map((url) => ({ type: 'image', url }))
+          : undefined,
+    };
 
-      sendMessage(msg);
+    sendMessage(msg.content, msg.attachments);
   };
 
   return (
