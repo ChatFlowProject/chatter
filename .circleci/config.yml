@@ -9,7 +9,9 @@ jobs:
       - setup_remote_docker
       - run:
           name: Install pnpm
-          command: corepack enable && pnpm install
+          command: |
+            npm install -g pnpm
+            pnpm install
       - run:
           name: Build the app
           command: pnpm build
@@ -26,4 +28,4 @@ workflows:
       - build_and_push:
           filters:
             branches:
-              only: main
+              only: develop
