@@ -17,6 +17,11 @@ jobs:
       - run:
           name: Clean up previous install
           command: rm -rf node_modules
+          
+      - run:
+          name: Remove old lockfiles from other package managers
+          command: |
+            rm -f package-lock.json yarn.lock
       
       - run:
           name: Set pnpm store directory
