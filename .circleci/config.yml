@@ -7,7 +7,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.18
       - run:
           name: Install pnpm
           command: corepack enable && pnpm install
