@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Install pnpm
           command: |
-            npm install -g pnpm
+            npm install pnpm
             pnpm install
       - run:
           name: Build the app
