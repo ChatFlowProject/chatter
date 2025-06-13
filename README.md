@@ -1,4 +1,3 @@
-
 # Chatflow Frontend
 
 ![Chatflow Thumbnail](docs/chatflowthumbnail.png)

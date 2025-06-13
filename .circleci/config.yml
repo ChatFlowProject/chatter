@@ -3,27 +3,34 @@ version: 2.1
 jobs:
   build_and_push:
     docker:
-      - image: cimg/node:22.2.0
+      - image: cimg/node:22.13.0
+
     steps:
       - checkout
 
-      - setup_remote_docker:
-          version: 20.10.18
+      - setup_remote_docker
 
       - run:
-          name: Install pnpm
-          command: corepack enable && pnpm install
+          name: Clean previous installs and lockfiles
+          command: |
+            rm -rf node_modules
+            rm -f package-lock.json yarn.lock
+
+      - run:
+          name: Install dependencies with pnpm
+          command: |
+            npx pnpm install --no-frozen-lockfile
 
       - run:
           name: Build the app
-          command: pnpm build
+          command: npx pnpm build
 
       - run:
-          name: Build Docker Image
+          name: Build and Push Docker Image
           command: |
-            TAG=$(TZ=Asia/Seoul date +'%y%m%d.%H%M%S')  # KST 기준으로 시간 설정
+            TAG=$(TZ=Asia/Seoul date +'%y%m%d.%H%M%S')
             docker build -t chatflow/fe:1.0.0-$TAG .
-            docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_TOKEN"
+            echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push chatflow/fe:1.0.0-$TAG
 
 workflows:
@@ -32,4 +39,4 @@ workflows:
       - build_and_push:
           filters:
             branches:
-              only: main
+              only: develop
