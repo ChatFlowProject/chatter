@@ -15,7 +15,11 @@ jobs:
             - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
 
       - run:
-          name: Install pnpm locally
+          name: Clean up previous install
+          command: rm -rf node_modules
+      
+      - run:
+          name: Set pnpm store directory
           command: |
             npm install pnpm
             npx pnpm config set store-dir .pnpm-store
