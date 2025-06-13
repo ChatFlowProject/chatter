@@ -1,6 +1,7 @@
 # Frontend
 
-![chatflow 썸네일](path/to/chatflowthumbnail.png)
+![chatflowthumbnail](https://github.com/user-attachments/assets/57a9709e-cfd5-499d-b0e5-941abcd2540f)
+
 
 ## 📝 프로젝트 개요
 chatflow 프로젝트의 프론트엔드 리포지토리입니다.
