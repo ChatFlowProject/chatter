@@ -21,9 +21,13 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            TAG=$(TZ=Asia/Seoul date +'%y%m%d.%H%M%S')  # KST 기준으로 시간 설정
+            TAG=$(TZ=Asia/Seoul date +'%y%m%d.%H%M%S')
             docker build -t chatflow/fe:1.0.0-$TAG .
-            docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_TOKEN"
+      - run:
+          name: Docker Login & Push
+          command: |
+            TAG=$(TZ=Asia/Seoul date +'%y%m%d.%H%M%S')
+            echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push chatflow/fe:1.0.0-$TAG
 
 workflows:
