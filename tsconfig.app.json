@@ -8,7 +8,7 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -24,15 +24,14 @@
 
     "baseUrl": ".",
     "paths": {
-      "@api/*": ["src/api/*"],
-      "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@store/*": ["src/store/*"],
-      "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"],
-      "@pages/*": ["src/pages/*"]
-    }
+      "@types/*": ["src/lib/types/*"],
+      "@utils/*": ["src/lib/utils/*"],
+      "@assets/*": ["public/assets/*"],
+      "@components/*": ["src/view/components/*"],
+      "@pages/*": ["src/view/pages/*"],
+      "@service/*": ["src/service/*"]
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"]
 }
