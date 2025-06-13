@@ -9,30 +9,29 @@ jobs:
 
       - setup_remote_docker
 
+      - run:
+          name: Remove possible leftovers
+          command: |
+            rm -rf node_modules
+            rm -rf .pnpm-store
+            rm -rf ~/.pnpm-store
+            rm -f package-lock.json yarn.lock
+      
       - restore_cache:
           name: Restore pnpm Package Cache
           keys:
-            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
-
-      - run:
-          name: Clean up previous install
-          command: rm -rf node_modules
-          
-      - run:
-          name: Remove old lockfiles from other package managers
-          command: |
-            rm -f package-lock.json yarn.lock
+            - pnpm-packages-v2-{{ checksum "pnpm-lock.yaml" }}
       
       - run:
-          name: Set pnpm store directory
+          name: Install pnpm and config store
           command: |
             npm install pnpm
             npx pnpm config set store-dir .pnpm-store
-
+      
       - run:
           name: Install dependencies
           command: npx pnpm install --no-frozen-lockfile
-
+          
       - save_cache:
           name: Save pnpm Package Cache
           key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
