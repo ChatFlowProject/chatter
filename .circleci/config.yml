@@ -6,30 +6,34 @@ jobs:
       - image: cimg/node:22.13.0
     steps:
       - checkout
+
       - setup_remote_docker
+
       - restore_cache:
           name: Restore pnpm Package Cache
           keys:
             - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+
       - run:
-          name: Install pnpm package manager
+          name: Install pnpm locally
           command: |
-            npm install --global corepack@latest
-            corepack enable
-            corepack prepare pnpm@latest-10 --activate
-            pnpm config set store-dir .pnpm-store
+            npm install pnpm
+            npx pnpm config set store-dir .pnpm-store
+
       - run:
-          name: Install Dependencies
-          command: |
-            pnpm install
+          name: Install dependencies
+          command: npx pnpm install --no-frozen-lockfile
+
       - save_cache:
           name: Save pnpm Package Cache
           key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - .pnpm-store
+
       - run:
           name: Build the app
-          command: pnpm build
+          command: npx pnpm build
+
       - run:
           name: Build Docker Image
           command: |
@@ -37,6 +41,7 @@ jobs:
             docker build -t chatflow/fe:1.0.0-$TAG .
             echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push chatflow/fe:1.0.0-$TAG
+
 workflows:
   build_and_push_on_main:
     jobs:
