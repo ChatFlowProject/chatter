@@ -28,4 +28,4 @@ workflows:
       - build_and_push:
           filters:
             branches:
-              only: develop
+              only: main
