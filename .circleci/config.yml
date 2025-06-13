@@ -4,46 +4,29 @@ jobs:
   build_and_push:
     docker:
       - image: cimg/node:22.13.0
+
     steps:
       - checkout
 
       - setup_remote_docker
 
       - run:
-          name: Remove possible leftovers
+          name: Clean previous installs and lockfiles
           command: |
             rm -rf node_modules
-            rm -rf .pnpm-store
-            rm -rf ~/.pnpm-store
             rm -f package-lock.json yarn.lock
-      
-      - restore_cache:
-          name: Restore pnpm Package Cache
-          keys:
-            - pnpm-packages-v2-{{ checksum "pnpm-lock.yaml" }}
-      
+
       - run:
-          name: Install pnpm and config store
+          name: Install dependencies with pnpm
           command: |
-            npm install pnpm
-            npx pnpm config set store-dir .pnpm-store
-      
-      - run:
-          name: Install dependencies
-          command: npx pnpm install --no-frozen-lockfile
-          
-      - save_cache:
-          name: Save pnpm Package Cache
-          key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
-          paths:
-            - .pnpm-store
+            npx pnpm install --no-frozen-lockfile
 
       - run:
           name: Build the app
           command: npx pnpm build
 
       - run:
-          name: Build Docker Image
+          name: Build and Push Docker Image
           command: |
             TAG=$(TZ=Asia/Seoul date +'%y%m%d.%H%M%S')
             docker build -t chatflow/fe:1.0.0-$TAG .
