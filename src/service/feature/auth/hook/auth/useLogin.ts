@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { login } from '../../api/authAPI.ts';
+import { login } from '../../api/authApi';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@service/feature/auth';
 import { useNavigate } from 'react-router-dom';

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useQueryClient } from '@tanstack/react-query';
 import { AuthContext } from './AuthContext';
 import { clearProfile, setProfile } from '@service/feature/auth/store/profile/userSlice.ts';
-import { getProfile } from '@service/feature/auth/api/profileAPI.ts';
+import {getProfile} from "@service/feature/auth/api/profileApi.ts";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);

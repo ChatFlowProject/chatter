@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { registerSchema } from '../../schema/authSchema.ts';
 import { RegisterRequest, RegisterResponse } from '@service/feature/auth/types/auth.ts';
-import { register } from '@service/feature/auth';
+import {register} from "@service/feature/auth/api/authApi.ts";
 
 export const useRegister = () => {
   const navigate = useNavigate();
