@@ -59,7 +59,7 @@ export function ChatPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-chat text-white">
+    <div className="flex h-full flex-col bg-chat text-white">
       <ChannelHeader channelName="일반" />
       <ChatView messages={messages} myId={MY_ID} />
       <ChatInput onSend={handleSend} />

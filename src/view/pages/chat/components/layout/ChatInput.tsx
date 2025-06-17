@@ -42,7 +42,7 @@ export const ChatInput = ({ onSend }: ChatInputProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 bg-chat-dark">
+    <form onSubmit={handleSubmit} className="p-3 bg-[#2b2d31]">
       {previewUrls.length > 0 && (
         <div className="flex gap-2 mb-2 flex-wrap">
           {previewUrls.map((url, index) => (
@@ -84,7 +84,7 @@ export const ChatInput = ({ onSend }: ChatInputProps) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="메시지 입력..."
-          className="flex-1 bg-gray-700 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 bg-chat rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           type="submit"
