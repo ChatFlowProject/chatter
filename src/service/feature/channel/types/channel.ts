@@ -13,6 +13,10 @@ export interface DMDetail {
   channelMembers: ChannelMember[];
 }
 
+export interface DMList extends Channel2 {
+  channelMembers: ChannelMember[];
+}
+
 export interface ChannelMember {
   id: string;
   nickname: string;

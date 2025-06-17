@@ -1,7 +1,7 @@
-import UserCard from '@pages/Friends/components/UserCard';
 import { useDMListQuery } from '@service/feature/chat';
 import { useParams } from 'react-router-dom';
 import { Plus } from 'lucide-react';
+import DMUserCard from '@pages/Friends/components/DMUserCard';
 
 const DirectMessages = () => {
   const params = useParams();
@@ -12,7 +12,6 @@ const DirectMessages = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>에러 발생</div>;
 
-  console.log('DM list 출력: ', data);
   const handlePlus = () => {
     console.log('plus 버튼 클릭');
   };
@@ -24,20 +23,19 @@ const DirectMessages = () => {
           DIRECT MESSAGES
         </p>
         <button
-          className='w-[11px] h-[11px]'
+          className='w-[18px] h-[18px]'
           onClick={handlePlus}
           type='button'
         >
-          <Plus />
+          <Plus size={18} color='#a3a3a3' />
         </button>
       </div>
       <div className='flex flex-col items-start gap-[2px]'>
-        {data?.map((user) => (
-          <UserCard
-            key={user.name}
-            user={user}
-            isActive={userId === user.chatId}
-            friendshipId={0}
+        {data?.map((channel) => (
+          <DMUserCard
+            key={channel.name}
+            isActive={userId === channel.chatId}
+            channel={channel}
           />
         ))}
       </div>

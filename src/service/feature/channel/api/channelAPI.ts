@@ -1,5 +1,5 @@
 import { createAxiosInstance } from '@service/feature/common/axios/axiosInstance';
-import { Channel2, DMDetail } from '../types/channel';
+import { DMDetail, DMList } from '../types/channel';
 
 const axios = createAxiosInstance();
 
@@ -78,7 +78,7 @@ export const getDMDetail = async (channelId: number): Promise<DMDetail> => {
   return res.data.data;
 };
 
-export const getDMList = async (): Promise<Channel2[]> => {
+export const getDMList = async (): Promise<DMList[]> => {
   const res = await axios.get(`/channels/me`);
   return res.data.data;
 };
