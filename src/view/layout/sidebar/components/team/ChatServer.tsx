@@ -26,7 +26,7 @@ export default function ChatServer({
         !server && <div className='text-center text-lg'>me</div>
       )}
       {server?.iconUrl ? (
-        <img src={server.iconUrl} alt={server.name} />
+        <img src={server.iconUrl} alt={server.name} className='h-12' />
       ) : (
         <div className='text-center text-lg'>{server?.name}</div>
       )}
