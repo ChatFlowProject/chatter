@@ -114,7 +114,7 @@ Modal.Title = ({
           onClick={() => context?.setIsOpen(false)}
           className='mr-1 group'
         >
-          <X />
+          <X color='#ffffff' />
         </button>
       )}
     </div>
@@ -237,10 +237,12 @@ Modal.ProTip = ({ children }: { children: string }) => {
 
 Modal.Footer = ({
   onSubmit,
+  onClose,
   backBtnText,
   submitBtnText,
 }: {
   onSubmit: () => void;
+  onClose?: () => void;
   backBtnText?: string;
   submitBtnText?: string;
 }) => {
@@ -252,10 +254,17 @@ Modal.Footer = ({
     onSubmit();
   };
 
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    }
+    context.setIsOpen(false);
+  };
+
   return (
     <div className=' h-[48px] flex bg-[#2F3136] px-[0.75rem] justify-between items-center rounded-b-[4px]'>
       <button
-        onClick={() => context.setIsOpen(false)}
+        onClick={handleClose}
         className='text-[#DCDDDE] text-[10px] px-[0.94rem] py-[0.5rem] rounded-[0.13275rem] hover:bg-[#404249]'
       >
         {backBtnText ? backBtnText : 'Back'}
