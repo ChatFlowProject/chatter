@@ -1,12 +1,18 @@
 import Icon from '@components/common/Icon.tsx';
 import UserCard from '@pages/Friends/components/UserCard';
+import { useDMListQuery } from '@service/feature/chat';
 import { useParams } from 'react-router-dom';
 
 const DirectMessages = () => {
   const params = useParams();
 
   const userId = params.channelId;
+  const { data, isLoading, error } = useDMListQuery();
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>에러 발생</div>;
+
+  console.log('DM list 출력: ', data);
   const handlePlus = () => {
     console.log('plus 버튼 클릭');
   };
@@ -26,18 +32,11 @@ const DirectMessages = () => {
         </button>
       </div>
       <div className='flex flex-col items-start gap-[2px]'>
-        {[
-          {
-            id: 'sdfsdf',
-            name: '사용자3',
-            state: 'DND',
-            avatarUrl: 'profile',
-          },
-        ].map((user) => (
+        {data?.map((user) => (
           <UserCard
             key={user.name}
             user={user}
-            isActive={userId === user.id}
+            isActive={userId === user.chatId}
             friendshipId={0}
           />
         ))}

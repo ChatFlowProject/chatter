@@ -6,7 +6,8 @@ import { getCookie } from '../../auth/lib/getCookie';
 export type ServiceType = 'members' | 'teams' | 'dialog';
 
 const API_CONFIG = {
-  BASE_DOMAIN: 'https://flowchat.shop:30200',
+  // BASE_DOMAIN: 'https://flowchat.shop:30200',
+  BASE_DOMAIN: 'http://flowchat.shop:30100',
   HEADERS: {
     JSON: 'application/json',
   },
@@ -59,12 +60,12 @@ export const createAxiosInstance = (): AxiosInstance => {
       }
       return config;
     },
-    (error) => Promise.reject(error)
+    (error) => Promise.reject(error),
   );
 
   instance.interceptors.response.use(
     (response: AxiosResponse) => response,
-    handleAxiosError
+    handleAxiosError,
   );
 
   return instance;

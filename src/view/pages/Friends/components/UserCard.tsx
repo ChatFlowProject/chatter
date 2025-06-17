@@ -8,23 +8,17 @@ import {
 } from 'src/service/feature/friend/hook/useFriendQuery.ts';
 import MoreMenu from './MoreMenu.tsx';
 import { Check, EllipsisVertical, X } from 'lucide-react';
+import { Channel2 } from '@service/feature/channel/types/channel.ts';
 
 interface UserCardProps {
   status?: string;
-  isActive: boolean;
+  isActive?: boolean;
   className?: string;
   friendshipId: number;
   type?: 'sent' | 'received' | 'message';
   openMenuId?: number | null;
   setOpenMenuId?: React.Dispatch<React.SetStateAction<number | null>>;
-  user:
-    | FriendInfoData
-    | {
-        avatarUrl: string;
-        state: string;
-        name: string;
-        id: string;
-      };
+  user: Channel2;
 }
 
 const UserCard = ({
@@ -39,10 +33,13 @@ const UserCard = ({
 }: UserCardProps) => {
   const navigation = useNavigate();
 
-  const { id, name, avatarUrl, state: isOnline } = user;
+  // const { id, name, avatarUrl, state: isOnline } = user;
+  const { name, chatId } = user;
+
+  console.log('user: ', user);
 
   const handleClick = () => {
-    navigation(`/channels/@me/${id}`);
+    navigation(`/channels/@me/${chatId}`);
   };
 
   // 친구 요청 취소
@@ -58,8 +55,8 @@ const UserCard = ({
     <div
       className={`flex h-[42px] rounded-[8px] text-white cursor-pointer items-center ${
         isActive
-          ? 'bg-[#393C43] text-white'
-          : 'hover:bg-[#393C43] hover:text-white text-neutral-400'
+          ? 'bg-[#41424b] text-white'
+          : 'hover:bg-[#41424b] hover:text-white text-neutral-400'
       } ${type && 'w-full justify-between'} ${className}`}
       onClick={handleClick}
     >
@@ -67,12 +64,13 @@ const UserCard = ({
         <div className='w-8 h-8 my-[5px] ml-2 flex items-center justify-center relative mr-3'>
           <img
             className='rounded-full'
-            src={avatarUrl || '/logo.png'}
+            // src={avatarUrl || '/logo.png'}
+            src={'/logo.png'}
             alt={user.name}
           />
-          <div className='absolute right-0 bottom-0 w-[10px] h-[10px]'>
+          {/* <div className='absolute right-0 bottom-0 w-[10px] h-[10px]'>
             <Icon path={`${isOnline}`} />
-          </div>
+          </div> */}
         </div>
         <div className='flex items-start flex-col justify-center overflow-hidden whitespace-nowrap'>
           <p className='w-[151px] text-lg m-0 h-[18px] flex items-center '>
