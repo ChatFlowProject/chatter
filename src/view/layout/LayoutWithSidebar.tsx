@@ -14,15 +14,15 @@ const LayoutWithSidebar = () => {
       <aside className='bg-[#313338]'>
         <TopSidebar />
       </aside>
-      <div className='flex w-screen bg-[#313338]'>
-        <aside className='w-[72px] bg-[#37393f] text-white'>
+      <div className='flex w-screen h-full overflow-hidden'>
+        <aside className='w-[72px] bg-sidebar text-white'>
           <TeamSidebar />
         </aside>
-        <aside className='w-[240px] bg-[#37393F] text-white flex flex-col justify-between border border-[#42454A] rounded-[12px]'>
+        <aside className='w-[240px] bg-sidebar text-white flex flex-col justify-between'>
           {isDMView ? <DirectChannelSidebar /> : <ServerChannelSidebar />}
           <UserProfileBar />
         </aside>
-        <main className='flex-1 bg-gray-900 text-white'>
+        <main className='flex-1  bg-wrapper text-white overflow-y-auto'>
           <Outlet />
         </main>
       </div>

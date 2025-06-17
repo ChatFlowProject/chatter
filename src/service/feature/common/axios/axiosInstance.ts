@@ -6,8 +6,7 @@ import { getCookie } from '../../auth/lib/getCookie';
 export type ServiceType = 'members' | 'teams' | 'dialog';
 
 const API_CONFIG = {
-  // BASE_DOMAIN: 'https://flowchat.shop:30200',
-  BASE_DOMAIN: 'http://flowchat.shop:30100',
+  BASE_DOMAIN: 'https://flowchat.shop:30200',
   HEADERS: {
     JSON: 'application/json',
   },

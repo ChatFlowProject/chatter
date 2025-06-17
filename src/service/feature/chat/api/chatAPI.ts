@@ -1,6 +1,6 @@
 import { createAxiosInstance } from '../../common/axios/axiosInstance';
 
-const axios = createAxiosInstance('teams');
+const axios = createAxiosInstance();
 
 export const fetchChannels = async () => {
   const res = await axios.get('/channels');

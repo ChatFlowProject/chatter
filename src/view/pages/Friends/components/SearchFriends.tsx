@@ -1,4 +1,4 @@
-import Icon from '@components/common/Icon.tsx';
+import { Search } from 'lucide-react';
 
 const SearchFriends = ({
   setKeyword,
@@ -15,7 +15,7 @@ const SearchFriends = ({
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <Icon path='search' className='!w-5 !h-5' />
+      <Search />
     </div>
   );
 };

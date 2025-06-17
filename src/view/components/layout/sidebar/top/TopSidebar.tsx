@@ -1,6 +1,6 @@
-import Icon from '@components/common/Icon';
 import { useState } from 'react';
 import Inbox from '../components/top/Inbox';
+import { Archive } from 'lucide-react';
 
 const TopSidebar = () => {
   const [toggle, setToggle] = useState(false);
@@ -13,7 +13,7 @@ const TopSidebar = () => {
         className='w-8 h-8 p-1 rounded-full hover:bg-[#42454A]'
         onClick={() => setToggle((prev) => !prev)}
       >
-        <Icon path='inbox' />
+        <Archive />
       </button>
       {toggle && <Inbox />}
     </div>

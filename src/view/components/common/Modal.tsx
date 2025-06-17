@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { CircleAlert, X } from 'lucide-react';
 import Icon from '@components/common/Icon.tsx';
 
 const ModalContext = createContext<{
@@ -102,8 +103,7 @@ Modal.Title = ({
       <div className={`flex items-center ${className}`}>
         {!!profile && (
           <div className='w-[17px] h-[17px] mr-[6px]'>
-            <Icon path={'profile'} />
-            {/* <user className='w-full' src={Profile} alt='profile' /> */}
+            <Icon path='profile' />
           </div>
         )}
         <h2 className='font-display text-white'>{children}</h2>
@@ -114,12 +114,7 @@ Modal.Title = ({
           onClick={() => context?.setIsOpen(false)}
           className='mr-1 group'
         >
-          <Icon path={'cancel-btn'} />
-          {/* <user
-            src={CancelBtn}
-            alt='닫기 버튼'
-            className='group-hover:brightness-50 group-hover:invert transition-all duration-800'
-          /> */}
+          <X />
         </button>
       )}
     </div>
@@ -154,8 +149,7 @@ Modal.Warning = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className='flex border border-[#FAA61A] bg-[#FAA61A] bg-opacity-10 rounded-[3px] p-[8px]'>
       <div className='w-[18px] h-[18px]'>
-        {/* <user className='w-full' src={Warning} alt='warning' /> */}
-        <Icon path='warning' />
+        <CircleAlert />
       </div>
       <p className='pl-[7px] text-[10px] text-white'>{children}</p>
     </div>
@@ -215,7 +209,6 @@ Modal.Profile = ({
   return (
     <div className='flex my-[6px] p-[0.56rem] border border-[#2A2C31] rounded-[0.1875rem] shadow-[0px_4px_24px_0px_rgba(0,0,0,0.10)]'>
       <div className='w-[36px] h-[36px]'>
-        {/* <user className='w-fill' src={Profile} alt='profile' /> */}
         <Icon path='profile' />
       </div>
       <div className='ml-[0.56rem]'>

@@ -1,6 +1,6 @@
-import Icon from '@components/common/Icon';
 import ChatMessage from './ChatMessage';
 import { useNavigate } from 'react-router-dom';
+import { EllipsisVertical } from 'lucide-react';
 
 const Mention = ({
   data,
@@ -20,7 +20,6 @@ const Mention = ({
   };
 }) => {
   const {
-    id,
     content,
     channel_id,
     channel_name,
@@ -56,7 +55,7 @@ const Mention = ({
           onClick={() => console.log('')}
           type='button'
         >
-          <Icon path='more' className='text-neutral-300 transform:rotate-90' />
+          <EllipsisVertical className='text-neutral-300 transform:rotate-90' />
         </button>
       </div>
       <ChatMessage message={content} />

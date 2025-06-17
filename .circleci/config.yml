@@ -1,0 +1,42 @@
+version: 2.1
+
+jobs:
+  build_and_push:
+    docker:
+      - image: cimg/node:22.13.0
+
+    steps:
+      - checkout
+
+      - setup_remote_docker
+
+      - run:
+          name: Clean previous installs and lockfiles
+          command: |
+            rm -rf node_modules
+            rm -f package-lock.json yarn.lock
+
+      - run:
+          name: Install dependencies with pnpm
+          command: |
+            npx pnpm install --no-frozen-lockfile
+
+      - run:
+          name: Build the app
+          command: npx pnpm build
+
+      - run:
+          name: Build and Push Docker Image
+          command: |
+            TAG=$(TZ=Asia/Seoul date +'%y%m%d.%H%M%S')
+            docker build -t chatflow/fe:1.0.0-$TAG .
+            echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push chatflow/fe:1.0.0-$TAG
+
+workflows:
+  build_and_push_on_main:
+    jobs:
+      - build_and_push:
+          filters:
+            branches:
+              only: develop

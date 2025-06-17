@@ -1,5 +1,5 @@
 // API
-export * from './api/authAPI';
+export {login, register} from './api/authApi';
 
 // Store
 export { setUser, logout } from './store/auth/authSlice.ts';

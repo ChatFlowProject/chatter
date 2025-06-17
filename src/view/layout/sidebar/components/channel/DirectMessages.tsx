@@ -1,7 +1,7 @@
-import Icon from '@components/common/Icon.tsx';
 import UserCard from '@pages/Friends/components/UserCard';
 import { useDMListQuery } from '@service/feature/chat';
 import { useParams } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 
 const DirectMessages = () => {
   const params = useParams();
@@ -28,7 +28,7 @@ const DirectMessages = () => {
           onClick={handlePlus}
           type='button'
         >
-          <Icon path='plus' />
+          <Plus />
         </button>
       </div>
       <div className='flex flex-col items-start gap-[2px]'>
