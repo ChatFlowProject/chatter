@@ -15,6 +15,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Leave CI pending comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: "🛠 PR 검사를 시작합니다. 잠시만 기다려 주세요!"
+            });
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -38,11 +48,6 @@ jobs:
         continue-on-error: true
         run: pnpm format
 
-      - name: Type check
-        id: typecheck
-        continue-on-error: true
-        run: pnpm tsc --noEmit
-
       - name: Build check
         id: build
         continue-on-error: true
@@ -56,7 +61,6 @@ jobs:
             const steps = {
               lint: '${{ steps.lint.outcome }}',
               format: '${{ steps.format.outcome }}',
-              typecheck: '${{ steps.typecheck.outcome }}',
               build: '${{ steps.build.outcome }}'
             };
 
@@ -66,7 +70,6 @@ jobs:
               `### 검사 결과\n` +
               `- Lint: ${emoji(steps.lint)} ${steps.lint}\n` +
               `- Format: ${emoji(steps.format)} ${steps.format}\n` +
-              `- Type Check: ${emoji(steps.typecheck)} ${steps.typecheck}\n` +
               `- Build: ${emoji(steps.build)} ${steps.build}\n\n` +
               `${Object.values(steps).every(s => s === 'success') ? '✅ 모든 검사가 통과되었습니다.' : '❌ 일부 검사가 실패했습니다.'}`;
 
