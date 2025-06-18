@@ -51,7 +51,7 @@ const Mention = ({
         </div>
         {/* 닫기로 수정 */}
         <button
-          className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
+          className='w-7 h-7 bg-chat rounded-full mr-2'
           onClick={() => console.log('')}
           type='button'
         >

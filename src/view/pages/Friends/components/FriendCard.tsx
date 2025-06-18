@@ -42,9 +42,9 @@ const FriendCard = ({
   const { mutate: refuseFriendMutate } = useRefuseFriend();
 
   return (
-    <div className='mx-[20px] border-t border-[#3E4147]'>
+    <div className='mx-[20px] border-t border-chat-hover'>
       <div
-        className={`flex h-[42px] rounded-[8px] text-white cursor-pointer items-center ${type && 'w-full justify-between'} text-neutral-300 h-[60px] hover:bg-[#3E4147]`}
+        className={`flex h-[42px] rounded-[8px] text-white cursor-pointer items-center ${type && 'w-full justify-between'} text-neutral-300 h-[60px] hover:bg-chat-hover`}
         onClick={handleClick}
       >
         <div className='flex'>
@@ -79,14 +79,14 @@ const FriendCard = ({
             openMenuId={openMenuId!}
             setOpenMenuId={setOpenMenuId!}
           >
-            <div className='w-7 h-7 bg-[#37393F] rounded-full mr-2 flex justify-center items-center'>
+            <div className='w-7 h-7 bbg-chat rounded-full mr-2 flex justify-center items-center'>
               <EllipsisVertical color='#d4d4d4' className='w-full' />
             </div>
           </MoreMenu>
         )}
         {type === 'sent' && (
           <button
-            className='w-7 h-7 bg-[#37393F] rounded-full mr-2 flex justify-center items-center'
+            className='w-7 h-7 bg-chat rounded-full mr-2 flex justify-center items-center'
             onClick={(e) => {
               e.stopPropagation();
               cancleFriendMutate(friendshipId);
@@ -100,7 +100,7 @@ const FriendCard = ({
         {type === 'received' && (
           <div className='flex mr-2 gap-2'>
             <button
-              className='w-7 h-7 bg-[#37393F] rounded-full hover:text-blue-500 flex justify-center items-center'
+              className='w-7 h-7 bg-chat rounded-full hover:text-blue-500 flex justify-center items-center'
               onClick={(e) => {
                 e.stopPropagation();
                 acceptFriendMutate(friendshipId);
@@ -110,7 +110,7 @@ const FriendCard = ({
               <Check color='#d4d4d4' />
             </button>
             <button
-              className='w-7 h-7 bg-[#37393F] rounded-full hover:text-red flex justify-center items-center'
+              className='w-7 h-7 bg-chat rounded-full hover:text-red flex justify-center items-center'
               onClick={(e) => {
                 e.stopPropagation();
                 refuseFriendMutate(friendshipId);

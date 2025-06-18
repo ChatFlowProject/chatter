@@ -23,7 +23,7 @@ const AddFriend = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className='border-b border-[#3E4147] px-[30px] py-[20px]'
+      className='border-b border-chat-hover px-[30px] py-[20px]'
     >
       <h2 className='text-[20px] font-bold mb-2'>친구 추가하기</h2>
       <h3>Discord 사용자명을 사용하여 친구를 추가할 수 있어요.</h3>

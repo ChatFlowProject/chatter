@@ -56,6 +56,7 @@ export default {
         'wrapper': '#313338',
         'sidebar': '#2E3036',
         'chat': '#37393F',
+        'chat-hover': '#3E4147',
         'off': '#8E9297',
         'des': '#DCDDDE',
         'primary': '#5865F2',

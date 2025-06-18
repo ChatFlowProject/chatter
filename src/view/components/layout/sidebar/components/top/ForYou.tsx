@@ -50,11 +50,11 @@ const ForYou = ({
       </div>
 
       <button
-        className='w-7 h-7 bg-[#37393F] rounded-full mr-2'
+        className='w-7 h-7 bg-chat rounded-full mr-2'
         onClick={() => console.log('')}
         type='button'
       >
-        <EllipsisVertical  className='text-neutral-300 transform:rotate-90' />
+        <EllipsisVertical className='text-neutral-300 transform:rotate-90' />
       </button>
     </div>
   );
