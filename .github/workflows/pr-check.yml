@@ -29,31 +29,26 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22'
-          cache: 'pnpm'
-
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
+          cache: 'npm'
 
       - name: Install dependencies
         id: install
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Lint check
         id: lint
         continue-on-error: true
-        run: pnpm lint
+        run: npm run lint
 
       - name: Format check
         id: format
         continue-on-error: true
-        run: pnpm format
+        run: npm run format
 
       - name: Build check
         id: build
         continue-on-error: true
-        run: pnpm build
+        run: npm run build
 
       - name: Report Status
         if: always()
