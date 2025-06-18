@@ -1,0 +1,81 @@
+name: PR Check
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: corepack enable && corepack prepare pnpm@latest --activate
+
+      - name: Install dependencies
+        id: install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint check
+        id: lint
+        continue-on-error: true
+        run: pnpm lint
+
+      - name: Format check
+        id: format
+        continue-on-error: true
+        run: pnpm format
+
+      - name: Type check
+        id: typecheck
+        continue-on-error: true
+        run: pnpm tsc --noEmit
+
+      - name: Build check
+        id: build
+        continue-on-error: true
+        run: pnpm build
+
+      - name: Report Status
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const steps = {
+              lint: '${{ steps.lint.outcome }}',
+              format: '${{ steps.format.outcome }}',
+              typecheck: '${{ steps.typecheck.outcome }}',
+              build: '${{ steps.build.outcome }}'
+            };
+
+            const emoji = (status) => status === 'success' ? '✅' : '❌';
+
+            const body = `## CI Status Report\n\n` +
+              `### 검사 결과\n` +
+              `- Lint: ${emoji(steps.lint)} ${steps.lint}\n` +
+              `- Format: ${emoji(steps.format)} ${steps.format}\n` +
+              `- Type Check: ${emoji(steps.typecheck)} ${steps.typecheck}\n` +
+              `- Build: ${emoji(steps.build)} ${steps.build}\n\n` +
+              `${Object.values(steps).every(s => s === 'success') ? '✅ 모든 검사가 통과되었습니다.' : '❌ 일부 검사가 실패했습니다.'}`;
+
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+
+            if (Object.values(steps).some(s => s === 'failure')) {
+              core.setFailed('Some checks failed');
+            }
