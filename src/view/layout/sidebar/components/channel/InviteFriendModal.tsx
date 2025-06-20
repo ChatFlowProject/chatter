@@ -65,7 +65,7 @@ const InviteFriendModal = ({
             <SearchFriends setKeyword={setKeyword} keyword={keyword} />
             <div className='min-h-[60px] max-h-[645px]'>
               {searchData?.map((member) => (
-                <Item member={member} teamId={team.id} key={team.id || uuidv4()} />
+                <Item member={member} teamId={team.id} key={member.id} />
               ))}
             </div>
           </Modal.Body>
