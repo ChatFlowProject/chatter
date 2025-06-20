@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const senderSchema = z.object({
   memberId: z.string(),
-  username: z.string(),
+  name: z.string(),
   avatarUrl: z.string(),
 });
 
@@ -12,13 +12,15 @@ const attachmentSchema = z.object({
 });
 
 export const messageSchema = z.object({
-  chatId: z.string(),
+  messageId: z.number(),
   sender: senderSchema,
   content: z.string().min(1, '메시지를 입력해주세요'),
+  createdAt: z.string().datetime({ message: '올바른 날짜/시간 형식이 아닙니다' }),
+  isUpdated: z.boolean(),
+  isDeleted: z.boolean(),
   attachments: z.array(attachmentSchema).optional(),
-  createdAt: z
-    .string()
-    .datetime({ message: '올바른 날짜/시간 형식이 아닙니다' }),
+  status: z.enum(['pending', 'sent', 'error']).optional(),
+  tempId: z.string().optional(),
 });
 
 export type ChatMessage = z.infer<typeof messageSchema>;

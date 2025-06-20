@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DndContext } from '@dnd-kit/core';
+import {DndContext, DragEndEvent} from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -9,11 +9,7 @@ import { ChevronDown, ChevronRight, Plus } from 'lucide-react';
 import ChannelItem from './ChannelItem.tsx';
 import { Channel } from '@service/feature/channel/types/channel.ts';
 
-const ChannelCategory = ({
-                           title,
-                           type,
-                           defaultItems,
-                         }: {
+const ChannelCategory = ({title, type, defaultItems,}: {
   title: string;
   type: 'text' | 'voice' | 'event';
   defaultItems: Channel[];
@@ -21,9 +17,9 @@ const ChannelCategory = ({
   const [isOpen, setIsOpen] = useState(true);
   const [items, setItems] = useState(defaultItems);
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (active.id !== over?.id) {
+    if (over && active.id !== over.id) {
       const oldIndex = items.findIndex((i) => i.id === active.id);
       const newIndex = items.findIndex((i) => i.id === over.id);
       setItems((items) => arrayMove(items, oldIndex, newIndex));
@@ -53,6 +49,7 @@ const ChannelCategory = ({
                   id={item.id}
                   name={item.name}
                   type={type}
+                  chatId={item.chatId}
                 />
               ))}
             </div>

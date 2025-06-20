@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchMessages } from '../api/chatAPI';
+import { fetchLatestMessages } from '../api/chatAPI';
 
-export const useMessageHistory = (channelId: string) => {
+export const useMessageHistory = (channelId: string | undefined) => {
   return useQuery({
     queryKey: ['messages', channelId],
-    queryFn: () => fetchMessages(channelId),
+    queryFn: () => fetchLatestMessages(channelId),
     enabled: !!channelId,
+    staleTime: 1000*30
   });
 };

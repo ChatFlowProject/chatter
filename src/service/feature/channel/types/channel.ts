@@ -1,19 +1,11 @@
 export type ChannelType = 'text' | 'voice' | 'event';
 
-// export interface Channel {
-//   id: string;
-//   name: string;
-//   type: ChannelType;
-//   category: string;
-//   [key: string]: unknown;
-// }
-
 export interface DMDetail {
-  channel: Channel2;
+  channel: Channel;
   channelMembers: ChannelMember[];
 }
 
-export interface DMList extends Channel2 {
+export interface DMList extends Channel {
   channelMembers: ChannelMember[];
 }
 
@@ -26,8 +18,7 @@ export interface ChannelMember {
   createdAt: string;
 }
 
-// 팀 서버 상세 조회에서 불러오는 channel 타입도 이것. 추후 아래 Channel 타입에서 이걸로 변경해야 할 듯
-export interface Channel2 {
+export interface Channel {
   id: number;
   name: string;
   position: number;
@@ -36,29 +27,36 @@ export interface Channel2 {
   chatId: string;
 }
 
-export interface Channel {
-  categoriesView: CategoriesView[];
-  team: Team;
-  teamMembers: TeamMembers[];
-}
-
-export interface CategoriesView {
+export interface CategoryView {
   category: {
     id: number;
     name: string;
     position: number;
   };
+  channels: Channel[];
+
 }
 
-export interface Team {
+export interface ChannelResponse {
+  team: {
+    id: string;
+    name: string;
+    masterId: string;
+    iconUrl: string;
+  };
+  categoriesView: CategoryView[];
+  teamMembers: {
+    id: number;
+    role: 'OWNER' | 'MEMBER';
+    memberInfo: ChannelMember;
+  }[];
+}
+
+export interface ChannelMember {
   id: string;
+  nickname: string;
   name: string;
-  masterId: string;
-  iconUrl: string;
-}
-
-export interface TeamMembers {
-  id: number;
-  role: 'OWNER' | 'MEMBER';
-  memberInfo: ChannelMember;
+  avatarUrl: string;
+  state: 'ONLINE' | 'OFFLINE';
+  createdAt: string;
 }
