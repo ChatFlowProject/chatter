@@ -8,7 +8,7 @@ export default function FriendsPage() {
   >('Online');
 
   return (
-    <div className='bg-[#37393F] h-screen'>
+    <div className='bg-chat h-full'>
       <Navigation
         activeButton={activeButton}
         setActiveButton={setActiveButton}

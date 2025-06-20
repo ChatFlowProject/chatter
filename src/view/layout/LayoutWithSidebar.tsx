@@ -10,19 +10,19 @@ const LayoutWithSidebar = () => {
   const isDMView = location.pathname.startsWith('/channels/@me');
 
   return (
-    <div className='flex w-screen h-screen overflow-hidden flex-col'>
-      <aside className='bg-[#313338]'>
+    <div className='flex w-screen h-screen overflow-hidden flex-col bg-wrapper'>
+      <aside className='bg-wrapper'>
         <TopSidebar />
       </aside>
       <div className='flex w-screen h-full overflow-hidden'>
         <aside className='w-[72px] bg-sidebar text-white'>
           <TeamSidebar />
         </aside>
-        <aside className='w-[240px] bg-sidebar text-white flex flex-col justify-between'>
+        <aside className='w-[240px] bg-sidebar text-white flex flex-col justify-between border border-[#42454A] rounded-[12px]'>
           {isDMView ? <DirectChannelSidebar /> : <ServerChannelSidebar />}
           <UserProfileBar />
         </aside>
-        <main className='flex-1  bg-wrapper text-white overflow-y-auto'>
+        <main className='flex-1  bg-wrapper text-white overflow-y-auto border border-[#42454A] rounded-[12px]'>
           <Outlet />
         </main>
       </div>

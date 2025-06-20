@@ -1,47 +1,26 @@
-import UserCard from '@pages/Friends/components/UserCard';
+import { useDMListQuery } from '@service/feature/chat';
 import { useParams } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import DMUserCard from '@pages/Friends/components/DMUserCard';
+import SkeletonDMList from '../skeletons/SkeletonDMList';
 
 const DirectMessages = () => {
   const params = useParams();
 
   const userId = params.channelId;
+  const { data, isLoading, error } = useDMListQuery();
 
-  const handlePlus = () => {
-    console.log('plus 버튼 클릭');
-  };
+  if (isLoading) return <SkeletonDMList />;
+  if (error) return <div>에러 발생</div>;
 
   return (
-    <div className='flex flex-col justify-center items-center gap-[9px]'>
-      <div className='flex justify-center items-center gap-[76px]'>
-        <p className='text-[13px] text-neutral-400 font-bold'>
-          DIRECT MESSAGES
-        </p>
-        <button
-          className='w-[11px] h-[11px]'
-          onClick={handlePlus}
-          type='button'
-        >
-          <Plus />
-        </button>
-      </div>
-      <div className='flex flex-col items-start gap-[2px]'>
-        {[
-          {
-            id: 'sdfsdf',
-            name: '사용자3',
-            state: 'DND',
-            avatarUrl: 'profile',
-          },
-        ].map((user) => (
-          <UserCard
-            key={user.name}
-            user={user}
-            isActive={userId === user.id}
-            friendshipId={0}
-          />
-        ))}
-      </div>
+    <div className='flex flex-col items-start gap-[2px]'>
+      {data?.map((channel) => (
+        <DMUserCard
+          key={channel.name}
+          isActive={userId === channel.chatId}
+          channel={channel}
+        />
+      ))}
     </div>
   );
 };

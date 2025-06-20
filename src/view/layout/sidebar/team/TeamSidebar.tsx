@@ -2,13 +2,14 @@ import AddTeamModal from '../components/team/AddTeamModal.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTeamListQuery } from '@service/feature/team/hook/query/useTeamServiceQuery.ts';
 import ChatServer from '../components/team/ChatServer.tsx';
+import SkeletonTeamSidebar from '../components/skeletons/SkeletonTeamSidebar.tsx';
 
 const TeamSidebar = () => {
   const params = useParams();
   const channelId = params.serverId;
   const navigate = useNavigate();
 
-  const { data: servers } = useTeamListQuery()
+  const { data: servers, isLoading, error } = useTeamListQuery();
 
   const handleChannel = (id: string) => {
     if (id === '') {
@@ -17,6 +18,9 @@ const TeamSidebar = () => {
       navigate(`/channels/${id}`);
     }
   };
+
+  if (isLoading) return <SkeletonTeamSidebar />;
+  if (error) return <div>에러</div>;
 
   return (
     <div className='wrapper flex pt-5'>

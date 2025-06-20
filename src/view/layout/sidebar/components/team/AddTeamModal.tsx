@@ -19,8 +19,15 @@ export default function AddTeamModal() {
 
   const handleClickAddServer = () => {};
 
+  const handleClose = () => {
+    setPreview(null);
+    setName(`${user?.nickname} 님의 서버`);
+  };
+
   const handleSubmit = async () => {
-    // 백엔드에서 multipart/form-data를 받을 수 있어야 해.
+    setPreview(null);
+    setName(`${user?.nickname} 님의 서버`);
+
     if (!name.trim()) {
       toast.error('서버 이름을 입력해주세요.');
       return;
@@ -42,8 +49,6 @@ export default function AddTeamModal() {
       }
       toast.success('팀 생성 중...');
       mutate({ name, iconUrl });
-
-      // TODO: 성공 시 모달 닫거나 페이지 이동 등의 후속 처리
     } catch (error) {
       console.error('서버 생성 실패', error);
       alert('서버 생성에 실패했습니다.');
@@ -114,6 +119,7 @@ export default function AddTeamModal() {
           </Modal.Body>
           <Modal.Footer
             onSubmit={handleSubmit}
+            onClose={handleClose}
             backBtnText='뒤로 가기'
             submitBtnText='만들기'
           />

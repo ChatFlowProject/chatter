@@ -15,7 +15,7 @@ const SearchFriends = ({
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <Search />
+      <Search color='#a3a3a3' />
     </div>
   );
 };

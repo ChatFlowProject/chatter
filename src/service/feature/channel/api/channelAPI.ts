@@ -1,4 +1,5 @@
 import { createAxiosInstance } from '@service/feature/common/axios/axiosInstance';
+import { DMDetail, DMList } from '../types/channel';
 
 const axios = createAxiosInstance();
 
@@ -8,7 +9,10 @@ export const getChannelList = async (teamId: string) => {
 };
 
 export const createChannel = async ({
-  teamId, categoryId, name, channelType,
+  teamId,
+  categoryId,
+  name,
+  channelType,
 }: {
   teamId: string;
   categoryId: number;
@@ -37,14 +41,19 @@ export const deleteChannel = async ({
   return res.data;
 };
 
-export const moveChannel = async (teamId: string, categoryId: number, channelId: number, body: {
-  destCategoryId: number;
-  prevChannelId: number;
-  nextChannelId: number;
-}) => {
+export const moveChannel = async (
+  teamId: string,
+  categoryId: number,
+  channelId: number,
+  body: {
+    destCategoryId: number;
+    prevChannelId: number;
+    nextChannelId: number;
+  },
+) => {
   const res = await axios.patch(
     `/teams/${teamId}/categories/${categoryId}/channels/${channelId}`,
-    body
+    body,
   );
   return res.data;
 };
@@ -62,4 +71,19 @@ export const editChannel = async ({
     `/teams/${teamId}/categories/${categoryId}/channels/${channelId}`,
   );
   return res.data;
+};
+
+export const getDMDetail = async (channelId: number): Promise<DMDetail> => {
+  const res = await axios.get(`/channels/${channelId}`);
+  return res.data.data;
+};
+
+export const getDMList = async (): Promise<DMList[]> => {
+  const res = await axios.get(`/channels/me`);
+  return res.data.data;
+};
+
+export const createDM = async (memberIds: string[]) => {
+  const res = await axios.post(`/channels/members`, memberIds);
+  return res.data.data;
 };

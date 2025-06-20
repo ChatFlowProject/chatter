@@ -27,7 +27,7 @@ const Navigation = ({ activeButton, setActiveButton }: NavigationProps) => {
             <div className='w-[22px] h-[22px]'>
               <UsersRound />
             </div>
-            <p className='text-lg font-bold text-neutral-400'>친구</p>
+            <p className='text-lg font-bold'>친구</p>
           </div>
           <div className='w-[1px] h-[24px] bg-[#42454A]' />
           <div className='flex justify-center items-center'>

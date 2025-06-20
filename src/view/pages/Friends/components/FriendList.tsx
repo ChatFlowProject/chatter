@@ -89,7 +89,12 @@ export default function FriendList({ activeButton }: NavigationProps) {
               </p>
               <div className='w-full'>
                 {searchData.sent?.map((user: FriendData, idx: number) => (
-                  <FriendCard key={`sent-${idx}`} user={user} type='sent' />
+                  <FriendCard
+                    key={`sent-${idx}`}
+                    friendshipId={user.friendshipId}
+                    user={user.friendshipInfo}
+                    type='sent'
+                  />
                 ))}
                 {searchData.sent?.length === 0 && (
                   <Empty
@@ -109,7 +114,8 @@ export default function FriendList({ activeButton }: NavigationProps) {
                 {searchData.received?.map((user: FriendData, idx: number) => (
                   <FriendCard
                     key={`received-${idx}`}
-                    user={user}
+                    friendshipId={user.friendshipId}
+                    user={user.friendshipInfo}
                     type='received'
                   />
                 ))}
@@ -134,7 +140,8 @@ export default function FriendList({ activeButton }: NavigationProps) {
               searchData.map((user: FriendData, idx: number) => (
                 <FriendCard
                   key={`friend-${idx}`}
-                  user={user}
+                  friendshipId={user.friendshipId}
+                  user={user.friendshipInfo}
                   setOpenMenuId={setOpenMenuId}
                   openMenuId={openMenuId}
                 />

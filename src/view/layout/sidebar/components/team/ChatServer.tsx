@@ -23,10 +23,13 @@ export default function ChatServer({
       {isAdd ? (
         <Plus className='!w-5 !h-5' />
       ) : (
-        !server && <div className='text-center text-lg'>me</div>
+        // TODO: 추후 개인 프로필 사진으로 교체
+        !server && (
+          <img src={'/logo.png'} alt={'다이렉트 메시지'} className='h-12' />
+        )
       )}
       {server?.iconUrl ? (
-        <img src={server.iconUrl} alt={server.name} />
+        <img src={server.iconUrl} alt={server.name} className='h-12' />
       ) : (
         <div className='text-center text-lg'>{server?.name}</div>
       )}
