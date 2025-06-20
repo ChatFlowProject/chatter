@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { FileIcon } from 'lucide-react';
 import fallbackIcon from '@assets/img/logo/chatflow.png';
-import { ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
+import { type ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
 
 dayjs.extend(relativeTime);
 
@@ -11,6 +11,21 @@ interface Props {
   isMine: boolean;
   showMeta: boolean;
 }
+
+const MessageStatus = ({ status }: { status?: string }) => {
+  if (!status || status === 'sent') return null;
+
+  return (
+      <span className="ml-2 text-xs">
+      {status === 'pending' && (
+          <span className="animate-spin inline-block">⌛</span>
+      )}
+        {status === 'error' && (
+            <span className="text-red-500">⚠️</span>
+        )}
+    </span>
+  );
+};
 
 export const ChatMessageItem = ({ msg, isMine, showMeta }: Props) => {
   const renderAttachment = (attachment: { type: string; url: string }) => {
@@ -45,7 +60,7 @@ export const ChatMessageItem = ({ msg, isMine, showMeta }: Props) => {
       {!isMine && showMeta && (
         <img
           src={fallbackIcon}
-          alt={msg.sender.username}
+          alt={msg.sender.name}
           className="w-10 h-10 rounded-full shrink-0"
         />
       )}
@@ -53,13 +68,14 @@ export const ChatMessageItem = ({ msg, isMine, showMeta }: Props) => {
         {showMeta && (
           <div className="flex items-center gap-2 mb-1">
             <span className={`text-sm font-semibold ${isMine ? 'text-green-400' : 'text-blue-400'}`}>
-              {msg.sender.username}
+              {msg.sender.name}
             </span>
             <span className="text-xs text-gray-500">
               {dayjs(msg.createdAt).fromNow()}
             </span>
           </div>
         )}
+        <MessageStatus status={msg.status} />
         <div className={`px-3 py-2 rounded-lg ${isMine ? 'bg-blurple text-white' : 'bg-off text-gray-100'}`}>
           {msg.content && (
             <p className="whitespace-pre-wrap text-sm mb-2">{msg.content}</p>

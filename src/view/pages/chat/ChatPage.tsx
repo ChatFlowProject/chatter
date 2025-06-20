@@ -7,6 +7,7 @@ import { ChatInput } from "@pages/chat/components/layout/ChatInput.tsx";
 import { ChatView } from "@pages/chat/components/layout/ChatView.tsx";
 import { postImage } from "@service/feature/image/imageApi.ts";
 import { useParams } from "react-router-dom";
+import {v4 as uuidv4} from "uuid";
 
 const MY_ID = "tests";
 
@@ -16,14 +17,28 @@ export function ChatPage() {
   const [localMessages, setLocalMessages] = useState<ChatMessage[]>([]);
 
   useEffect(() => {
+    setLocalMessages([]);
+  }, [channelId]);
+
+  useEffect(() => {
     if (Array.isArray(messagesData) && messagesData.length > 0) {
       setLocalMessages(messagesData);
     }
   }, [messagesData]);
 
   const handleNewMessage = useCallback((msg: ChatMessage) => {
-    setLocalMessages((prev) => [...prev, msg]);
+    setLocalMessages(prev => {
+      if (msg.tempId) {
+        return prev.map(m =>
+            m.tempId === msg.tempId
+                ? { ...msg, status: 'sent' as const }
+                : m
+        );
+      }
+      return [...prev, msg];
+    });
   }, []);
+
 
   const { sendMessage } = useChat(channelId, handleNewMessage);
 
@@ -47,7 +62,40 @@ export function ChatPage() {
       imageUrls = await Promise.all(uploadPromises);
     }
 
-    const msg: Omit<ChatMessage, 'messageId'> = {
+    const tempMessage: ChatMessage = {
+      tempId: uuidv4(),
+      sender: {
+        memberId: MY_ID,
+        name: "tester",
+        avatarUrl: "",
+      },
+      content: text,
+      createdAt: new Date().toISOString(),
+      isUpdated: false,
+      isDeleted: false,
+      status: 'pending',
+      attachments: imageUrls.length > 0
+          ? imageUrls.map((url) => ({type: "image" as const, url}))
+          : [],
+      messageId: 0
+    };
+
+    setLocalMessages(prev => [...prev, tempMessage]);
+
+    try {
+      await sendMessage(text, tempMessage.attachments);
+    } catch (error) {
+      setLocalMessages(prev =>
+          prev.map(msg =>
+              msg.tempId === tempMessage.tempId
+                  ? { ...msg, status: 'error' as const }
+                  : msg
+          )
+      );
+      console.error('메시지 전송 실패:', error);
+    }
+
+  const msg: Omit<ChatMessage, 'messageId'> = {
       sender: {
         memberId: MY_ID,
         name: "tester",
@@ -65,6 +113,7 @@ export function ChatPage() {
     sendMessage(msg.content, msg.attachments);
   };
 
+  if (!channelId) return <div>채널 ID가 유효하지 않습니다.</div>;
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>에러 발생: {error.message}</div>;
 

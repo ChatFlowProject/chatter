@@ -19,6 +19,8 @@ export const messageSchema = z.object({
   isUpdated: z.boolean(),
   isDeleted: z.boolean(),
   attachments: z.array(attachmentSchema).optional(),
+  status: z.enum(['pending', 'sent', 'error']).optional(),
+  tempId: z.string().optional(),
 });
 
 export type ChatMessage = z.infer<typeof messageSchema>;

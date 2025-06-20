@@ -11,7 +11,7 @@
 //     "attachments": []
 // },
 
-export interface Message {
+export interface ChatMessage {
     messageId : number;
     sender: {
         memberId: string;
@@ -22,5 +22,7 @@ export interface Message {
     createdAt: string,
     isUpdated: boolean,
     isDeleted: boolean,
-    attachment:[]
+    attachments?: { type: string; url: string }[];
+    status?: 'pending' | 'sent' | 'error';
+    tempId?: string;
 }
