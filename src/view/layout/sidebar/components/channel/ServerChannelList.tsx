@@ -7,7 +7,7 @@ import ChannelCategory from "./ChannelCategory.tsx";
 const ServerChannelList = () => {
   const { serverId, channelId } = useParams<{ serverId: string; channelId: string }>();
   const navigate = useNavigate();
-  useLocation();
+// Line 10 removed
   const { data: channels, isLoading, error } = useChannelListQuery(serverId!);
 
   useEffect(() => {
