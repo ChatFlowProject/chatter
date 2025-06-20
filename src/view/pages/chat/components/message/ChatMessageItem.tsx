@@ -59,9 +59,10 @@ export const ChatMessageItem = ({ msg, isMine, showMeta }: Props) => {
     <div className={`flex items-start gap-2 ${isMine ? 'justify-end' : 'justify-start'}`}>
       {!isMine && showMeta && (
         <img
-          src={fallbackIcon}
+          src={msg.sender.avatarUrl || fallbackIcon}
           alt={msg.sender.name}
           className="w-10 h-10 rounded-full shrink-0"
+          onError={(e) => { e.currentTarget.src = fallbackIcon; }}
         />
       )}
       <div className={`max-w-[70%] ${isMine ? 'text-right' : ''} ${!isMine && !showMeta ? 'ml-[50px]' : ''}`}>
