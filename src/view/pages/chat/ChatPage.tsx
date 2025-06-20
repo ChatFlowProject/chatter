@@ -1,67 +1,85 @@
-import { useState } from 'react';
-import { useChat } from '@service/feature/chat/hook/useChat.ts';
-import { ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
-import { ChannelHeader } from './components/layout/ChannelHeader';
-import { ChatInput } from '@pages/chat/components/layout/ChatInput.tsx';
-import { ChatView } from '@pages/chat/components/layout/ChatView.tsx';
+import { useMessageHistory } from "@service/feature/chat";
+import { useChat } from "@service/feature/chat/hook/useChat.ts";
+import { ChatMessage } from "@service/feature/chat/schema/messageSchema.ts";
+import { useState, useCallback, useEffect } from "react";
+import { ChannelHeader } from "./components/layout/ChannelHeader";
+import { ChatInput } from "@pages/chat/components/layout/ChatInput.tsx";
+import { ChatView } from "@pages/chat/components/layout/ChatView.tsx";
+import { postImage } from "@service/feature/image/imageApi.ts";
+import {useParams} from "react-router-dom";
 
-const CHAT_ID = '25ffc7bf-874f-444e-b331-26ed864a76ba';
-const MY_ID = 'tester';
+const MY_ID = "tests";
 
 export function ChatPage() {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const { channelId } = useParams<{ channelId: string }>();
+  const { data: messagesData = [], isLoading, error } = useMessageHistory(channelId);
+  const messages = Array.isArray(messagesData) ? messagesData : [];
+  const [localMessages, setLocalMessages] = useState<ChatMessage[]>(messages);
 
-  const { sendMessage } = useChat((msg) => {
-    setMessages((prev) => [...prev, msg]);
-  });
+  useEffect(() => {
+    console.log('channelId:', channelId);
+    console.log('messagesData:', messagesData);
+    console.log('isLoading:', isLoading);
+    console.log('error:', error);
+  }, [channelId, messagesData, isLoading, error]);
+
+  useEffect(() => {
+    if (Array.isArray(messages)) {
+      setLocalMessages(messages);
+    }
+  }, [messages]);
+
+  const handleNewMessage = useCallback((msg: ChatMessage) => {
+    setLocalMessages((prev) => [...prev, msg]);
+  }, []);
+
+  const { sendMessage } = useChat(channelId, handleNewMessage);
 
   const uploadImage = async (file: File): Promise<string> => {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await response.json();
-      return data.url;
+      return await postImage(formData);
     } catch (error) {
-      console.error('이미지 업로드 실패:', error);
+      console.error("이미지 업로드 실패:", error);
       throw error;
     }
   };
 
   const handleSend = async (text: string, files?: File[]) => {
-      let imageUrls: string[] = [];
+    let imageUrls: string[] = [];
 
-      if (files && files.length > 0) {
-        const uploadPromises = files.map(file => uploadImage(file));
-        imageUrls = await Promise.all(uploadPromises);
-      }
+    if (files && files.length > 0) {
+      const uploadPromises = files.map((file) => uploadImage(file));
+      imageUrls = await Promise.all(uploadPromises);
+    }
 
-    const msg: ChatMessage = {
-      chatId: CHAT_ID,
+    const msg: Omit<ChatMessage, 'messageId'> = {
       sender: {
         memberId: MY_ID,
-        username: 'tester',
-        avatarUrl: '',
+        name: "tester",
+        avatarUrl: "",
       },
       content: text,
       createdAt: new Date().toISOString(),
+      isUpdated: false,
+      isDeleted: false,
       attachments:
-        imageUrls.length > 0
-          ? imageUrls.map((url) => ({ type: 'image', url }))
-          : undefined,
+          imageUrls.length > 0
+              ? imageUrls.map((url) => ({ type: "image" as const, url }))
+              : [],
     };
-
     sendMessage(msg.content, msg.attachments);
   };
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) return <div>에러 발생: {error.message}</div>;
 
   return (
     <div className="flex h-full flex-col bg-chat text-white">
       <ChannelHeader channelName="일반" />
-      <ChatView messages={messages} myId={MY_ID} />
+      <ChatView messages={localMessages || []} myId={MY_ID} />
       <ChatInput onSend={handleSend} />
     </div>
   );

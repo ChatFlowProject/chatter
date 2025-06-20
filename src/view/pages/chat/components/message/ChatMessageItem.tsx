@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { FileIcon } from 'lucide-react';
+import fallbackIcon from '@assets/img/logo/chatflow.png';
 import { ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
 
 dayjs.extend(relativeTime);
@@ -43,7 +44,7 @@ export const ChatMessageItem = ({ msg, isMine, showMeta }: Props) => {
     <div className={`flex items-start gap-2 ${isMine ? 'justify-end' : 'justify-start'}`}>
       {!isMine && showMeta && (
         <img
-          src={msg.sender.avatarUrl}
+          src={fallbackIcon}
           alt={msg.sender.username}
           className="w-10 h-10 rounded-full shrink-0"
         />

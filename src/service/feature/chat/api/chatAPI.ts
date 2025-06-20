@@ -7,9 +7,9 @@ export const fetchChannels = async () => {
   return res.data;
 };
 
-export const fetchMessages = async (channelId: string) => {
-  const res = await axios.get(`/channels/${channelId}/messages`);
-  return res.data;
+export const fetchLatestMessages = async (channelId: string | undefined) => {
+  const res = await axios.get(`/message/latest?chatId=${channelId}`);
+  return Array.isArray(res.data) ? res.data : [];
 };
 
 export const deleteMessage = async (messageId: string) => {
