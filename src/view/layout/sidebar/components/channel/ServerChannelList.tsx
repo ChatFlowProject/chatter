@@ -1,15 +1,27 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useChannelListQuery } from '@service/feature/channel/hook/query/useChannelQuery.ts';
 import InviteFriendModal from './InviteFriendModal.tsx';
 import ChannelCategory from "./ChannelCategory.tsx";
 
 const ServerChannelList = () => {
-  const { serverId } = useParams<{ serverId: string }>();
+  const { serverId, channelId } = useParams<{ serverId: string; channelId: string }>();
+  const navigate = useNavigate();
+  useLocation();
   const { data: channels, isLoading, error } = useChannelListQuery(serverId!);
+
+  useEffect(() => {
+    if (channels?.categoriesView && channels.categoriesView.length > 0 && !channelId) {
+      const firstCategory = channels.categoriesView[0];
+      if (firstCategory.channels && firstCategory.channels.length > 0) {
+        const firstChannel = firstCategory.channels[0];
+        navigate(`/channels/${serverId}/${firstChannel.chatId}`, { replace: true });
+      }
+    }
+  }, [channels, serverId, channelId, navigate]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>에러 발생</div>;
-  
   if (!channels?.categoriesView) return null;
 
   return (
