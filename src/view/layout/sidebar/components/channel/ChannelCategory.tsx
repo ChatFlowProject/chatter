@@ -9,11 +9,7 @@ import { ChevronDown, ChevronRight, Plus } from 'lucide-react';
 import ChannelItem from './ChannelItem.tsx';
 import { Channel } from '@service/feature/channel/types/channel.ts';
 
-const ChannelCategory = ({
-                           title,
-                           type,
-                           defaultItems,
-                         }: {
+const ChannelCategory = ({title, type, defaultItems,}: {
   title: string;
   type: 'text' | 'voice' | 'event';
   defaultItems: Channel[];

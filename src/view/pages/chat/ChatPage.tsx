@@ -6,28 +6,20 @@ import { ChannelHeader } from "./components/layout/ChannelHeader";
 import { ChatInput } from "@pages/chat/components/layout/ChatInput.tsx";
 import { ChatView } from "@pages/chat/components/layout/ChatView.tsx";
 import { postImage } from "@service/feature/image/imageApi.ts";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const MY_ID = "tests";
 
 export function ChatPage() {
   const { channelId } = useParams<{ channelId: string }>();
   const { data: messagesData = [], isLoading, error } = useMessageHistory(channelId);
-  const messages = Array.isArray(messagesData) ? messagesData : [];
-  const [localMessages, setLocalMessages] = useState<ChatMessage[]>(messages);
+  const [localMessages, setLocalMessages] = useState<ChatMessage[]>([]);
 
   useEffect(() => {
-    console.log('channelId:', channelId);
-    console.log('messagesData:', messagesData);
-    console.log('isLoading:', isLoading);
-    console.log('error:', error);
-  }, [channelId, messagesData, isLoading, error]);
-
-  useEffect(() => {
-    if (Array.isArray(messages)) {
-      setLocalMessages(messages);
+    if (Array.isArray(messagesData) && messagesData.length > 0) {
+      setLocalMessages(messagesData);
     }
-  }, [messages]);
+  }, [messagesData]);
 
   const handleNewMessage = useCallback((msg: ChatMessage) => {
     setLocalMessages((prev) => [...prev, msg]);
@@ -66,9 +58,9 @@ export function ChatPage() {
       isUpdated: false,
       isDeleted: false,
       attachments:
-          imageUrls.length > 0
-              ? imageUrls.map((url) => ({ type: "image" as const, url }))
-              : [],
+        imageUrls.length > 0
+          ? imageUrls.map((url) => ({ type: "image" as const, url }))
+          : [],
     };
     sendMessage(msg.content, msg.attachments);
   };
@@ -79,7 +71,7 @@ export function ChatPage() {
   return (
     <div className="flex h-full flex-col bg-chat text-white">
       <ChannelHeader channelName="일반" />
-      <ChatView messages={localMessages || []} myId={MY_ID} />
+      <ChatView messages={localMessages} myId={MY_ID} />
       <ChatInput onSend={handleSend} />
     </div>
   );

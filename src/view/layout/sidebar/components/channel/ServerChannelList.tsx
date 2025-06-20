@@ -1,36 +1,28 @@
 import { useParams } from 'react-router-dom';
-import ChannelCategory from './ChannelCategory.tsx';
 import { useChannelListQuery } from '@service/feature/channel/hook/query/useChannelQuery.ts';
-import { Channel } from '@service/feature/channel/types/channel.ts';
 import InviteFriendModal from './InviteFriendModal.tsx';
+import ChannelCategory from "./ChannelCategory.tsx";
 
 const ServerChannelList = () => {
   const { serverId } = useParams<{ serverId: string }>();
   const { data: channels, isLoading, error } = useChannelListQuery(serverId!);
 
-  console.log('channels: ', channels);
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>에러 발생</div>;
-
-  // const categories =
-  //   channels?.reduce((acc: Record<string, Channel[]>, channel: Channel) => {
-  //     if (!acc[channel.category]) acc[channel.category] = [];
-  //     acc[channel.category].push(channel);
-  //     return acc;
-  //   }, {}) ?? {};
+  
+  if (!channels?.categoriesView) return null;
 
   return (
-    <div className='flex flex-col w-full gap-2 mt-2'>
-      {/* {Object.entries(categories).map(([categoryName, categoryChannels]) => (
+    <div className='flex flex-col w-full h-full gap-2 mt-2 justify-between'>
+      {channels.categoriesView.map((categoryView) => (
         <ChannelCategory
-          key={categoryName}
-          title={categoryName}
+          key={categoryView.category.id}
+          title={categoryView.category.name}
           type='text'
-          defaultItems={categoryChannels}
+          defaultItems={categoryView.channels}
         />
-      ))} */}
-      <InviteFriendModal team={channels!.team} />
+      ))}
+      <InviteFriendModal team={channels.team} />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import Item from './Item';
+import { v4 as uuidv4 } from 'uuid';
 import SearchFriends from '@pages/Friends/components/SearchFriends';
 import { useEffect, useMemo, useState } from 'react';
 import Modal from '@components/common/Modal';
@@ -45,7 +46,9 @@ const InviteFriendModal = ({
   return (
     <Modal.Root>
       <Modal.Trigger>
-        <button>초대하기</button>
+        <button
+            className="flex h-8 w-full items-center justify-center rounded text-sm font-medium bg-blurple hover:bg-[#4752C4] text-white transition-colors duration-200">초대하기
+        </button>
       </Modal.Trigger>
       <Modal.Portal>
         <Modal.Overlay />
@@ -62,7 +65,7 @@ const InviteFriendModal = ({
             <SearchFriends setKeyword={setKeyword} keyword={keyword} />
             <div className='min-h-[60px] max-h-[645px]'>
               {searchData?.map((member) => (
-                <Item member={member} teamId={team.id} />
+                <Item member={member} teamId={team.id} key={team.id || uuidv4()} />
               ))}
             </div>
           </Modal.Body>

@@ -3,7 +3,7 @@ import { Hash, Radio, Volume2 } from 'lucide-react';
 import { clsx } from 'clsx';
 
 const ChannelItem = ({ id, name, type = 'text', selected = false, }: {
-  id: string;
+  id: number;
   name: string;
   type?: 'text' | 'voice' | 'event';
   selected?: boolean;
