@@ -84,6 +84,6 @@ export const getDMList = async (): Promise<DMDetail[]> => {
 };
 
 export const createDM = async (memberIds: string[]): Promise<DMDetail> => {
-  const res = await axios.post(`/channels/members`, memberIds);
+  const res = await axios.post(`/channels/members`, { memberIds });
   return res.data.data;
 };

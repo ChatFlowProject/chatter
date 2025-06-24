@@ -5,6 +5,8 @@ import { FriendData } from '@service/feature/friend/types/friend';
 import { useEffect, useMemo, useState } from 'react';
 import Item from './Item';
 import { Plus, Square, SquareCheckBig } from 'lucide-react';
+import { useCreateDM } from '@service/feature/channel/hook/query/useChannelQuery';
+import { toast } from 'sonner';
 
 const CreateDMModal = () => {
   const [keyword, setKeyword] = useState('');
@@ -13,9 +15,12 @@ const CreateDMModal = () => {
 
   // 내 모든 친구 불러오기
   const { data, error } = useGetAllFriends();
+
+  const { mutate } = useCreateDM();
   useEffect(() => {
     setMemberList(data);
   }, [data]);
+
   const searchData = useMemo(() => {
     return memberList?.filter(
       (friend) =>
@@ -33,8 +38,11 @@ const CreateDMModal = () => {
   };
 
   const handleSubmit = () => {
-    console.log('제출할 데이터: ', checkList);
+    mutate(checkList);
+    setCheckList([]);
+    toast.success('채팅방을 생성중입니다...');
   };
+
   if (error) return <div>error</div>;
 
   return (
