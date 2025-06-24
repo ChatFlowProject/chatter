@@ -1,43 +1,21 @@
-import Item from './Item';
-import SearchFriends from '@pages/Friends/components/SearchFriends';
-import { useEffect, useMemo, useState } from 'react';
 import Modal from '@components/common/Modal';
+import SearchFriends from '@pages/Friends/components/SearchFriends';
 import { useGetAllFriends } from '@service/feature/friend/hook/useFriendQuery';
 import { FriendData } from '@service/feature/friend/types/friend';
-import { useInviteFriendMutation } from '@service/feature/team/hook/mutation/useTeamMemberMutation';
+import { useEffect, useMemo, useState } from 'react';
+import Item from './Item';
+import { Plus, Square, SquareCheckBig } from 'lucide-react';
 
-const InviteFriendModal = ({
-  team,
-}: {
-  team: {
-    id: string;
-    name: string;
-    masterId: string;
-    iconUrl: string;
-  };
-}) => {
+const CreateDMModal = () => {
   const [keyword, setKeyword] = useState('');
   const [memberList, setMemberList] = useState<[] | FriendData[]>();
+  const [checkList, setCheckList] = useState<string[]>([]);
 
   // 내 모든 친구 불러오기
-  const { data, isLoading, error } = useGetAllFriends();
-
-  // 친구 초대
-  const { mutate } = useInviteFriendMutation();
-
-  const handleInvite = (memberId: string) => {
-    mutate({ teamId: team.id, memberId: memberId });
-  };
-  /**
-   * TODO
-   * 이미 맴버인 인원들 제외시키기.
-   * 초대 됐다면 제외시키기
-   */
-
+  const { data, error } = useGetAllFriends();
   useEffect(() => {
     setMemberList(data);
   }, [data]);
-
   const searchData = useMemo(() => {
     return memberList?.filter(
       (friend) =>
@@ -46,14 +24,24 @@ const InviteFriendModal = ({
     );
   }, [memberList, keyword]);
 
-  if (isLoading) return <div>Loading...</div>;
+  const handleToggle = (memberId: string) => {
+    setCheckList((prev) =>
+      prev.includes(memberId)
+        ? prev.filter((item) => item !== memberId)
+        : [...prev, memberId],
+    );
+  };
+
+  const handleSubmit = () => {
+    console.log('제출할 데이터: ', checkList);
+  };
   if (error) return <div>error</div>;
 
   return (
     <Modal.Root>
       <Modal.Trigger>
-        <button className='flex h-8 w-full items-center justify-center rounded text-sm font-medium bg-blurple hover:bg-[#4752C4] text-white transition-colors duration-200'>
-          초대하기
+        <button className='w-[18px] h-[18px]' type='button'>
+          <Plus size={18} color='#a3a3a3' />
         </button>
       </Modal.Trigger>
       <Modal.Portal>
@@ -64,7 +52,7 @@ const InviteFriendModal = ({
               isCloseBtn
               className='mx-6 mt-4 font-bold justify-between'
             >
-              친구를 {team.name} 그룹으로 초대하기
+              친구 선택하기
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -73,19 +61,30 @@ const InviteFriendModal = ({
               {searchData?.map((member) => (
                 <Item member={member} key={member.friendshipId}>
                   <button
-                    className='border border-[#43A25A] px-4 rounded-[8px] text-white hover:bg-[#43A25A]'
-                    onClick={() => handleInvite(member.friendshipInfo.id)}
+                    onClick={() => handleToggle(member.friendshipInfo.id)}
+                    className='w-[22px] h-[22px] flex items-center justify-center text-white'
                   >
-                    초대
+                    {checkList.includes(member.friendshipInfo.id) ? (
+                      <SquareCheckBig size={22} className='text-primary' />
+                    ) : (
+                      <Square
+                        size={22}
+                        className='text-neutral-400 hover:text-primary'
+                      />
+                    )}
                   </button>
                 </Item>
               ))}
             </div>
           </Modal.Body>
+          <Modal.Footer
+            onSubmit={handleSubmit}
+            submitBtnText='DM 생성'
+          ></Modal.Footer>
         </Modal.Content>
       </Modal.Portal>
     </Modal.Root>
   );
 };
 
-export default InviteFriendModal;
+export default CreateDMModal;
