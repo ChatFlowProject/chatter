@@ -78,12 +78,12 @@ export const getDMDetail = async (channelId: number): Promise<DMDetail> => {
   return res.data.data;
 };
 
-export const getDMList = async (): Promise<DMList[]> => {
+export const getDMList = async (): Promise<DMDetail[]> => {
   const res = await axios.get(`/channels/me`);
   return res.data.data;
 };
 
-export const createDM = async (memberIds: string[]) => {
+export const createDM = async (memberIds: string[]): Promise<DMDetail> => {
   const res = await axios.post(`/channels/members`, memberIds);
   return res.data.data;
 };
