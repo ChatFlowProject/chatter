@@ -94,23 +94,6 @@ export function ChatPage() {
       );
       console.error('메시지 전송 실패:', error);
     }
-
-  const msg: Omit<ChatMessage, 'messageId'> = {
-      sender: {
-        memberId: MY_ID,
-        name: "tester",
-        avatarUrl: "",
-      },
-      content: text,
-      createdAt: new Date().toISOString(),
-      isUpdated: false,
-      isDeleted: false,
-      attachments:
-        imageUrls.length > 0
-          ? imageUrls.map((url) => ({ type: "image" as const, url }))
-          : [],
-    };
-    sendMessage(msg.content, msg.attachments);
   };
 
   if (!channelId) return <div>채널 ID가 유효하지 않습니다.</div>;
