@@ -1,12 +1,9 @@
 import { SidebarLayout } from '../components/channel/SidebarLayout.tsx';
 import ChannelNavigation from '../components/channel/ChannelNavigation.tsx';
 import DirectMessages from '../components/channel/DirectMessages.tsx';
-import { Plus } from 'lucide-react';
+import CreateDMModal from '../components/channel/CreateDMModal.tsx';
 
 const DirectChannelSidebar = () => {
-  const handlePlus = () => {
-    console.log('plus 버튼 클릭');
-  };
   return (
     <SidebarLayout>
       <ChannelNavigation />
@@ -16,13 +13,7 @@ const DirectChannelSidebar = () => {
           <p className='text-[13px] text-neutral-400 font-bold'>
             DIRECT MESSAGES
           </p>
-          <button
-            className='w-[18px] h-[18px]'
-            onClick={handlePlus}
-            type='button'
-          >
-            <Plus size={18} color='#a3a3a3' />
-          </button>
+          <CreateDMModal />
         </div>
         <DirectMessages />
       </div>

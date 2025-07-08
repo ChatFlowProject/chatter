@@ -1,10 +1,10 @@
 import Item from './Item';
-import { v4 as uuidv4 } from 'uuid';
 import SearchFriends from '@pages/Friends/components/SearchFriends';
 import { useEffect, useMemo, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { useGetAllFriends } from '@service/feature/friend/hook/useFriendQuery';
 import { FriendData } from '@service/feature/friend/types/friend';
+import { useInviteFriendMutation } from '@service/feature/team/hook/mutation/useTeamMemberMutation';
 
 const InviteFriendModal = ({
   team,
@@ -22,6 +22,12 @@ const InviteFriendModal = ({
   // 내 모든 친구 불러오기
   const { data, isLoading, error } = useGetAllFriends();
 
+  // 친구 초대
+  const { mutate } = useInviteFriendMutation();
+
+  const handleInvite = (memberId: string) => {
+    mutate({ teamId: team.id, memberId: memberId });
+  };
   /**
    * TODO
    * 이미 맴버인 인원들 제외시키기.
@@ -46,8 +52,8 @@ const InviteFriendModal = ({
   return (
     <Modal.Root>
       <Modal.Trigger>
-        <button
-            className="flex h-8 w-full items-center justify-center rounded text-sm font-medium bg-blurple hover:bg-[#4752C4] text-white transition-colors duration-200">초대하기
+        <button className='flex h-8 w-full items-center justify-center rounded text-sm font-medium bg-blurple hover:bg-[#4752C4] text-white transition-colors duration-200'>
+          초대하기
         </button>
       </Modal.Trigger>
       <Modal.Portal>
@@ -65,7 +71,14 @@ const InviteFriendModal = ({
             <SearchFriends setKeyword={setKeyword} keyword={keyword} />
             <div className='min-h-[60px] max-h-[645px]'>
               {searchData?.map((member) => (
-                <Item member={member} teamId={team.id} key={member.id} />
+                <Item member={member} key={member.friendshipId}>
+                  <button
+                    className='border border-[#43A25A] px-4 rounded-[8px] text-white hover:bg-[#43A25A]'
+                    onClick={() => handleInvite(member.friendshipInfo.id)}
+                  >
+                    초대
+                  </button>
+                </Item>
               ))}
             </div>
           </Modal.Body>

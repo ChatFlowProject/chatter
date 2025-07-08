@@ -14,11 +14,11 @@ const DirectMessages = () => {
 
   return (
     <div className='flex flex-col items-start gap-[2px]'>
-      {data?.map((channel) => (
+      {data?.map((item) => (
         <DMUserCard
-          key={channel.name}
-          isActive={userId === channel.chatId}
-          channel={channel}
+          key={item.channel.name}
+          isActive={userId === item.channel.chatId}
+          data={item}
         />
       ))}
     </div>

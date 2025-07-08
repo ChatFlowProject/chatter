@@ -25,7 +25,11 @@ export default function ChatServer({
       ) : (
         // TODO: 추후 개인 프로필 사진으로 교체
         !server && (
-          <img src={'/logo.png'} alt={'다이렉트 메시지'} className='h-12' />
+          <img
+            src={require('@assets/img/logo/chatflow.png')}
+            alt={'다이렉트 메시지'}
+            className='h-12'
+          />
         )
       )}
       {server?.iconUrl ? (
