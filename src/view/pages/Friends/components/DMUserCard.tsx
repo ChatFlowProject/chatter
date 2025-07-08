@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { DMDetail, DMList } from '@service/feature/channel/types/channel.ts';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/app/store';
 
 interface UserCardProps {
   isActive?: boolean;
@@ -9,8 +11,9 @@ interface UserCardProps {
 
 const DMUserCard = ({ data, isActive, className }: UserCardProps) => {
   const navigation = useNavigate();
-  const user = data.channelMembers;
-  const memberSize = user.length;
+  const user = useSelector((state: RootState) => state.auth.user);
+  const users = data.channelMembers.filter((item) => item.id != user?.userId);
+  const memberSize = users.length;
 
   const handleClick = () => {
     navigation(`/channels/@me/${data.channel.chatId}`);
@@ -30,12 +33,12 @@ const DMUserCard = ({ data, isActive, className }: UserCardProps) => {
               <img
                 className='rounded-full'
                 src={
-                  user[0].avatarUrl || require('@assets/img/logo/chatflow.png')
+                  users[0].avatarUrl || require('@assets/img/logo/chatflow.png')
                 }
                 alt={data.channel.name}
               />
               <div
-                className={`absolute right-0 bottom-[-2px] w-[12px] h-[12px] border-2 border-[#2e3036] ${user[0].state === 'ONLINE' ? 'bg-lime-500' : 'bg-slate-500'} rounded-full`}
+                className={`absolute right-0 bottom-[-2px] w-[12px] h-[12px] border-2 border-[#2e3036] ${users[0].state === 'ONLINE' ? 'bg-lime-500' : 'bg-slate-500'} rounded-full`}
               ></div>
             </div>
           ) : (
@@ -43,7 +46,7 @@ const DMUserCard = ({ data, isActive, className }: UserCardProps) => {
               <img
                 className='rounded-full w-[21px] h-[21px]'
                 src={
-                  user[0].avatarUrl || require('@assets/img/logo/chatflow.png')
+                  users[0].avatarUrl || require('@assets/img/logo/chatflow.png')
                 }
                 alt={data.channel.name}
               />
@@ -51,7 +54,7 @@ const DMUserCard = ({ data, isActive, className }: UserCardProps) => {
                 <img
                   className='rounded-full w-[21px] h-[21px] border-4 border-[#2e3036] box-content'
                   src={
-                    user[1].avatarUrl ||
+                    users[1].avatarUrl ||
                     require('@assets/img/logo/chatflow.png')
                   }
                   alt={data.channel.name}

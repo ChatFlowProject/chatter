@@ -35,6 +35,8 @@ export const useCreateDM = () => {
       console.log('DM 생성 응답 데이터: ', data);
       navigate(`/channels/@me/${data.channel.chatId}`);
       queryClient.invalidateQueries({ queryKey: ['DMList'] });
+      toast.success('채팅방을 생성했습니다!');
+      // TODO: 추후 기존에 생성된 방은 구분
     },
     onError: () => {
       toast.error('문제가 발생했어요. 다시 시도해주세요.');
