@@ -10,47 +10,43 @@ interface Props {
   msg: ChatMessage;
   isMine: boolean;
   showMeta: boolean;
+  mentions: string[];
 }
 
 const MessageStatus = ({ status }: { status?: string }) => {
   if (!status || status === 'sent') return null;
 
   return (
-      <span className="ml-2 text-xs">
-      {status === 'pending' && (
-          <span className="animate-spin inline-block">⌛</span>
-      )}
-        {status === 'error' && (
-            <span className="text-red-500">⚠️</span>
-        )}
+    <span className="ml-2 text-xs">
+      {status === 'pending' && (<span className="animate-spin inline-block">⌛</span>)}
+      {status === 'error' && (<span className="text-red-500">⚠️</span>)}
     </span>
   );
 };
 
-export const ChatMessageItem = ({ msg, isMine, showMeta }: Props) => {
+const parseMentions = (text: string, mentions: string[]) => {
+  return text.split(/(\@[^\s]+)/g).map((part, index) => {
+    if (part.startsWith('@') && mentions.includes(part.slice(1))) {
+      return (
+        <span key={index} className="text-blue-500 font-semibold">{part}</span>
+      );
+    }
+    return part;
+  });
+};
+
+export const ChatMessageItem = ({ msg, isMine, showMeta, mentions }: Props) => {
   const renderAttachment = (attachment: { type: string; url: string }) => {
     if (attachment.type === 'image') {
       return (
-        <img
-          src={attachment.url}
-          alt="첨부 이미지"
-          className="max-w-xs rounded-md border border-gray-600 hover:scale-105 transition-transform duration-200"
-          loading="lazy"
-        />
+        <img src={attachment.url} alt="첨부 이미지" className="max-w-xs rounded-md border border-gray-600 hover:scale-105 transition-transform duration-200" loading="lazy"/>
       );
     }
 
     return (
-      <a
-        href={attachment.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-2 p-2 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors"
-      >
+      <a href={attachment.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors">
         <FileIcon className="w-5 h-5" />
-        <span className="text-sm text-blue-400 underline">
-          첨부 파일 다운로드
-        </span>
+        <span className="text-sm text-blue-400 underline">첨부 파일 다운로드</span>
       </a>
     );
   };
@@ -58,28 +54,21 @@ export const ChatMessageItem = ({ msg, isMine, showMeta }: Props) => {
   return (
     <div className={`flex items-start gap-2 ${isMine ? 'justify-end' : 'justify-start'}`}>
       {!isMine && showMeta && (
-        <img
-          src={msg.sender.avatarUrl || fallbackIcon}
-          alt={msg.sender.name}
-          className="w-10 h-10 rounded-full shrink-0"
-          onError={(e) => { e.currentTarget.src = fallbackIcon; }}
+        <img src={msg.sender.avatarUrl || fallbackIcon} alt={msg.sender.name} className="w-10 h-10 rounded-full shrink-0"
+          onError={(e) => {e.currentTarget.src = fallbackIcon;}}
         />
       )}
       <div className={`max-w-[70%] ${isMine ? 'text-right' : ''} ${!isMine && !showMeta ? 'ml-[50px]' : ''}`}>
         {showMeta && (
           <div className="flex items-center gap-2 mb-1">
-            <span className={`text-sm font-semibold ${isMine ? 'text-green-400' : 'text-blue-400'}`}>
-              {msg.sender.name}
-            </span>
-            <span className="text-xs text-gray-500">
-              {dayjs(msg.createdAt).fromNow()}
-            </span>
+            <span className={`text-sm font-semibold ${isMine ? 'text-green-400' : 'text-blue-400'}`}>{msg.sender.name}</span>
+            <span className="text-xs text-gray-500">{dayjs(msg.createdAt).fromNow()}</span>
           </div>
         )}
         <MessageStatus status={msg.status} />
         <div className={`px-3 py-2 rounded-lg ${isMine ? 'bg-blurple text-white' : 'bg-off text-gray-100'}`}>
           {msg.content && (
-            <p className="whitespace-pre-wrap text-sm mb-2">{msg.content}</p>
+            <p className="whitespace-pre-wrap text-sm mb-2">{parseMentions(msg.content, mentions)}</p>
           )}
           {msg.attachments && (
             <div className="flex flex-col gap-2">

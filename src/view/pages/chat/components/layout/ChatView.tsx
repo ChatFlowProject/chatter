@@ -32,7 +32,7 @@ export const ChatView = ({messages = [], myId }: {
           return (
               <div key={`msg-${index}`}>
                 {shouldShowDateDivider(msg, prev) && (<DateDivider date={new Date(msg.createdAt)} />)}
-                <ChatMessageItem msg={msg} isMine={msg.sender.memberId === myId} showMeta={showMeta}/>
+                <ChatMessageItem msg={msg} isMine={msg.sender.memberId === myId} showMeta={showMeta} mentions={[]}/>
               </div>
           );
         })}

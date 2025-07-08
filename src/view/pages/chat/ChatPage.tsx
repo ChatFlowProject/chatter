@@ -8,13 +8,15 @@ import { ChatView } from "@pages/chat/components/layout/ChatView.tsx";
 import { postImage } from "@service/feature/image/imageApi.ts";
 import { useParams } from "react-router-dom";
 import {v4 as uuidv4} from "uuid";
-
-const MY_ID = "tests";
+import {toast} from "sonner";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../app/store.ts";
 
 export function ChatPage() {
   const { channelId } = useParams<{ channelId: string }>();
   const { data: messagesData = [], isLoading, error } = useMessageHistory(channelId);
   const [localMessages, setLocalMessages] = useState<ChatMessage[]>([]);
+  const userProfile = useSelector((state: RootState) => state.auth.profile);
 
   useEffect(() => {
     setLocalMessages([]);
@@ -29,11 +31,7 @@ export function ChatPage() {
   const handleNewMessage = useCallback((msg: ChatMessage) => {
     setLocalMessages(prev => {
       if (msg.tempId) {
-        return prev.map(m =>
-            m.tempId === msg.tempId
-                ? { ...msg, status: 'sent' as const }
-                : m
-        );
+        return prev.map(m => m.tempId === msg.tempId ? { ...msg, status: 'sent' as const } : m);
       }
       return [...prev, msg];
     });
@@ -49,7 +47,7 @@ export function ChatPage() {
     try {
       return await postImage(formData);
     } catch (error) {
-      console.error("이미지 업로드 실패:", error);
+      toast.error("이미지 업로드 실패:");
       throw error;
     }
   };
@@ -65,9 +63,9 @@ export function ChatPage() {
     const tempMessage: ChatMessage = {
       tempId: uuidv4(),
       sender: {
-        memberId: MY_ID,
-        name: "tester",
-        avatarUrl: "",
+        memberId: userProfile.userId,
+        name: userProfile.nickname || userProfile.name,
+        avatarUrl: userProfile.avatarUrl || '',
       },
       content: text,
       createdAt: new Date().toISOString(),
@@ -103,8 +101,9 @@ export function ChatPage() {
   return (
     <div className="flex h-full flex-col bg-chat text-white">
       <ChannelHeader channelName="일반" />
-      <ChatView messages={localMessages} myId={MY_ID} />
-      <ChatInput onSend={handleSend} />
+      <ChatView messages={localMessages} myId={userProfile?.id || ''
+      } />
+      <ChatInput onSend={handleSend} users={[]} />
     </div>
   );
 }
