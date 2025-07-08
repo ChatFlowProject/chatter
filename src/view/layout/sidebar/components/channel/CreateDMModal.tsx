@@ -7,6 +7,7 @@ import Item from './Item';
 import { Plus, Square, SquareCheckBig } from 'lucide-react';
 import { useCreateDM } from '@service/feature/channel/hook/query/useChannelQuery';
 import { toast } from 'sonner';
+import SkeletonDMList from '../skeletons/SkeletonDMList';
 
 const CreateDMModal = () => {
   const [keyword, setKeyword] = useState('');
@@ -14,7 +15,7 @@ const CreateDMModal = () => {
   const [checkList, setCheckList] = useState<string[]>([]);
 
   // 내 모든 친구 불러오기
-  const { data, error } = useGetAllFriends();
+  const { data, isLoading, error } = useGetAllFriends();
 
   const { mutate } = useCreateDM();
   useEffect(() => {
@@ -66,23 +67,27 @@ const CreateDMModal = () => {
           <Modal.Body>
             <SearchFriends setKeyword={setKeyword} keyword={keyword} />
             <div className='min-h-[60px] max-h-[645px]'>
-              {searchData?.map((member) => (
-                <Item member={member} key={member.friendshipId}>
-                  <button
-                    onClick={() => handleToggle(member.friendshipInfo.id)}
-                    className='w-[22px] h-[22px] flex items-center justify-center text-white'
-                  >
-                    {checkList.includes(member.friendshipInfo.id) ? (
-                      <SquareCheckBig size={22} className='text-primary' />
-                    ) : (
-                      <Square
-                        size={22}
-                        className='text-neutral-400 hover:text-primary'
-                      />
-                    )}
-                  </button>
-                </Item>
-              ))}
+              {isLoading ? (
+                <SkeletonDMList className='w-full' size={4} />
+              ) : (
+                searchData?.map((member) => (
+                  <Item member={member} key={member.friendshipId}>
+                    <button
+                      onClick={() => handleToggle(member.friendshipInfo.id)}
+                      className='w-[22px] h-[22px] flex items-center justify-center text-white'
+                    >
+                      {checkList.includes(member.friendshipInfo.id) ? (
+                        <SquareCheckBig size={22} className='text-primary' />
+                      ) : (
+                        <Square
+                          size={22}
+                          className='text-neutral-400 hover:text-primary'
+                        />
+                      )}
+                    </button>
+                  </Item>
+                ))
+              )}
             </div>
           </Modal.Body>
           <Modal.Footer
