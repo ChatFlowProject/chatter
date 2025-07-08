@@ -15,7 +15,10 @@ const Item = ({
           <div>
             <img
               className='rounded-full'
-              src={member.friendshipInfo.avatarUrl || '/logo.png'}
+              src={
+                member.friendshipInfo.avatarUrl ||
+                require('@assets/img/logo/chatflow.png')
+              }
               alt={'logo'}
             />
             <div

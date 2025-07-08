@@ -15,7 +15,7 @@ const UserProfileBar = () => {
         <Avatar
           src={profile?.avatarUrl || undefined}
           alt={profile?.nickname}
-          fallback='/logo.png'
+          fallback={require('@assets/img/logo/chatflow.png')}
           size={32}
         />
         <div>

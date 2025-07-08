@@ -51,7 +51,7 @@ const FriendCard = ({
           <div className='w-8 h-8 my-[5px] ml-2 flex items-center justify-center relative mr-3'>
             <img
               className='rounded-full'
-              src={avatarUrl || '/logo.png'}
+              src={avatarUrl || require('@assets/img/logo/chatflow.png')}
               alt={user.name}
             />
             <div

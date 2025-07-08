@@ -29,7 +29,9 @@ const DMUserCard = ({ data, isActive, className }: UserCardProps) => {
             <div>
               <img
                 className='rounded-full'
-                src={user[0].avatarUrl || '/logo.png'}
+                src={
+                  user[0].avatarUrl || require('@assets/img/logo/chatflow.png')
+                }
                 alt={data.channel.name}
               />
               <div
@@ -40,13 +42,18 @@ const DMUserCard = ({ data, isActive, className }: UserCardProps) => {
             <div>
               <img
                 className='rounded-full w-[21px] h-[21px]'
-                src={user[0].avatarUrl || '/logo.png'}
+                src={
+                  user[0].avatarUrl || require('@assets/img/logo/chatflow.png')
+                }
                 alt={data.channel.name}
               />
               <div className='absolute top-[10px] left-[10px]'>
                 <img
                   className='rounded-full w-[21px] h-[21px] border-4 border-[#2e3036] box-content'
-                  src={user[1].avatarUrl || '/logo.png'}
+                  src={
+                    user[1].avatarUrl ||
+                    require('@assets/img/logo/chatflow.png')
+                  }
                   alt={data.channel.name}
                 />
               </div>
