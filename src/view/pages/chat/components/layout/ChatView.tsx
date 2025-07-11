@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react';
-import { ChatMessage } from '@service/feature/chat/schema/messageSchema.ts';
+import { Chat } from  '@service/feature/chat/type/messages.ts'
 import { DateDivider } from '@pages/chat/components/message/DateDivider.tsx';
 import { ChatMessageItem } from '@pages/chat/components/message/ChatMessageItem.tsx';
+import {CategoryView} from "@service/feature/channel/types/channel.ts";
 
 export const ChatView = ({messages = [], myId }: {
-  messages: ChatMessage[];
+  messages: Chat[];
   myId: string;
+  categories: CategoryView
 }) => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -14,6 +16,7 @@ export const ChatView = ({messages = [], myId }: {
   }, [messages]);
 
   const messageList = Array.isArray(messages) ? messages : [];
+  console.log("messageList", messageList);
 
   const shouldShowDateDivider = (currentMsg: ChatMessage, prevMsg?: ChatMessage) => {
     if (!prevMsg) return true;

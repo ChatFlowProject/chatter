@@ -21,9 +21,9 @@ export const getTeamList = async () => {
   return response.data;
 };
 
-export const getTeamById = async (teamId: string) => {
+export const getTeamById = async (teamId: string | undefined) => {
   const response = await axios.get(`/teams/${teamId}`);
-  return response.data;
+  return response.data.data;
 };
 
 export const deleteTeam = async (teamId: string) => {

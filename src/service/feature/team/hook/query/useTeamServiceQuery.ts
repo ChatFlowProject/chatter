@@ -13,7 +13,7 @@ export const useTeamListQuery = () => {
   });
 };
 
-export const useTeamDetailQuery = (teamId: string) => {
+export const useTeamDetailQuery = (teamId: string | undefined) => {
   return useQuery<Team>({
     queryKey: ['teamDetail', teamId],
     queryFn: () => getTeamById(teamId),

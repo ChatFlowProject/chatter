@@ -19,6 +19,7 @@ export const messageSchema = z.object({
   isUpdated: z.boolean(),
   isDeleted: z.boolean(),
   attachments: z.array(attachmentSchema).optional(),
+  mentions: z.array(z.string()).optional(),
   status: z.enum(['pending', 'sent', 'error']).optional(),
   tempId: z.string().optional(),
 });

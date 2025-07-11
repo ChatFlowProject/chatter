@@ -6,6 +6,6 @@ export const useMessageHistory = (channelId: string | undefined) => {
     queryKey: ['messages', channelId],
     queryFn: () => fetchLatestMessages(channelId),
     enabled: !!channelId,
-    staleTime: 1000*30
+    staleTime: 1000 * 30,
   });
 };
