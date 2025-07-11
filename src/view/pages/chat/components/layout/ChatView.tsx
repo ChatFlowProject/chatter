@@ -7,7 +7,7 @@ import {CategoryView} from "@service/feature/channel/types/channel.ts";
 export const ChatView = ({messages = [], myId }: {
   messages: Chat[];
   myId: string;
-  categories: CategoryView
+  categories: CategoryView[]
 }) => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
