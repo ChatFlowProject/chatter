@@ -16,7 +16,6 @@ export const ChatView = ({messages = [], myId }: {
   }, [messages]);
 
   const messageList = Array.isArray(messages) ? messages : [];
-  console.log("messageList", messageList);
 
   const shouldShowDateDivider = (currentMsg: ChatMessage, prevMsg?: ChatMessage) => {
     if (!prevMsg) return true;
