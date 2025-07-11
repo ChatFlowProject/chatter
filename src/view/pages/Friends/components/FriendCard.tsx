@@ -6,7 +6,7 @@ import {
 } from '@service/feature/friend/hook/useFriendQuery';
 import MoreMenu from './MoreMenu';
 import { ChannelMember } from '@service/feature/channel/types/channel';
-import { useNavigate } from 'react-router-dom';
+import { useCreateDM } from '@service/feature/channel/hook/query/useChannelQuery';
 
 const FriendCard = ({
   user,
@@ -22,14 +22,13 @@ const FriendCard = ({
   openMenuId?: number | null;
   setOpenMenuId?: React.Dispatch<React.SetStateAction<number | null>>;
 }) => {
-  const navigation = useNavigate();
-
   const { id, name, state, avatarUrl } = user;
+  const { mutate } = useCreateDM();
 
   // TODO: 추후 chatId 받아오는 방식 고려.
   // 현재는 DM 채널과 유저를 매칭시킬 수 있는 방법이 없음.
   const handleClick = () => {
-    navigation(`/channels/@me/${id}`);
+    mutate([id]);
   };
 
   // 친구 요청 취소
@@ -51,7 +50,7 @@ const FriendCard = ({
           <div className='w-8 h-8 my-[5px] ml-2 flex items-center justify-center relative mr-3'>
             <img
               className='rounded-full'
-              src={avatarUrl || '/logo.png'}
+              src={avatarUrl || require('@assets/img/logo/chatflow.png')}
               alt={user.name}
             />
             <div

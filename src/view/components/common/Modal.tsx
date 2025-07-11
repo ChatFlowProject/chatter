@@ -263,20 +263,23 @@ Modal.Footer = ({
 
   return (
     <div className=' h-[48px] flex bg-[#2F3136] px-[0.75rem] justify-between items-center rounded-b-[4px]'>
-      <button
-        onClick={handleClose}
-        className='text-[#DCDDDE] text-[10px] px-[0.94rem] py-[0.5rem] rounded-[0.13275rem] hover:bg-[#404249]'
-      >
-        {backBtnText ? backBtnText : 'Back'}
-      </button>
-      <div className='flex'>
+      {onClose ? (
         <button
-          onClick={handleSubmit}
-          className='bg-[#5865F2] text-white px-[0.94rem] py-[0.5rem] rounded-[0.13275rem] text-[10px] hover:bg-[#4752C4]'
+          onClick={handleClose}
+          className='text-[#DCDDDE] text-[10px] px-[0.94rem] py-[0.5rem] rounded-[0.13275rem] hover:bg-[#404249]'
         >
-          {submitBtnText ? submitBtnText : 'Okay'}
+          {backBtnText ? backBtnText : 'Back'}
         </button>
-      </div>
+      ) : (
+        ''
+      )}
+
+      <button
+        onClick={handleSubmit}
+        className={`bg-[#5865F2] text-white px-[0.94rem] py-[0.5rem] rounded-[0.13275rem] text-[10px] hover:bg-[#4752C4] ${!onClose && 'flex-1'}`}
+      >
+        {submitBtnText ? submitBtnText : 'Okay'}
+      </button>
     </div>
   );
 };
