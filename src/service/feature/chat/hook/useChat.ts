@@ -57,11 +57,8 @@ export const useChat = (chatId: string | undefined, onMessage: (msg: ChatMessage
     const tempId = uuidv4();
     const sendUrl = `/pub/message/${chatId}`;
     const message = {
-      chatId,
       content,
       attachments,
-      createdAt: new Date().toISOString(),
-      tempId
     };
 
     return new Promise((resolve, reject) => {

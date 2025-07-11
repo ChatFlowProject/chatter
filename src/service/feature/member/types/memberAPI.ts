@@ -14,6 +14,7 @@ export interface MemberInfo {
   nickname: string;
   avatarUrl?: string;
   birth?: string;
+  state?: MemberState;
 }
 
 export interface UpdateMemberStatusRequest {
