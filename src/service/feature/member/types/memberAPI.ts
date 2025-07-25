@@ -11,6 +11,7 @@ export type MemberState =
 export interface MemberInfo {
   userId: string;
   email: string;
+  name: string;
   nickname: string;
   avatarUrl?: string;
   birth?: string;
