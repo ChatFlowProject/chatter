@@ -15,6 +15,8 @@ export interface MemberInfo {
     avatarUrl: string;
     state: MemberState;
     createdAt: string;
+    email?: string;
+    birth?: string;
 }
 
 export interface UpdateMemberStatusRequest {
