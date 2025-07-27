@@ -14,9 +14,9 @@ const DirectMessages = () => {
 
   return (
     <div className='flex flex-col items-start gap-[2px]'>
-      {data?.map((item) => (
+      {data?.map((item, index) => (
         <DMUserCard
-          key={item.channel.name}
+          key={index}
           isActive={userId === item.channel.chatId}
           data={item}
         />

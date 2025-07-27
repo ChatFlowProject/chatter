@@ -86,8 +86,8 @@ export const ChatInput = ({ onSend, users }: ChatInputProps) => {
       url: URL.createObjectURL(file),
     }));
 
-    const memberIds = extractMentions();
-    onSend(text.trim(), memberIds, tempAttachments); 
+    // Display local previews of the files while the upload is in progress
+    setLocalPreviews(tempAttachments);
 
     try {
       const uploadedUrls = await Promise.all(
@@ -98,7 +98,7 @@ export const ChatInput = ({ onSend, users }: ChatInputProps) => {
             return { type: 'image', url };
           })
       );
-      onSend('', memberIds, uploadedUrls);
+      onSend(text.trim() || 'Uploaded files', memberIds, uploadedUrls);
     } catch (error) {
       console.error('이미지 업로드 실패:', error);
       alert('이미지 업로드 중 문제가 발생했습니다.');
