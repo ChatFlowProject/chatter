@@ -26,9 +26,8 @@ const teamSlice = createSlice({
         state.loading = false;
         state.teamDetails = action.payload;
       })
-      .addCase(fetchTeamDetails.rejected, (state, action) => {
+      .addCase(fetchTeamDetails.rejected, (state) => {
         state.loading = false;
-        state.error = action.error.message;
       });
   },
 });

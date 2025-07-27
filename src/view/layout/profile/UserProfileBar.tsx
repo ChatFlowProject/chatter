@@ -1,25 +1,25 @@
 import Avatar from '@components/common/user/Avatar.tsx';
 import UserStatus from '@components/common/user/UserStatus.tsx';
-import {useDispatch, useSelector} from 'react-redux';
-import { RootState } from '../../../app/store.ts';
+
+import { updateStatus } from "@service/feature/auth/api/profileApi.ts";
+import { RootState, } from "../../../app/store.ts";
+import { MemberState } from "@service/feature/auth/types/profile.ts";
 import UserProfileContextMenu from "./component/ProfileContextMenu.tsx";
-import {MemberState} from "@service/feature/auth/types/profile.ts";
-import {updateStatus} from "@service/feature/auth/api/profileApi.ts";
 
 const UserProfileBar = () => {
   const profile = useSelector((state: RootState) => (state.auth as any).profile);
 
   const dispatch = useDispatch();
 
-    const handleEditProfile = () => {
-        console.log('내 정보 수정 클릭');
-    };
+  const handleEditProfile = () => {
+    console.log('내 정보 수정 클릭');
+  };
 
-    const handleChangeStatus = (status: MemberState) => {
-        dispatch(updateStatus(status));
-    };
+  const handleChangeStatus = (status: MemberState) => {
+    dispatch(updateStatus(status));
+  };
 
-    return (
+  return (
     <div className='h-16 flex items-center justify-between px-4 border-t border-gray-600 bg-chat'>
       <div className='flex items-center space-x-2'>
         <Avatar
@@ -35,11 +35,10 @@ const UserProfileBar = () => {
           <UserStatus status={profile?.state ?? 'OFFLINE'} />
         </div>
       </div>
-        <UserProfileContextMenu
-            onEditProfile={handleEditProfile}
-            onChangeStatus={handleChangeStatus}
-        />
-
+      <UserProfileContextMenu
+        onEditProfile={handleEditProfile}
+        onChangeStatus={handleChangeStatus}
+      />
     </div>
   );
 };
