@@ -15,8 +15,13 @@ const UserProfileBar = () => {
     console.log('내 정보 수정 클릭');
   };
 
-  const handleChangeStatus = (status: MemberState) => {
-    dispatch(updateStatus(status));
+  const handleChangeStatus = async (status: MemberState) => {
+    try {
+      await updateStatus(status);
+      console.log('Status updated successfully');
+    } catch (error) {
+      console.error('Failed to update status:', error);
+    }
   };
 
   return (
