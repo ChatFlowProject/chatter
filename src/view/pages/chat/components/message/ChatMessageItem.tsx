@@ -103,7 +103,7 @@ export const ChatMessageItem = ({ msg, isMine, showMeta, mentions }: Props) => {
           <MessageStatus status={msg.status}/>
           <div className={`px-3 py-2 rounded-lg ${isMine ? 'bg-blurple text-white' : 'bg-off text-gray-100'}`}>
             {msg.content && (
-                <p className="whitespace-pre-wrap text-sm mb-2">{parseMentions(msg.content, mentions)}</p>
+                <p className="whitespace-pre-wrap text-sm">{parseMentions(msg.content, mentions)}</p>
             )}
             {msg.attachments && (
                 <div className="flex flex-col gap-2">

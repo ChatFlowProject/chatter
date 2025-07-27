@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { Chat } from  '@service/feature/chat/type/messages.ts'
 import { DateDivider } from '@pages/chat/components/message/DateDivider.tsx';
 import { ChatMessageItem } from '@pages/chat/components/message/ChatMessageItem.tsx';
 import {CategoryView} from "@service/feature/channel/types/channel.ts";
+import {ChatMessage} from "@service/feature/chat/schema/messageSchema.ts";
 
 export const ChatView = ({messages = [], myId }: {
-  messages: Chat[];
+  messages: ChatMessage[];
   myId: string;
   categories: CategoryView
 }) => {
@@ -31,6 +31,7 @@ export const ChatView = ({messages = [], myId }: {
           const prev = messageList[index - 1];
           const isSameSender = prev?.sender?.memberId === msg.sender?.memberId;
           const showMeta = !isSameSender || shouldShowDateDivider(msg, prev);
+          console.log(msg)
 
           return (
               <div key={`msg-${index}`}>

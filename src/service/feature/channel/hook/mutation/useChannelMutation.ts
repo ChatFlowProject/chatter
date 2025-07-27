@@ -1,54 +1,30 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
-import { createChannel, deleteChannel, moveChannel } from '@service/feature/channel/api/channelAPI.ts';
+import {useApiMutation} from "@service/feature/common/hooks/useApiMutation.ts";
+import {CreateChannelRequest} from "@service/feature/channel/types/channel.ts";
+import {endpoints} from "@service/feature/channel/api/channelAPI.ts";
 
-export const useCreateChannelMutation = (serverId: string) => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: createChannel,
-    onSuccess: () => {
-      toast.success('채널 생성 완료!');
-      queryClient.invalidateQueries({ queryKey: ['serverChannels', serverId] });
-    },
-  });
+export const useCreateChannelMutation = (teamId: string, categoryId: number) => {
+    return useApiMutation<{ categoryId: number }, CreateChannelRequest, void>({
+        urlBuilder: ({ categoryId }) => endpoints.categories(teamId, categoryId),
+        method: 'POST',
+        queryKeyToInvalidate: ['serverChannels', teamId],
+    });
 };
 
-export const useDeleteChannelMutation = (serverId: string) => {
-  const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: deleteChannel,
-    onSuccess: () => {
-      toast.success('채널 삭제 완료!');
-      queryClient.invalidateQueries({ queryKey: ['serverChannels', serverId] });
-    },
-  });
+export const useDeleteChannelMutation = (teamId: string) => {
+    return useApiMutation({
+        urlBuilder: (params: { categoryId: number; channelId: number }) =>
+            `${endpoints.categories(teamId, params.categoryId)}/${params.channelId}`,
+        method: 'DELETE',
+        queryKeyToInvalidate: ['serverChannels', teamId],
+    });
 };
-
 
 export const useMoveChannelMutation = (teamId: string, categoryId: number) => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: ({
-                   channelId,
-                   destCategoryId,
-                   prevChannelId,
-                   nextChannelId,
-                 }: {
-      channelId: number;
-      destCategoryId: number;
-      prevChannelId: number;
-      nextChannelId: number;
-    }) =>
-      moveChannel(teamId, categoryId, channelId, {
-        destCategoryId,
-        prevChannelId,
-        nextChannelId,
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['teamStructure', teamId] });
-    },
-  });
+    return useApiMutation({
+        urlBuilder: (params: { channelId: number }) =>
+            `${endpoints.categories(teamId, categoryId)}/${params.channelId}`,
+        method: 'PATCH',
+        queryKeyToInvalidate: ['teamStructure', teamId],
+    });
 };

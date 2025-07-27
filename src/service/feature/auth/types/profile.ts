@@ -1,4 +1,5 @@
 export type MemberState = 'ONLINE' | 'OFFLINE' | 'IDLE' | 'DO_NOT_DISTURB';
+export type MemberType = 'MEMBER' | 'ADMIN'
 
 export interface UserProfile {
     id: string;
@@ -6,7 +7,7 @@ export interface UserProfile {
     nickname: string;
     name: string;
     birth: string;
-    type: 'MEMBER' | 'ADMIN' | string;
+    type: MemberType;
     avatarUrl: string | null;
     state: MemberState;
     createdAt: string;

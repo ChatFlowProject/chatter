@@ -3,7 +3,7 @@ import { useChat } from "@service/feature/chat/hook/useChat.ts";
 import { ChatMessage } from "@service/feature/chat/schema/messageSchema.ts";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { ChannelHeader } from "./components/layout/ChannelHeader";
-import { ChatInput } from "@pages/chat/components/layout/ChatInput.tsx";
+import { ChatInput } from "@pages/chat/components/input/ChatInput.tsx";
 import { ChatView } from "@pages/chat/components/layout/ChatView.tsx";
 import { postImage } from "@service/feature/image/imageApi.ts";
 import { useParams } from "react-router-dom";
@@ -37,9 +37,6 @@ export function ChatPage() {
       setLocalMessages(messagesData);
     }
   }, [messagesData]);
-
-  console.log(useMessageHistory(channelId));
-  console.log(messagesData);
 
   const handleNewMessage = useCallback((msg: ChatMessage) => {
     setLocalMessages((prev) => {

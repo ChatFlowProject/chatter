@@ -1,21 +1,20 @@
 import { useState } from 'react';
-import {DndContext, DragEndEvent} from '@dnd-kit/core';
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-  arrayMove,
-} from '@dnd-kit/sortable';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import {SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { ChevronDown, ChevronRight, Plus } from 'lucide-react';
 import ChannelItem from './ChannelItem.tsx';
 import { Channel } from '@service/feature/channel/types/channel.ts';
+import ChannelAddDialog from "./ChannelDialog.tsx";
 
-const ChannelCategory = ({title, type, defaultItems,}: {
+const ChannelCategory = ({ title, type, defaultItems, serverId }: {
   title: string;
   type: 'text' | 'voice' | 'event';
   defaultItems: Channel[];
+  serverId: string;
 }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [items, setItems] = useState(defaultItems);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -36,7 +35,11 @@ const ChannelCategory = ({title, type, defaultItems,}: {
           {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
           <span>{title}</span>
         </div>
-        <Plus size={14} className="text-[#b9bbbe] hover:text-white" />
+        <Plus
+          size={14}
+          className="text-[#b9bbbe] hover:text-white"
+          onClick={() => setIsDialogOpen(true)}
+        />
       </div>
 
       {isOpen && (
@@ -55,6 +58,10 @@ const ChannelCategory = ({title, type, defaultItems,}: {
             </div>
           </SortableContext>
         </DndContext>
+      )}
+
+      {isDialogOpen && (
+        <ChannelAddDialog serverId={serverId} onClose={() => setIsDialogOpen(false)} />
       )}
     </div>
   );
