@@ -7,7 +7,7 @@ import {ChatMessage} from "@service/feature/chat/schema/messageSchema.ts";
 export const ChatView = ({messages = [], myId }: {
   messages: ChatMessage[];
   myId: string;
-  categories: CategoryView
+  categories: CategoryView[]
 }) => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -16,7 +16,6 @@ export const ChatView = ({messages = [], myId }: {
   }, [messages]);
 
   const messageList = Array.isArray(messages) ? messages : [];
-  console.log("messageList", messageList);
 
   const shouldShowDateDivider = (currentMsg: ChatMessage, prevMsg?: ChatMessage) => {
     if (!prevMsg) return true;
@@ -36,7 +35,7 @@ export const ChatView = ({messages = [], myId }: {
           return (
               <div key={`msg-${index}`}>
                 {shouldShowDateDivider(msg, prev) && (<DateDivider date={new Date(msg.createdAt)} />)}
-                <ChatMessageItem msg={msg} isMine={msg.sender.memberId === myId} showMeta={showMeta} mentions={[]}/>
+                <ChatMessageItem msg={msg} isMine={msg.sender.memberId === myId} showMeta={showMeta} mentions={msg.mentions}/>
               </div>
           );
         })}

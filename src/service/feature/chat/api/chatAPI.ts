@@ -10,7 +10,6 @@ export const fetchChannels = async () => {
 
 export const fetchLatestMessages = async (channelId: string | undefined): Promise<Chat[]> => {
   const res = await axios.get(`/message/latest?chatId=${channelId}`);
-  console.log(res.data.data);
   return Array.isArray(res.data.data) ? res.data.data : [];
 };
 
