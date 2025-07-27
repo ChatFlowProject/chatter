@@ -98,7 +98,7 @@ export const ChatInput = ({ onSend, users }: ChatInputProps) => {
             return { type: 'image', url };
           })
       );
-      onSend('', memberIds, uploadedUrls);
+      onSend(text.trim() || 'Uploaded files', memberIds, uploadedUrls);
     } catch (error) {
       console.error('이미지 업로드 실패:', error);
       alert('이미지 업로드 중 문제가 발생했습니다.');
