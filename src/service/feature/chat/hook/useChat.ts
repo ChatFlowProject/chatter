@@ -61,7 +61,7 @@ export const useChat = (chatId: string | undefined, onMessage: (msg: ChatMessage
       attachments,
     };
 
-    console.log('보내는 메시지:', message);
+    // 메시지 전송 로깅은 필요 시 적절한 로깅 메커니즘으로 대체해야 합니다.
 
     return new Promise((resolve, reject) => {
       try {
