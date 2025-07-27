@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext } from 'react';
 import type { CompatClient } from '@stomp/stompjs';
 
 export type SocketContextType = {

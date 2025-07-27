@@ -9,13 +9,14 @@ export type MemberState =
   | '오프라인';
 
 export interface MemberInfo {
-  userId: string;
-  email: string;
-  name: string;
-  nickname: string;
-  avatarUrl?: string;
-  birth?: string;
-  state?: MemberState;
+    id: string;
+    nickname: string;
+    name: string;
+    avatarUrl: string;
+    state: MemberState;
+    createdAt: string;
+    email?: string;
+    birth?: string;
 }
 
 export interface UpdateMemberStatusRequest {

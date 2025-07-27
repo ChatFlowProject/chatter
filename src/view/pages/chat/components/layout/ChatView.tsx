@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { Chat } from  '@service/feature/chat/type/messages.ts'
 import { DateDivider } from '@pages/chat/components/message/DateDivider.tsx';
 import { ChatMessageItem } from '@pages/chat/components/message/ChatMessageItem.tsx';
 import {CategoryView} from "@service/feature/channel/types/channel.ts";
+import {ChatMessage} from "@service/feature/chat/schema/messageSchema.ts";
 
 export const ChatView = ({messages = [], myId }: {
-  messages: Chat[];
+  messages: ChatMessage[];
   myId: string;
   categories: CategoryView[]
 }) => {
@@ -34,7 +34,7 @@ export const ChatView = ({messages = [], myId }: {
           return (
               <div key={`msg-${index}`}>
                 {shouldShowDateDivider(msg, prev) && (<DateDivider date={new Date(msg.createdAt)} />)}
-                <ChatMessageItem msg={msg} isMine={msg.sender.memberId === myId} showMeta={showMeta} mentions={msg.mentions}/>
+                <ChatMessageItem msg={msg} isMine={msg.sender.memberId === myId} showMeta={showMeta} memberIds={msg.mentions || []}/>
               </div>
           );
         })}

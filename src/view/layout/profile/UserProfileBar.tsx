@@ -1,13 +1,28 @@
-import { Settings } from 'lucide-react';
 import Avatar from '@components/common/user/Avatar.tsx';
 import UserStatus from '@components/common/user/UserStatus.tsx';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../app/store.ts';
+import { updateStatus } from "@service/feature/auth/api/profileApi.ts";
+import { RootState, } from "../../../app/store.ts";
+import { MemberState } from "@service/feature/auth/types/profile.ts";
+import UserProfileContextMenu from "./component/ProfileContextMenu.tsx";
+import {useDispatch, useSelector} from "react-redux";
 
 const UserProfileBar = () => {
-  const profile = useSelector(
-    (state: RootState) => (state.auth as any).profile,
-  );
+  const profile = useSelector((state: RootState) => (state.auth as any).profile);
+
+  const dispatch = useDispatch();
+
+  const handleEditProfile = () => {
+    console.log('내 정보 수정 클릭');
+  };
+
+  const handleChangeStatus = async (status: MemberState) => {
+    try {
+      await updateStatus(status);
+      console.log('Status updated successfully');
+    } catch (error) {
+      console.error('Failed to update status:', error);
+    }
+  };
 
   return (
     <div className='h-16 flex items-center justify-between px-4 border-t border-gray-600 bg-chat'>
@@ -25,7 +40,10 @@ const UserProfileBar = () => {
           <UserStatus status={profile?.state ?? 'OFFLINE'} />
         </div>
       </div>
-      <Settings className='w-5 h-5 text-gray-400 cursor-pointer hover:text-white transition' />
+      <UserProfileContextMenu
+        onEditProfile={handleEditProfile}
+        onChangeStatus={handleChangeStatus}
+      />
     </div>
   );
 };

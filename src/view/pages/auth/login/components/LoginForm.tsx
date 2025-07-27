@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema, LoginFormData } from '../../../../../service/feature/auth/schema/authSchema';
-import { useLogin } from '../../../../../service/feature/auth';
+import { loginSchema, LoginFormData } from '@service/feature/auth/schema/authSchema.ts';
+import { useLogin } from '@service/feature/auth';
 import { toast } from 'sonner';
 import LoginTextInput from '@pages/auth/components/LoginTextInput.tsx';
 

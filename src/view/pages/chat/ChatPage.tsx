@@ -3,12 +3,10 @@ import { useChat } from "@service/feature/chat/hook/useChat.ts";
 import { ChatMessage } from "@service/feature/chat/schema/messageSchema.ts";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { ChannelHeader } from "./components/layout/ChannelHeader";
-import { ChatInput } from "@pages/chat/components/layout/ChatInput.tsx";
+import { ChatInput } from "@pages/chat/components/input/ChatInput.tsx";
 import { ChatView } from "@pages/chat/components/layout/ChatView.tsx";
-import { postImage } from "@service/feature/image/imageApi.ts";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "sonner";
 import { useTeamDetailQuery } from "@service/feature/team/hook/query/useTeamServiceQuery.ts";
 import { useSelector } from "react-redux";
 import { ChannelMember } from "@service/feature/channel/types/channel.ts";
@@ -38,9 +36,6 @@ export function ChatPage() {
     }
   }, [messagesData]);
 
-  console.log(useMessageHistory(channelId));
-  console.log(messagesData);
-
   const handleNewMessage = useCallback((msg: ChatMessage) => {
     setLocalMessages((prev) => {
       if (msg.tempId) {
@@ -54,52 +49,31 @@ export function ChatPage() {
 
   const { sendMessage } = useChat(channelId, handleNewMessage);
 
-  const uploadImage = async (file: File): Promise<string> => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      return await postImage(formData);
-    } catch (error) {
-      toast.error("이미지 업로드 실패:");
-      throw error;
-    }
-  };
-
-  const handleSend = async (text: string, mentionsOrFiles?: string[] | File[]) => {
+  const handleSend = async (text: string, mentionsOrAttachments: string[] | { type: string; url: string }[] = []) => {
     let mentionList: string[] = [];
-    let fileList: File[] = [];
+    let attachments: { type: string; url: string }[] = [];
 
-    if (Array.isArray(mentionsOrFiles)) {
-      if (typeof mentionsOrFiles[0] === "string") {
-        mentionList = mentionsOrFiles as string[];
+    if (Array.isArray(mentionsOrAttachments)) {
+      if (typeof mentionsOrAttachments[0] === 'string') {
+        mentionList = mentionsOrAttachments as string[];
       } else {
-        fileList = mentionsOrFiles as File[];
+        attachments = mentionsOrAttachments as { type: string; url: string }[];
       }
-    }
-
-    let imageUrls: string[] = [];
-    if (fileList.length > 0) {
-      const uploadPromises = fileList.map((file) => uploadImage(file));
-      imageUrls = await Promise.all(uploadPromises);
     }
 
     const tempMessage: ChatMessage = {
       tempId: uuidv4(),
       sender: {
-        memberId: currentUser?.id || "",
-        name: currentUser?.name || "알 수 없음",
-        avatarUrl: currentUser?.avatarUrl || "",
+        memberId: currentUser?.id || '',
+        name: currentUser?.name || '알 수 없음',
+        avatarUrl: currentUser?.avatarUrl || '',
       },
       content: text,
       createdAt: new Date().toISOString(),
       isUpdated: false,
       isDeleted: false,
-      status: "pending",
-      attachments:
-        imageUrls.length > 0
-          ? imageUrls.map((url) => ({ type: "image" as const, url }))
-          : [],
+      status: 'pending',
+      attachments,
       mentions: mentionList,
       messageId: 0,
     };
@@ -107,16 +81,17 @@ export function ChatPage() {
     setLocalMessages((prev) => [...prev, tempMessage]);
 
     try {
-      await sendMessage(text, tempMessage.attachments);
+      await sendMessage(text, attachments);
     } catch (error) {
+      console.error('메시지 전송 오류:', error);
+
       setLocalMessages((prev) =>
-        prev.map((msg) =>
-          msg.tempId === tempMessage.tempId
-            ? { ...msg, status: "error" as const }
-            : msg
-        )
+          prev.map((msg) =>
+              msg.tempId === tempMessage.tempId
+                  ? { ...msg, status: 'error' }
+                  : msg
+          )
       );
-      console.error("메시지 전송 실패:", error);
     }
   };
 

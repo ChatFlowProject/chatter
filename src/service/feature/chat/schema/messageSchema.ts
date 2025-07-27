@@ -7,7 +7,7 @@ const senderSchema = z.object({
 });
 
 const attachmentSchema = z.object({
-  type: z.enum(['image', 'file']),
+  type: z.string(),
   url: z.string(),
 });
 

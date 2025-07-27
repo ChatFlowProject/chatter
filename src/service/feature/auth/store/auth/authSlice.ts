@@ -1,18 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {UserProfile} from "@service/feature/auth/types/profile.ts";
 
 interface User {
   userId: string;
   email: string;
-  nickname: string;
+  name: string;
 }
 
 interface AuthState {
   user: User | null;
+  profile: UserProfile | null;
   isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
+  profile: null,
   isAuthenticated: false,
 };
 
@@ -24,8 +27,12 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
     },
+    setProfile(state, action: PayloadAction<UserProfile>) {
+      state.profile = action.payload;
+    },
     logout: (state) => {
       state.user = null;
+      state.profile = null;
       state.isAuthenticated = false;
     },
   },
@@ -34,4 +41,4 @@ const authSlice = createSlice({
 export const authReducer = authSlice.reducer;
 export const authActions = authSlice.actions;
 
-export const { setUser, logout } = authSlice.actions;
+export const { setUser, setProfile, logout } = authSlice.actions;
