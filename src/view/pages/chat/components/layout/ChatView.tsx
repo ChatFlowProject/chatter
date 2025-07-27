@@ -30,7 +30,6 @@ export const ChatView = ({messages = [], myId }: {
           const prev = messageList[index - 1];
           const isSameSender = prev?.sender?.memberId === msg.sender?.memberId;
           const showMeta = !isSameSender || shouldShowDateDivider(msg, prev);
-          console.log(msg)
 
           return (
               <div key={`msg-${index}`}>
