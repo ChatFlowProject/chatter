@@ -86,8 +86,8 @@ export const ChatInput = ({ onSend, users }: ChatInputProps) => {
       url: URL.createObjectURL(file),
     }));
 
-    const memberIds = extractMentions();
-    onSend(text.trim(), memberIds, tempAttachments); 
+    // Display local previews of the files while the upload is in progress
+    setLocalPreviews(tempAttachments);
 
     try {
       const uploadedUrls = await Promise.all(
