@@ -1,10 +1,10 @@
 import Avatar from '@components/common/user/Avatar.tsx';
 import UserStatus from '@components/common/user/UserStatus.tsx';
-
 import { updateStatus } from "@service/feature/auth/api/profileApi.ts";
 import { RootState, } from "../../../app/store.ts";
 import { MemberState } from "@service/feature/auth/types/profile.ts";
 import UserProfileContextMenu from "./component/ProfileContextMenu.tsx";
+import {useDispatch, useSelector} from "react-redux";
 
 const UserProfileBar = () => {
   const profile = useSelector((state: RootState) => (state.auth as any).profile);
