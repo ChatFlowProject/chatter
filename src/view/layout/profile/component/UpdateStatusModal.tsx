@@ -22,12 +22,12 @@ const UpdateStatusModal: React.FC<UpdateStatusModalProps> = ({ onClose }) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded shadow-lg w-96">
+            <div className="bg-chat p-6 rounded shadow-lg w-96">
                 <h2 className="text-xl font-bold mb-4">내 상태 변경</h2>
                 <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value as MemberState)}
-                    className="w-full px-3 py-2 border rounded mb-4"
+                    className="w-full px-3 py-2 border rounded bg-chat mb-4"
                 >
                     <option value="ONLINE">온라인</option>
                     <option value="IDLE">자리비움</option>

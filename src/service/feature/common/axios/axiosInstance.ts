@@ -37,7 +37,7 @@ const handleAxiosError = (error: AxiosError<ErrorResponse>) => {
   );
 
   if (response.status === 401) {
-    useLogout()
+    // useLogout()
   }
 
   return Promise.reject(error);
