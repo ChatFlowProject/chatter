@@ -2,11 +2,11 @@ import {useApiMutation} from "@service/feature/common/hooks/useApiMutation.ts";
 import {CreateChannelRequest} from "@service/feature/channel/types/channel.ts";
 import {endpoints} from "@service/feature/channel/api/channelAPI.ts";
 
-export const useCreateChannelMutation = (teamId: string, categoryId: number) => {
-    return useApiMutation<{ categoryId: number }, CreateChannelRequest, void>({
-        urlBuilder: ({ categoryId }) => endpoints.categories(teamId, categoryId),
+export const useCreateChannelMutation = () => {
+    return useApiMutation<{ teamId: string; categoryId: number }, CreateChannelRequest, void>({
+        urlBuilder: ({ teamId, categoryId }) => endpoints.categories(teamId, categoryId),
         method: 'POST',
-        queryKeyToInvalidate: ['serverChannels', teamId],
+        queryKeyToInvalidate: (params) => ['serverChannels', params.teamId],
     });
 };
 
