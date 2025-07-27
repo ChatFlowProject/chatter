@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'sonner';
 import { ERROR_MESSAGES } from '../../../lib/const/toast/errorMessage';
 import { getCookie } from '../../auth/lib/getCookie';
-import {useLogout} from "@service/feature/auth/hook/auth/useLogin.ts";
+// import {useLogout} from "@service/feature/auth/hook/auth/useLogin.ts";
 
 export type ServiceType = 'members' | 'teams' | 'dialog';
 

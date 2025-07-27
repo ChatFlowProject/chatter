@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChannelMember } from '@service/feature/channel/types/channel.ts';
+import {postImage} from "@service/feature/image/imageApi.ts";
 
 interface ChatInputProps {
-  onSend: (text: string, memberIds: string[], fileList?: File[]) => void;
+  onSend: (text: string, memberIds: string[], fileList?: { type: string; url: string }[]) => void;
   users: ChannelMember[];
 }
 
@@ -75,15 +76,37 @@ export const ChatInput = ({ onSend, users }: ChatInputProps) => {
     setMentionMap(new Map());
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
 
     const files = Array.from(e.target.files);
+
+    const tempAttachments = files.map((file) => ({
+      type: 'image',
+      url: URL.createObjectURL(file),
+    }));
+
     const memberIds = extractMentions();
-    onSend(text.trim(), memberIds, files);
-    setText('');
-    setMentionMap(new Map());
-    if (fileInputRef.current) fileInputRef.current.value = '';
+    onSend(text.trim(), memberIds, tempAttachments); 
+
+    try {
+      const uploadedUrls = await Promise.all(
+          files.map(async (file) => {
+            const formData = new FormData();
+            formData.append('file', file);
+            const url = await postImage(formData);
+            return { type: 'image', url };
+          })
+      );
+      onSend('', memberIds, uploadedUrls);
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error);
+      alert('이미지 업로드 중 문제가 발생했습니다.');
+    }
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   return (

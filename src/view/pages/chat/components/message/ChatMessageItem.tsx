@@ -10,7 +10,7 @@ interface Props {
   msg: ChatMessage;
   isMine: boolean;
   showMeta: boolean;
-  mentions: string[];
+  memberIds: string[];
 }
 
 const MessageStatus = ({ status }: { status?: string }) => {
@@ -32,9 +32,9 @@ const MessageStatus = ({ status }: { status?: string }) => {
   );
 };
 
-const parseMentions = (text: string, mentions: string[]) => {
+const parseMentions = (text: string, memberIds: string[] = []) => {
   return text.split(/(\@[^\s]+)/g).map((part, index) => {
-    if (part.startsWith('@') && mentions.includes(part.slice(1))) {
+    if (part.startsWith('@') && memberIds.includes(part.slice(1))) {
       return (
         <span key={index} className="text-blue-500 font-semibold">
           {part}
@@ -52,29 +52,29 @@ const parseMentions = (text: string, mentions: string[]) => {
   });
 };
 
-export const ChatMessageItem = ({ msg, isMine, showMeta, mentions }: Props) => {
+export const ChatMessageItem = ({ msg, isMine, showMeta, memberIds }: Props) => {
   const renderAttachment = (attachment: { type: string; url: string }) => {
     if (attachment.type === 'image') {
       return (
-        <img
-          src={attachment.url}
-          alt="첨부 이미지"
-          className="max-w-xs rounded-md border border-gray-600 hover:scale-105 transition-transform duration-200"
-          loading="lazy"
-        />
+          <img
+              src={attachment.url}
+              alt="첨부 이미지"
+              className="max-w-xs rounded-md border border-gray-600 hover:scale-105 transition-transform duration-200"
+              loading="lazy"
+          />
       );
     }
 
     return (
-      <a
-        href={attachment.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-2 p-2 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors"
-      >
-        <FileIcon className="w-5 h-5" />
-        <span className="text-sm text-blue-400 underline">첨부 파일 다운로드</span>
-      </a>
+        <a
+            href={attachment.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 p-2 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors"
+        >
+          <FileIcon className="w-5 h-5" />
+          <span className="text-sm text-blue-400 underline">첨부 파일 다운로드</span>
+        </a>
     );
   };
 
@@ -103,7 +103,7 @@ export const ChatMessageItem = ({ msg, isMine, showMeta, mentions }: Props) => {
           <MessageStatus status={msg.status}/>
           <div className={`px-3 py-2 rounded-lg ${isMine ? 'bg-blurple text-white' : 'bg-off text-gray-100'}`}>
             {msg.content && (
-                <p className="whitespace-pre-wrap text-sm">{parseMentions(msg.content, mentions)}</p>
+                <p className="whitespace-pre-wrap text-sm">{parseMentions(msg.content, memberIds)}</p>
             )}
             {msg.attachments && (
                 <div className="flex flex-col gap-2">

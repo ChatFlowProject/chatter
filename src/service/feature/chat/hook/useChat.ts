@@ -61,6 +61,8 @@ export const useChat = (chatId: string | undefined, onMessage: (msg: ChatMessage
       attachments,
     };
 
+    console.log('보내는 메시지:', message);
+
     return new Promise((resolve, reject) => {
       try {
         client.publish({
