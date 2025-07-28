@@ -20,7 +20,12 @@ export const getAllMyAlarm = async (pageParam: {
   return res.data;
 };
 
-export const deleteAllMyNoti = async (notificationId: number) => {
+export const deletMyNoti = async (notificationId: number) => {
   const res = await axios.delete(`/notification/${notificationId}`);
+  return res.data;
+};
+
+export const deleteAllMyNoti = async () => {
+  const res = await axios.delete('/notification/all');
   return res.data;
 };

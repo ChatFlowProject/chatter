@@ -1,8 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
 import ForYou from './ForYou';
 import Mention from './Mention';
-import { Archive } from 'lucide-react';
+import { Archive, Trash } from 'lucide-react';
 import {
+  useDeleteAllMyNoti,
   useGetAllMyNoti,
   useMentionQuery,
 } from '@service/feature/noti/hook/useInbox';
@@ -86,15 +87,29 @@ export default function Inbox() {
     setSelected(tag);
   };
 
+  // 모든 알림 삭제
+  const { mutate } = useDeleteAllMyNoti();
+  const handleDeleteAllNoti = () => {
+    mutate();
+  };
+
   if (isLoading) return <div>로딩중</div>;
   if (error) return <div>에러</div>;
+
+  /**
+   * TODO:
+   * 값이 없는 경우 고려
+   */
 
   return (
     <div className='absolute top-[45px] right-[20px] z-10'>
       <div className='bg-[#292B2F] text-white w-[580px] rounded-[8px]'>
-        <div className='flex p-4'>
-          <Archive className='!w-[20px] !h-[20px] mr-2' />
-          <h1 className='text-heading-md font-bold'>받은 편지함</h1>
+        <div className='flex p-4 justify-between'>
+          <div className='flex'>
+            <Archive className='!w-[20px] !h-[20px] mr-2' />
+            <h1 className='text-heading-md font-bold'>받은 편지함</h1>
+          </div>
+          <Trash className='hover:text-red' onClick={handleDeleteAllNoti} />
         </div>
         <div>
           <ul className='flex gap-6 border-b-[2px] border-[#42454A]'>
