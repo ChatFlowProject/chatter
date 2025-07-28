@@ -1,5 +1,11 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { getAllMyAlarm, getMention } from '../api/mentionAPI';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { deleteAllMyNoti, getAllMyAlarm, getMention } from '../api/mentionAPI';
+import { toast } from 'sonner';
 
 export const useMentionQuery = () => {
   return useQuery({
@@ -11,11 +17,33 @@ export const useMentionQuery = () => {
 export const useGetAllMyNoti = () => {
   return useInfiniteQuery({
     queryKey: ['inbox', 'myAlarm'],
-    queryFn: ({ pageParam = 0 }) => getAllMyAlarm(pageParam),
+    queryFn: ({
+      pageParam = { notificationId: 0, dateTime: new Date().toISOString() },
+    }) => getAllMyAlarm(pageParam),
+
     getNextPageParam: (lastPage) => {
-      console.log('hook에서 출력!! -> lastPage: ', lastPage);
-      return lastPage.hasNext ? lastPage.nextCursorId : undefined;
+      if (!lastPage.hasNext) return undefined;
+      return {
+        notificationId: lastPage.nextCursorId,
+        dateTime: lastPage.nextCursorCreatedAt,
+      };
     },
-    initialPageParam: 0,
+
+    initialPageParam: {
+      notificationId: 0,
+      dateTime: new Date().toISOString(),
+    },
+  });
+};
+
+export const useDeleteMyNoti = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteAllMyNoti,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['inbox', 'myAlarm'] });
+      toast.success('알림을 삭제했습니다.');
+    },
+    onError: () => {},
   });
 };

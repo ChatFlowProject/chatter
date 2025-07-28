@@ -10,11 +10,17 @@ export const getMention = async () => {
   return res.data;
 };
 
-export const getAllMyAlarm = async (
-  pageParam: number,
-): Promise<PageMetaData<MyAlarm>> => {
+export const getAllMyAlarm = async (pageParam: {
+  notificationId: number;
+  dateTime: string;
+}): Promise<PageMetaData<MyAlarm>> => {
   const res = await axios.get(
-    `/notification?size=6&notificationId=${pageParam}`,
+    `/notification?size=6&notificationId=${pageParam.notificationId}&dateTime=${pageParam.dateTime}`,
   );
+  return res.data;
+};
+
+export const deleteAllMyNoti = async (notificationId: number) => {
+  const res = await axios.delete(`/notification/${notificationId}`);
   return res.data;
 };

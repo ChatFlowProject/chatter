@@ -90,7 +90,7 @@ export default function Inbox() {
   if (error) return <div>에러</div>;
 
   return (
-    <div className='absolute top-[45px] right-[20px]'>
+    <div className='absolute top-[45px] right-[20px] z-10'>
       <div className='bg-[#292B2F] text-white w-[580px] rounded-[8px]'>
         <div className='flex p-4'>
           <Archive className='!w-[20px] !h-[20px] mr-2' />

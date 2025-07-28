@@ -39,8 +39,8 @@ export interface MyAlarm {
 export interface PageMetaData<T> {
   content: T;
   hasNext: boolean;
-  nextCursorCreatedAt: string | null;
-  nextCursorId: number | null;
+  nextCursorCreatedAt: string;
+  nextCursorId: number;
 }
 
 // 무한스크롤 페이지네이션 틀
