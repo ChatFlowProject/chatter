@@ -34,11 +34,11 @@ export default function Alarm({
   };
 
   return (
-    <div
-      onClick={handleClick}
-      className='fixed bottom-2 right-2 flex gap-[8px] p-[12px] w-[220px] bg-[#2f3136] rounded-sm shadow-[0px_0px_41px_0px_rgba(0,0,0,0.34)]'
-    >
-      {/* <div className='flex gap-2' onClick={handleClick}> */}
+    // <div
+    //   onClick={handleClick}
+    //   className='fixed bottom-2 right-2 flex gap-[8px] p-[12px] w-[220px] bg-[#2f3136] rounded-sm shadow-[0px_0px_41px_0px_rgba(0,0,0,0.34)]'
+    // >
+    <div className='flex gap-2' onClick={handleClick}>
       <div className='w-[40px] h-[40px]'>
         <img
           src={sender.avatarUrl || require('@assets/img/logo/chatflow.png')}
