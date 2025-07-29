@@ -1,6 +1,7 @@
 import {
   SSECategory,
   SSEChannel,
+  SSEMentionMsg,
   SSESender,
   SSETeam,
 } from '@service/feature/chat/type/alert';
@@ -14,20 +15,20 @@ export default function Alarm({
   channel,
   category,
   message,
-  chatId,
+  text,
 }: {
   sender: SSESender;
   team?: SSETeam;
   channel?: SSEChannel;
   category?: SSECategory;
-  message: string;
-  chatId?: string;
+  message?: SSEMentionMsg;
+  text?: string;
 }) {
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.auth.user);
   const handleClick = () => {
     if (team && channel) {
-      navigate(`/channels/${team.id}/${chatId}`);
+      navigate(`/channels/${team.id}/${message?.chatId}`);
     } else {
       navigate('/channels/@me');
     }
@@ -51,9 +52,9 @@ export default function Alarm({
         </p>
         <div className='text-[#b9bbbe] text-[10px] font-medium font-[Whitney Semibold] flex gap-1 items-center'>
           {channel && (
-            <p className='text-[#818284] text-[9px]'>@{user?.nickname}</p>
+            <p className='text-[#818284] text-[9px]'>@{sender?.name}</p>
           )}
-          <p>{message}</p>
+          <p>{message?.content || text}</p>
         </div>
       </div>
     </div>

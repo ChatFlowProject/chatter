@@ -1,36 +1,39 @@
 import ChatMessage from './ChatMessage';
 import { useNavigate } from 'react-router-dom';
 import { EllipsisVertical } from 'lucide-react';
+import { SSEMentionResponse } from '@service/feature/chat/type/alert';
 
 const Mention = ({
   data,
 }: {
-  data: {
-    id: string;
-    content: string;
-    channel_id: string;
-    team_name: string;
-    category_name: string;
-    channel_name: string;
-    author: {
-      id: string;
-      username: string;
-      avatar: string;
-    };
-  };
+  // data: {
+  //   id: string;
+  //   content: string;
+  //   channel_id: string;
+  //   team_name: string;
+  //   category_name: string;
+  //   channel_name: string;
+  //   author: {
+  //     id: string;
+  //     username: string;
+  //     avatar: string;
+  //   };
+  // };
+  data: SSEMentionResponse;
 }) => {
-  const {
-    content,
-    channel_id,
-    channel_name,
-    team_name,
-    category_name,
-    author,
-  } = data;
+  // const {
+  //   content,
+  //   channel_id,
+  //   channel_name,
+  //   team_name,
+  //   category_name,
+  //   author,
+  // } = data;
+  const { sender, team, channel, category, message } = data;
   const navigate = useNavigate();
   const handleClick = () => {
     // 나중에 수정
-    navigate(`/channels/${team_name}/${channel_id}`);
+    navigate(`/channels/${team.id}/${message.chatId}`);
   };
 
   return (
@@ -38,14 +41,18 @@ const Mention = ({
       <div className='flex justify-between items-center'>
         <div className='flex gap-[8px] p-[12px] '>
           <div className='w-[40px] h-[40px] mr-3'>
-            <img src={author.avatar} className='w-full rounded-[12px]' />
+            <img
+              src={team.iconUrl}
+              className='w-full rounded-[12px]'
+              alt='서버 프로필'
+            />
           </div>
           <div className='gap-[2px] flex flex-col justify-center'>
             <p className='text-[16px] font-bold font-[Whitney Semibold]'>
-              # {channel_name}
+              # {channel.name}
             </p>
             <p className='text-[12px] font-medium font-[Whitney Semibold]'>
-              {team_name} {'>'} {category_name}
+              {team.name} {'>'} {category.name}
             </p>
           </div>
         </div>
@@ -58,7 +65,7 @@ const Mention = ({
           <EllipsisVertical className='text-neutral-300 transform:rotate-90' />
         </button>
       </div>
-      <ChatMessage message={content} />
+      <ChatMessage message={message.content} />
     </div>
   );
 };

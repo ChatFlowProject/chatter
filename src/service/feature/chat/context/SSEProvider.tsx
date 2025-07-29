@@ -1,20 +1,16 @@
 // 1. SSEProvider.tsx (Context + Provider)
-import { pushNotification } from '@service/feature/noti/hook/useSSE';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { RootState } from 'src/app/store';
 import { SSEMentionResponse, SSEResponse } from '../type/alert';
 import Alarm from '@components/common/Alarm';
-import { channel } from 'diagnostics_channel';
 
 const SSEContext = createContext<{ events: MessageEvent[] }>({ events: [] });
 
 export const SSEProvider = ({ children }: { children: React.ReactNode }) => {
   const [events, setEvents] = useState<MessageEvent[]>([]);
   const user = useSelector((state: RootState) => state.auth.user);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const eventSource = new EventSource(
@@ -27,19 +23,16 @@ export const SSEProvider = ({ children }: { children: React.ReactNode }) => {
       const data: SSEResponse = JSON.parse(event.data);
       console.log('[SSE] data: ,', data);
 
-      toast(
-        <Alarm sender={data.sender} message={`친구 요청을 보냈습니다.`} />,
-        {
-          style: {
-            padding: '12px',
-            width: '220px',
-            background: '#2e3036',
-            borderRadius: '2px',
-            boxShadow: '0px 0px 41px 0px rgba(0, 0, 0, 0.34)',
-            border: '1px solid #42454A',
-          },
+      toast(<Alarm sender={data.sender} text={`친구 요청을 보냈습니다.`} />, {
+        style: {
+          padding: '12px',
+          width: '220px',
+          background: '#2e3036',
+          borderRadius: '2px',
+          boxShadow: '0px 0px 41px 0px rgba(0, 0, 0, 0.34)',
+          border: '1px solid #42454A',
         },
-      );
+      });
     });
 
     eventSource.addEventListener('friendAcceptNotification', (event) => {
@@ -48,7 +41,7 @@ export const SSEProvider = ({ children }: { children: React.ReactNode }) => {
       console.log('[SSE] data: ,', data);
 
       toast(
-        <Alarm sender={data.sender} message={`친구 요청을 승낙하였습니다.`} />,
+        <Alarm sender={data.sender} text={`친구 요청을 승낙하였습니다.`} />,
         {
           style: {
             padding: '12px',
@@ -70,11 +63,10 @@ export const SSEProvider = ({ children }: { children: React.ReactNode }) => {
       toast(
         <Alarm
           sender={data.sender}
-          message={`${data.content}`}
+          message={data.message}
           channel={data.channel}
           team={data.team}
           category={data.category}
-          chatId={data.chatId}
         />,
         {
           style: {
