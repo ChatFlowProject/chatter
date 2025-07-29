@@ -8,8 +8,7 @@ import { useDeleteMyNoti } from '@service/feature/noti/hook/useInbox';
 dayjs.extend(relativeTime);
 
 const ForYou = ({ data }: { data: MyAlarm }) => {
-  // const { type, userName, userNotiProfile } = data;
-  const { id, type, isRead, message, receiverId, sender } = data;
+  const { id, type, isRead, message, receiverId, sender, createdAt } = data;
   const navigate = useNavigate();
 
   const { mutate } = useDeleteMyNoti();
@@ -41,8 +40,8 @@ const ForYou = ({ data }: { data: MyAlarm }) => {
             {message}
           </p>
           <p className='text-[#b9bbbe] text-[10px] font-medium font-[Whitney Semibold]'>
-            1분전
-            {/* {dayjs(createdAt.createdAt).fromNow()} */}
+            {/* 1분전 */}
+            {dayjs(data.createdAt).fromNow()}
           </p>
         </div>
       </div>

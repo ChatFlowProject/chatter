@@ -34,6 +34,7 @@ export interface MyAlarm {
   receiverId: string;
   sender: Sender;
   type: 'FRIEND_REQUEST' | 'FRIEND_ACCEPTED';
+  createdAt: string;
 }
 
 export interface PageMetaData<T> {
