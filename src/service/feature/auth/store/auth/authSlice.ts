@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {UserProfile} from "@service/feature/auth/types/profile.ts";
+import { UserProfile } from '@service/feature/auth/types/profile.ts';
 
 interface User {
   userId: string;
   email: string;
   name: string;
+  nickname?: string;
 }
 
 interface AuthState {

@@ -1,47 +1,15 @@
-import Alarm from '@components/common/Alarm';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import ForYou from './ForYou';
 import Mention from './Mention';
-import { Archive } from 'lucide-react';
+import { Archive, Trash } from 'lucide-react';
+import {
+  useDeleteAllMyNoti,
+  useGetAllMyNoti,
+  useMentionQuery,
+} from '@service/feature/noti/hook/useInbox';
+import { useIntersectionObserver } from '@service/feature/noti/hook/useIntersectionObserver';
 
 export default function Inbox() {
-  const [selected, setSelected] = useState('myAlarm');
-
-  const handleChangeTag = (tag: 'myAlarm' | 'unReaded') => {
-    console.log('???????');
-    setSelected(tag);
-    console.log('tag:', tag);
-  };
-
-  const mockData: {
-    notiId: string;
-    type: 'FRIEND_REQUES' | 'FRIEND_REQUEST_ACCEPTED';
-    time: string;
-    userName: string;
-    userNotiId: string;
-    userNotiProfile: string;
-  }[] = [
-    // 친구 요청, 친구 승인
-    {
-      'notiId': '1',
-      'type': 'FRIEND_REQUES',
-      'time': '2025-03-11T14:40:18.971Z',
-      'userName': '최승은',
-      'userNotiId': '3fa85f64-5717-4562-b3fc-2c963f66afa6', // 친구 요청한 사람의 ID
-      'userNotiProfile':
-        'https://cdn.discordapp.com/avatars/341572491879383040/89c45fbf25a2aad1d23d5db9eac33191.webp', // 친구 요청한 사람의 프로필
-    },
-    {
-      'notiId': '2',
-      'type': 'FRIEND_REQUEST_ACCEPTED',
-      'time': '2025-03-11T14:40:18.971Z',
-      'userName': '최승은',
-      'userNotiId': '3fa85f64-5717-4562-b3fc-2c963f66afa6', // 친구 요청한 사람의 ID
-      'userNotiProfile':
-        'https://cdn.discordapp.com/avatars/341572491879383040/89c45fbf25a2aad1d23d5db9eac33191.webp', // 친구 요청한 사람의 프로필
-    },
-  ];
-
   const mockUnReadData: {
     id: string;
     content: string;
@@ -87,13 +55,61 @@ export default function Inbox() {
     },
   ];
 
-  console.log('selected: ', selected);
+  const [selected, setSelected] = useState<'myAlarm' | 'unReaded'>('myAlarm');
+
+  const targetRef = useRef<HTMLDivElement | null>(null);
+
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetAllMyNoti();
+
+  // 옵저버 콜백
+  const fetchNext = useCallback(() => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  // 옵저버 연결
+  useIntersectionObserver({
+    target: targetRef.current,
+    onIntersect: fetchNext,
+    threshold: 1.0,
+    enabled: selected === 'myAlarm',
+  });
+
+  const handleChangeTag = (tag: 'myAlarm' | 'unReaded') => {
+    setSelected(tag);
+  };
+
+  // 모든 알림 삭제
+  const { mutate } = useDeleteAllMyNoti();
+  const handleDeleteAllNoti = () => {
+    mutate();
+  };
+
+  if (isLoading) return <div>로딩중</div>;
+  if (error) return <div>에러</div>;
+
+  /**
+   * TODO:
+   * 값이 없는 경우 고려
+   */
+
   return (
-    <div className='absolute top-[45px] right-[20px]'>
+    <div className='absolute top-[45px] right-[20px] z-10'>
       <div className='bg-[#292B2F] text-white w-[580px] rounded-[8px]'>
-        <div className='flex p-4'>
-          <Archive className='!w-[20px] !h-[20px] mr-2' />
-          <h1 className='text-heading-md font-bold'>받은 편지함</h1>
+        <div className='flex p-4 justify-between'>
+          <div className='flex'>
+            <Archive className='!w-[20px] !h-[20px] mr-2' />
+            <h1 className='text-heading-md font-bold'>받은 편지함</h1>
+          </div>
+          <Trash className='hover:text-red' onClick={handleDeleteAllNoti} />
         </div>
         <div>
           <ul className='flex gap-6 border-b-[2px] border-[#42454A]'>
@@ -111,16 +127,17 @@ export default function Inbox() {
             </li>
           </ul>
         </div>
-        {/* <div>리스트</div> */}
-        <div className='overflow-y-auto min-h-[400px] max-h-[70vh]'>
+        <div className='overflow-y-auto h-[400px] max-h-[70vh]'>
           {selected === 'myAlarm'
-            ? mockData.map((data) => <ForYou data={data} key={data.notiId} />)
-            : mockUnReadData.map((data) => (
-                <Mention data={data} key={data.id} />
+            ? data?.pages
+                .flatMap((page) => page.content)
+                .map((item) => <ForYou data={item} key={item.id} />)
+            : mockUnReadData.map((item) => (
+                <Mention data={item} key={item.id} />
               ))}
+          <div ref={targetRef} style={{ height: 1 }} />
         </div>
       </div>
-      {/* <Alarm img={''} name={'name'} message={'message'} /> */}
     </div>
   );
 }
