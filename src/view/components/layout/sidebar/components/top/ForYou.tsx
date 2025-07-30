@@ -40,7 +40,6 @@ const ForYou = ({ data }: { data: MyAlarm }) => {
             {message}
           </p>
           <p className='text-[#b9bbbe] text-[10px] font-medium font-[Whitney Semibold]'>
-            {/* 1분전 */}
             {dayjs(data.createdAt).fromNow()}
           </p>
         </div>

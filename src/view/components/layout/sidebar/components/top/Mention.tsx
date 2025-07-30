@@ -1,38 +1,12 @@
 import ChatMessage from './ChatMessage';
 import { useNavigate } from 'react-router-dom';
-import { EllipsisVertical } from 'lucide-react';
+import { X } from 'lucide-react';
 import { SSEMentionResponse } from '@service/feature/chat/type/alert';
 
-const Mention = ({
-  data,
-}: {
-  // data: {
-  //   id: string;
-  //   content: string;
-  //   channel_id: string;
-  //   team_name: string;
-  //   category_name: string;
-  //   channel_name: string;
-  //   author: {
-  //     id: string;
-  //     username: string;
-  //     avatar: string;
-  //   };
-  // };
-  data: SSEMentionResponse;
-}) => {
-  // const {
-  //   content,
-  //   channel_id,
-  //   channel_name,
-  //   team_name,
-  //   category_name,
-  //   author,
-  // } = data;
+const Mention = ({ data }: { data: SSEMentionResponse }) => {
   const { sender, team, channel, category, message } = data;
   const navigate = useNavigate();
   const handleClick = () => {
-    // 나중에 수정
     navigate(`/channels/${team.id}/${message.chatId}`);
   };
 
@@ -58,14 +32,14 @@ const Mention = ({
         </div>
         {/* 닫기로 수정 */}
         <button
-          className='w-7 h-7 bg-chat rounded-full mr-2'
+          className='w-7 h-7 bg-chat rounded-full mr-2 flex justify-center items-center'
           onClick={() => console.log('')}
           type='button'
         >
-          <EllipsisVertical className='text-neutral-300 transform:rotate-90' />
+          <X className='text-neutral-300 transform:rotate-90 hover:text-red' />
         </button>
       </div>
-      <ChatMessage message={message.content} />
+      <ChatMessage sender={sender} message={message.content} />
     </div>
   );
 };
