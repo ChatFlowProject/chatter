@@ -30,7 +30,6 @@ const Mention = ({ data }: { data: SSEMentionResponse }) => {
             </p>
           </div>
         </div>
-        {/* 닫기로 수정 */}
         <button
           className='w-7 h-7 bg-chat rounded-full mr-2 flex justify-center items-center'
           onClick={() => console.log('')}
