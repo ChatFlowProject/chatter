@@ -79,7 +79,11 @@ export const useGetMention = ({
   enabled: boolean;
 }) => {
   return useInfiniteQuery({
-    queryKey: ['inbox', 'mention'],
+    queryKey: [
+      'inbox',
+      'mention',
+      { teamId, includeEveryone, includeAllTeams },
+    ],
     queryFn: ({
       pageParam = {
         nextCursorId: 0,

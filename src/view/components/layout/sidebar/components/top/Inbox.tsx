@@ -10,10 +10,26 @@ import {
 import { useIntersectionObserver } from '@service/feature/noti/hook/useIntersectionObserver';
 import MoreMenu from './MoreMenu';
 
+export interface Filter {
+  isIncludeMention: boolean;
+  isIncludeAllServer: boolean;
+  teamId: string | undefined;
+}
+
 export default function Inbox() {
   const [selected, setSelected] = useState<'myAlarm' | 'unReaded'>('myAlarm');
+  const [filter, setFilter] = useState<Filter>({
+    isIncludeMention: true,
+    isIncludeAllServer: true,
+    teamId: undefined,
+  });
 
   const targetRef = useRef<HTMLDivElement | null>(null);
+
+  /**
+   * TODO
+   * 잘 동작하는지 확인하기
+   */
 
   // 나의 알림 쿼리
   const {
@@ -36,9 +52,9 @@ export default function Inbox() {
     hasNextPage: hasNextMention,
     isFetchingNextPage: isFetchingNextMention,
   } = useGetMention({
-    teamId: undefined,
-    includeAllTeams: true,
-    includeEveryone: true,
+    teamId: filter.teamId,
+    includeAllTeams: filter.isIncludeAllServer,
+    includeEveryone: filter.isIncludeMention,
     enabled: selected === 'unReaded',
   });
 
@@ -116,7 +132,7 @@ export default function Inbox() {
               <Trash className='hover:text-red' onClick={handleDeleteAllNoti} />
             </button>
           ) : (
-            <MoreMenu>
+            <MoreMenu filter={filter} setFilter={setFilter}>
               <div className='w-8 h-8 p-1 rounded-full hover:bg-[#42454A]'>
                 <Logs />
               </div>

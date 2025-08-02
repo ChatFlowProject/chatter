@@ -1,16 +1,49 @@
 import { Circle, CircleCheck } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { Filter } from './Inbox';
 
-const MoreMenu = ({ children }: { children: React.ReactNode }) => {
-  const [isCheckMention, setIsCheckMention] = useState(true);
-  const [isCheckAllServer, setIsCheckAllServer] = useState(true);
+interface MoreMenuProps {
+  children: React.ReactNode;
+  filter: Filter;
+  setFilter: React.Dispatch<React.SetStateAction<Filter>>;
+}
+const MoreMenu = ({ children, filter, setFilter }: MoreMenuProps) => {
+  // const [isCheckMention, setIsCheckMention] = useState(filter.isIncludeMention);
+  // const [isCheckAllServer, setIsCheckAllServer] = useState(
+  //   filter.isIncludeAllServer,
+  // );
   const [isOpen, setIsOpen] = useState(false);
+  // const [viewType, setViewType] = useState('DM');
+
+  // 주소 확인하기
+  const location = useLocation();
+  const isDMView = location.pathname.startsWith('/channels/@me');
+  const { serverId } = useParams<{ serverId: string; channelId: string }>();
+  console.log('serverId: ', serverId);
+
+  useEffect(() => {
+    if (!isDMView) {
+      setFilter((prev) => ({
+        ...prev,
+        teamId: serverId,
+      }));
+    }
+  }, [isDMView, serverId]);
 
   const handleClick = (target: 'mention' | 'server') => {
     if (target === 'mention') {
-      setIsCheckMention((prev) => !prev);
+      setFilter((prev) => ({
+        ...prev,
+        isIncludeMention: !prev.isIncludeMention,
+      }));
+      // setIsCheckMention((prev) => !prev);
     } else {
-      setIsCheckAllServer((prev) => !prev);
+      setFilter((prev) => ({
+        ...prev,
+        isIncludeAllServer: !prev.isIncludeAllServer,
+      }));
+      // setIsCheckAllServer((prev) => !prev);
     }
   };
 
@@ -45,23 +78,25 @@ const MoreMenu = ({ children }: { children: React.ReactNode }) => {
             onClick={() => handleClick('mention')}
           >
             <p>@everyone 멘션 포함하기</p>
-            {isCheckMention ? (
+            {filter.isIncludeMention ? (
               <CircleCheck className='text-primary w-5' />
             ) : (
               <Circle className='w-5' />
             )}
           </div>
-          <div
-            className='p-2 rounded-[2px] hover:bg-chat-hover h-[36px] flex justify-between'
-            onClick={() => handleClick('server')}
-          >
-            <p>모든 서버 포함</p>
-            {isCheckAllServer ? (
-              <CircleCheck className='text-primary w-5' />
-            ) : (
-              <Circle className='w-5' />
-            )}
-          </div>
+          {!isDMView && (
+            <div
+              className='p-2 rounded-[2px] hover:bg-chat-hover h-[36px] flex justify-between'
+              onClick={() => handleClick('server')}
+            >
+              <p>모든 서버 포함</p>
+              {filter.isIncludeAllServer ? (
+                <CircleCheck className='text-primary w-5' />
+              ) : (
+                <Circle className='w-5' />
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>
