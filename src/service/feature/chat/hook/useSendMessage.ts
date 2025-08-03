@@ -4,6 +4,7 @@ type SendMessagePayload = {
   content: string;
   channelId: string;
   sender: string;
+  teamId?: string;
 };
 
 export const useSendMessage = () => {

@@ -5,6 +5,7 @@ import Modal from '@components/common/Modal';
 import { useGetAllFriends } from '@service/feature/friend/hook/useFriendQuery';
 import { FriendData } from '@service/feature/friend/types/friend';
 import { useInviteFriendMutation } from '@service/feature/team/hook/mutation/useTeamMemberMutation';
+import { useSendMessage } from '@service/feature/chat/hook/useSendMessage';
 
 const InviteFriendModal = ({
   team,
@@ -19,25 +20,29 @@ const InviteFriendModal = ({
   const [keyword, setKeyword] = useState('');
   const [memberList, setMemberList] = useState<[] | FriendData[]>();
 
-  // 내 모든 친구 불러오기
   const { data, isLoading, error } = useGetAllFriends();
-
-  // 친구 초대
   const { mutate } = useInviteFriendMutation();
+  const { sendMessage } = useSendMessage();
 
   const handleInvite = (memberId: string) => {
-    mutate({ teamId: team.id, memberId: memberId });
+    mutate({ teamId: team.id, memberId });
+    sendMessage({
+      content: `"${team.name}`,
+      channelId: team.id,
+      sender: "system",
+      teamId:team.id
+    });
   };
-  /**
-   * TODO
-   * 이미 맴버인 인원들 제외시키기.
-   * 초대 됐다면 제외시키기
-   */
 
+  /**
+   * 이미 맴버인 인원들 제외시키기.
+   * 초대 됐다면 제외시키기.
+   */
   useEffect(() => {
     setMemberList(data);
   }, [data]);
 
+  // 키워드로 친구 검색
   const searchData = useMemo(() => {
     return memberList?.filter(
       (friend) =>

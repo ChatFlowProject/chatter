@@ -98,7 +98,7 @@ export default function ContextMenu() {
         name='앱'
         list={['1']}
         openSubMenu={openSubMenu}
-        setOpenSubMenu={setOpenSubMenu}
+        setOpenSubMenu={setOpenSubMenu}y
       />
       <SubMenu
         name='서버에 초대하기'
