@@ -4,8 +4,8 @@ import { useEffect, useMemo, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { useGetAllFriends } from '@service/feature/friend/hook/useFriendQuery';
 import { FriendData } from '@service/feature/friend/types/friend';
-import { useInviteFriendMutation } from '@service/feature/team/hook/mutation/useTeamMemberMutation';
 import { useSendMessage } from '@service/feature/chat/hook/useSendMessage';
+import {useCreateDM} from "@service/feature/channel/hook/query/useChannelQuery.ts";
 
 const InviteFriendModal = ({
   team,
@@ -20,27 +20,19 @@ const InviteFriendModal = ({
   const [keyword, setKeyword] = useState('');
   const [memberList, setMemberList] = useState<[] | FriendData[]>();
 
-  const { data, isLoading, error } = useGetAllFriends();
-  const { mutate } = useInviteFriendMutation();
+  const { data: friendsData, isLoading, error } = useGetAllFriends();
+  const { data: dmData, mutate } = useCreateDM();
   const { sendMessage } = useSendMessage();
 
-  const handleInvite = (memberId: string) => {
-    mutate({ teamId: team.id, memberId });
-    sendMessage({
-      content: `"${team.name}`,
-      channelId: team.id,
-      sender: "system",
-      teamId:team.id
-    });
-  };
+
 
   /**
    * 이미 맴버인 인원들 제외시키기.
    * 초대 됐다면 제외시키기.
    */
   useEffect(() => {
-    setMemberList(data);
-  }, [data]);
+    setMemberList(friendsData);
+  }, [friendsData]);
 
   // 키워드로 친구 검색
   const searchData = useMemo(() => {
@@ -50,6 +42,16 @@ const InviteFriendModal = ({
         friend.friendshipInfo.nickname.includes(keyword),
     );
   }, [memberList, keyword]);
+
+  const handleInvite = (friendsData:FriendData) => {
+    mutate([friendsData.friendshipInfo.id])
+    sendMessage({
+      content: `"${team.name}`,
+      channelId: dmData?.channel.chatId as string,
+      sender: "system",
+      teamId:team.id
+    });
+  };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>error</div>;
@@ -79,7 +81,7 @@ const InviteFriendModal = ({
                 <Item member={member} key={member.friendshipId}>
                   <button
                     className='border border-[#43A25A] px-4 rounded-[8px] text-white hover:bg-[#43A25A]'
-                    onClick={() => handleInvite(member.friendshipInfo.id)}
+                    onClick={() => handleInvite(member)}
                   >
                     초대
                   </button>

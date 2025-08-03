@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import {useTeamDetailQuery} from "@service/feature/team/hook/query/useTeamServiceQuery.ts";
 import { Bell, Pin, Users, Info, Video, Search, } from 'lucide-react';
 import {ChatMembersDialog} from "@pages/chat/components/layout/ChatMemberDialog.tsx";
+import {ChannelMember} from "@service/feature/channel/types/channel.ts";
 
 interface ChannelHeaderProps {
     channelName: string;
@@ -10,7 +11,7 @@ interface ChannelHeaderProps {
 }
 
 export const ChannelHeader = ({channelName = '일반', iconUrl}: ChannelHeaderProps) => {
-    const { serverId, channelId } = useParams<{ serverId: string; channelId: string }>();
+    const { serverId } = useParams<{ serverId: string; channelId: string }>();
     const { data: teamData, isLoading: isTeamLoading } = useTeamDetailQuery(serverId);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
