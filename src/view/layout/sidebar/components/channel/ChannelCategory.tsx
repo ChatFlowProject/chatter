@@ -61,7 +61,7 @@ const ChannelCategory = ({ title, type, defaultItems, serverId }: {
       )}
 
       {isDialogOpen && (
-        <ChannelAddDialog serverId={serverId} onClose={() => setIsDialogOpen(false)} />
+        <ChannelAddDialog teamId={serverId} onClose={() => setIsDialogOpen(false)} />
       )}
     </div>
   );

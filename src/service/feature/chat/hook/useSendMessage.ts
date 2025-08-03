@@ -2,8 +2,9 @@ import { useSocket } from '../context/useSocket';
 
 type SendMessagePayload = {
   content: string;
-  channelId: string;
+  channelId?: string;
   sender: string;
+  teamId?: string;
 };
 
 export const useSendMessage = () => {

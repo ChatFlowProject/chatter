@@ -8,9 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 const UserProfileBar = () => {
   const profile = useSelector((state: RootState) => (state.auth as any).profile);
-
-  const dispatch = useDispatch();
-
+  useDispatch();
   const handleEditProfile = () => {
     console.log('내 정보 수정 클릭');
   };

@@ -20,6 +20,7 @@ export const messageSchema = z.object({
   isDeleted: z.boolean(),
   attachments: z.array(attachmentSchema).optional(),
   mentions: z.array(z.string()).optional(),
+  teamId: z.string(),
   status: z.enum(['pending', 'sent', 'error']).optional(),
   tempId: z.string().optional(),
 });
