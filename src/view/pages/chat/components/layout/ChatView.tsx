@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
-import { DateDivider } from '@pages/chat/components/message/DateDivider.tsx';
-import { ChatMessageItem } from '@pages/chat/components/message/ChatMessageItem.tsx';
-import {CategoryView} from "@service/feature/channel/types/channel.ts";
-import {ChatMessage} from "@service/feature/chat/schema/messageSchema.ts";
+import { DateDivider } from '@pages/chat/components/message/DateDivider';
+import { CategoryView } from '@service/feature/channel/types/channel';
+import { ChatMessage } from '@service/feature/chat/schema/messageSchema';
+import {ChatMessageItem} from "@pages/chat/components/message/ChatMessageItem.tsx";
 
-export const ChatView = ({messages = [], myId }: {
-  messages: ChatMessage[];
-  myId: string;
-  categories: CategoryView[]
+export const ChatView = ({ messages = [], myId }: { 
+  messages: ChatMessage[]; 
+  myId: string; 
+  categories: CategoryView[];
 }) => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,20 +25,27 @@ export const ChatView = ({messages = [], myId }: {
   };
 
   return (
-      <div className="flex-1 overflow-y-auto flex flex-col gap-1 p-4">
-        {messageList.map((msg, index) => {
-          const prev = messageList[index - 1];
-          const isSameSender = prev?.sender?.memberId === msg.sender?.memberId;
-          const showMeta = !isSameSender || shouldShowDateDivider(msg, prev);
+    <div className="flex-1 overflow-y-auto flex flex-col gap-1 p-4">
+      {messageList.map((msg, index) => {
+        const prev = messageList[index - 1];
+        const isSameSender = prev?.sender?.memberId === msg.sender?.memberId;
+        const showMeta = !isSameSender || shouldShowDateDivider(msg, prev);
 
-          return (
-              <div key={`msg-${index}`}>
-                {shouldShowDateDivider(msg, prev) && (<DateDivider date={new Date(msg.createdAt)} />)}
-                <ChatMessageItem msg={msg} isMine={msg.sender.memberId === myId} showMeta={showMeta} memberIds={msg.mentions || []}/>
-              </div>
-          );
-        })}
-        <div ref={bottomRef} />
-      </div>
+        return (
+          <div key={`msg-${index}`}>
+            {shouldShowDateDivider(msg, prev) && (
+              <DateDivider date={new Date(msg.createdAt)} />
+            )}
+            <ChatMessageItem 
+              msg={msg}
+              isMine={msg.sender.memberId === myId}
+              showMeta={showMeta}
+              memberIds={msg.mentions || []}
+            />
+          </div>
+        );
+      })}
+      <div ref={bottomRef} />
+    </div>
   );
 };
