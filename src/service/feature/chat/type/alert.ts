@@ -1,15 +1,14 @@
 export interface SSEResponse {
-  eventName: string;
-  receiverId: string;
+  eventName?: string;
+  receiverId?: string;
   sender: SSESender;
 }
 
 export interface SSEMentionResponse extends SSEResponse {
   channel: SSEChannel;
-  content: string;
   team: SSETeam;
   category: SSECategory;
-  chatId: string;
+  message: SSEMentionMsg;
 }
 
 export interface SSESender {
@@ -34,10 +33,14 @@ export interface SSESender {
   name: string;
   avatarUrl: string;
 }
-/**
- * TODO
- * 추후 백엔드 응답값 확인 후 변경
- */
+
+export interface SSEMentionMsg {
+  chatId: string;
+  content: string;
+  createdAt: string;
+  id: number;
+}
+
 export interface SSECategory {
   id: string;
   name: string;

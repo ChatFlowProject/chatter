@@ -1,5 +1,6 @@
 import createAxiosInstance from '@service/feature/common/axios/axiosInstance';
-import { InfinityResponse, MyAlarm, PageMetaData } from '../types/noti';
+import { MyAlarm, PageMetaData } from '../types/noti';
+import { SSEMentionResponse } from '@service/feature/chat/type/alert';
 
 const axios = createAxiosInstance();
 
@@ -27,5 +28,41 @@ export const deletMyNoti = async (notificationId: number) => {
 
 export const deleteAllMyNoti = async () => {
   const res = await axios.delete('/notification/all');
+  return res.data;
+};
+
+/**TODO
+ * 추후 다시 확인
+ */
+export const getMentionList = async ({
+  pageParam,
+  teamId,
+  includeEveryone,
+  includeAllTeams,
+}: {
+  pageParam: {
+    nextCursorId: number;
+    nextCursorCreatedAt: string;
+  };
+  teamId?: string;
+  includeEveryone?: boolean;
+  includeAllTeams?: boolean;
+}): Promise<PageMetaData<SSEMentionResponse>> => {
+  const { nextCursorId, nextCursorCreatedAt } = pageParam;
+
+  const res = await axios.get('/mention', {
+    params: {
+      size: 6,
+      includeEveryone,
+      includeAllTeams,
+      ...(teamId ? { teamId } : {}),
+      ...(nextCursorId !== 0
+        ? {
+            nextCursorId,
+            nextCursorCreatedAt,
+          }
+        : {}),
+    },
+  });
   return res.data;
 };

@@ -1,3 +1,8 @@
+/**
+ * TODO
+ * SSEMentionResponse 와 나중에 비교
+ */
+
 export interface Mention {
   sender: Sender;
   team: Team;
