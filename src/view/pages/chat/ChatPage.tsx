@@ -22,7 +22,7 @@ export function ChatPage() {
 
   const currentUser = useMemo(() => {
     return teamData?.teamMembers?.find(
-      (member: { memberInfo: { id: string }; }) => member.memberInfo.id === myInfo?.userId
+        (member: { memberInfo: { id: string }; }) => member.memberInfo.id === myInfo?.userId
     )?.memberInfo;
   }, [teamData, myInfo]);
 
@@ -32,15 +32,20 @@ export function ChatPage() {
 
   useEffect(() => {
     if (Array.isArray(messagesData) && messagesData.length > 0) {
-      setLocalMessages(messagesData);
+      const formattedMessages = messagesData.map((message) => ({
+        ...message,
+        teamId: message.teamId || "",
+      }));
+      setLocalMessages(formattedMessages as ChatMessage[]); // 타입 단언 사용
     }
   }, [messagesData]);
 
+
   const handleNewMessage = useCallback((msg: ChatMessage) => {
-    setLocalMessages((prev) => {
+    setLocalMessages((prev: ChatMessage[]) => {
       if (msg.tempId) {
-        return prev.map((m) =>
-          m.tempId === msg.tempId ? { ...msg, status: "sent" as const } : m
+        return prev.map((m: ChatMessage) =>
+            m.tempId === msg.tempId ? { ...msg, status: "sent" as const } : m
         );
       }
       return [...prev, msg];
@@ -76,17 +81,18 @@ export function ChatPage() {
       attachments,
       mentions: mentionList,
       messageId: 0,
+      teamId: ""
     };
 
-    setLocalMessages((prev) => [...prev, tempMessage]);
+    setLocalMessages((prev: ChatMessage[]) => [...prev, tempMessage]);
 
     try {
       await sendMessage(text, attachments);
     } catch (error) {
       console.error('메시지 전송 오류:', error);
 
-      setLocalMessages((prev) =>
-          prev.map((msg) =>
+      setLocalMessages((prev: ChatMessage[]) =>
+          prev.map((msg: ChatMessage) =>
               msg.tempId === tempMessage.tempId
                   ? { ...msg, status: 'error' }
                   : msg
@@ -101,6 +107,7 @@ export function ChatPage() {
         <span className="ml-3">로딩 중...</span>
       </div>
   );
+
   if (error || teamError) return (
       <div className="flex h-full items-center justify-center text-red-500 bg-red-100/10 rounded-lg p-4">
         <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,16 +119,16 @@ export function ChatPage() {
   );
 
   const teamIcon = teamData?.team?.iconUrl;
-  const teamName = teamData?.team?.name || "기본 서버 이름";
+  const teamName = teamData?.team?.name?.trim() ? teamData.team.name : "기본 서버 이름";
   const categories = teamData?.categoriesView || [];
   const members =
-    teamData?.teamMembers?.map((member: { memberInfo: ChannelMember }) => member.memberInfo) || [];
+      teamData?.teamMembers?.map((member: { memberInfo: ChannelMember }) => member.memberInfo) || [];
 
   return (
-    <div className="flex h-full flex-col bg-chat text-white">
-      <ChannelHeader channelName={teamName || "일반"} iconUrl={teamIcon} />
-      <ChatView messages={localMessages} myId={myInfo?.userId} categories={categories} />
-      <ChatInput onSend={handleSend} users={members || []} />
-    </div>
+      <div className="flex h-full flex-col bg-chat text-white">
+        <ChannelHeader channelName={teamName || "일반"} iconUrl={teamIcon} />
+        <ChatView messages={localMessages} myId={myInfo?.userId} categories={categories} />
+        <ChatInput onSend={handleSend} users={members || []} />
+      </div>
   );
 }
