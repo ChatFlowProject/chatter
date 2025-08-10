@@ -1,12 +1,21 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import {
   createDM,
   getChannelList,
   getDMList,
 } from '@service/feature/channel/api/channelAPI.ts';
-import { ChannelResponse } from '@service/feature/channel/types/channel.ts';
+import {
+  ChannelResponse,
+  DMDetail,
+} from '@service/feature/channel/types/channel.ts';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 export const useChannelListQuery = (serverId: string) => {
   return useQuery<ChannelResponse>({
@@ -25,17 +34,24 @@ export const useDMListQuery = () => {
   });
 };
 
-export const useCreateDM = () => {
+export const useCreateDM = (
+  options?: UseMutationOptions<DMDetail, AxiosError, string[]>,
+) => {
   const queryClient = useQueryClient();
-
   const navigate = useNavigate();
-  return useMutation({
+
+  return useMutation<DMDetail, AxiosError, string[]>({
     mutationFn: (memberIds: string[]) => createDM(memberIds),
-    onSuccess: (data) => {
+    onSuccess: (data, variables, context) => {
       console.log('DM 생성 응답 데이터: ', data);
       navigate(`/channels/@me/${data.channel.chatId}`);
       queryClient.invalidateQueries({ queryKey: ['DMList'] });
       toast.success('채팅방을 생성했습니다!');
+      console.log('data::::::', data);
+
+      // 외부에서 onSuccess 옵션이 주어졌다면 호출
+      options?.onSuccess?.(data, variables, context);
+
       // TODO: 추후 기존에 생성된 방은 구분
     },
     onError: () => {

@@ -4,6 +4,18 @@ export interface SSEResponse {
   sender: SSESender;
 }
 
+export interface SSEInviteTeamResponse extends SSEResponse {
+  dm: DM;
+  team: SSETeam;
+  createdAt: string;
+}
+
+export interface DM {
+  chatId: string;
+  // channelId: string,
+  messageId: string;
+}
+
 export interface SSEMentionResponse extends SSEResponse {
   channel: SSEChannel;
   team: SSETeam;

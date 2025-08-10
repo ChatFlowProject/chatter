@@ -3,15 +3,20 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { RootState } from 'src/app/store';
-import { SSEMentionResponse, SSEResponse } from '../type/alert';
+import {
+  SSEInviteTeamResponse,
+  SSEMentionResponse,
+  SSEResponse,
+} from '../type/alert';
 import Alarm from '@components/common/Alarm';
+import { useQueryClient } from '@tanstack/react-query';
 
 const SSEContext = createContext<{ events: MessageEvent[] }>({ events: [] });
 
 export const SSEProvider = ({ children }: { children: React.ReactNode }) => {
   const [events, setEvents] = useState<MessageEvent[]>([]);
   const user = useSelector((state: RootState) => state.auth.user);
-
+  const queryClient = useQueryClient();
   useEffect(() => {
     const eventSource = new EventSource(
       `http://flowchat.shop:30100/sse/subscribe?memberId=${user?.userId}`,
@@ -33,12 +38,14 @@ export const SSEProvider = ({ children }: { children: React.ReactNode }) => {
           border: '1px solid #42454A',
         },
       });
+      queryClient.invalidateQueries({ queryKey: ['inbox', 'myAlarm'] });
     });
 
     eventSource.addEventListener('friendAcceptNotification', (event) => {
       console.log('[friendAcceptNotification] event: ', event);
       const data: SSEResponse = JSON.parse(event.data);
       console.log('[SSE] data: ,', data);
+      queryClient.invalidateQueries({ queryKey: ['inbox', 'myAlarm'] });
 
       toast(
         <Alarm sender={data.sender} text={`친구 요청을 승낙하였습니다.`} />,
@@ -59,6 +66,7 @@ export const SSEProvider = ({ children }: { children: React.ReactNode }) => {
       console.log('[mention] event: ', event);
       const data: SSEMentionResponse = JSON.parse(event.data);
       console.log('[SSE] data: ,', data);
+      queryClient.invalidateQueries({ queryKey: ['inbox', 'mention'] });
 
       toast(
         <Alarm
@@ -67,6 +75,33 @@ export const SSEProvider = ({ children }: { children: React.ReactNode }) => {
           channel={data.channel}
           team={data.team}
           category={data.category}
+          type='mention'
+        />,
+        {
+          style: {
+            padding: '12px',
+            width: '220px',
+            background: '#2e3036',
+            borderRadius: '2px',
+            boxShadow: '0px 0px 41px 0px rgba(0, 0, 0, 0.34)',
+            border: '1px solid #42454A',
+          },
+        },
+      );
+    });
+
+    eventSource.addEventListener('inviteTeam', (event) => {
+      console.log('[inviteTeam] event: ', event);
+      const data: SSEInviteTeamResponse = JSON.parse(event.data);
+      console.log('[SSE] data: ,', data);
+      queryClient.invalidateQueries({ queryKey: ['inbox', 'myAlarm'] });
+
+      toast(
+        <Alarm
+          sender={data.sender}
+          text={`${data.team.name} 서버에 초대되었어요.`}
+          team={data.team}
+          type='inviteTeam'
         />,
         {
           style: {

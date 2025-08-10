@@ -40,6 +40,10 @@ export interface MyAlarm {
   sender: Sender;
   type: 'FRIEND_REQUEST' | 'FRIEND_ACCEPTED';
   createdAt: string;
+  dm?: {
+    chatId: string;
+    messageId: string;
+  };
 }
 
 export interface PageMetaData<T> {
