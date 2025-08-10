@@ -6,6 +6,7 @@ import { useGetAllFriends } from '@service/feature/friend/hook/useFriendQuery';
 import { FriendData } from '@service/feature/friend/types/friend';
 import { useSendMessage } from '@service/feature/chat/hook/useSendMessage';
 import {useCreateDM} from "@service/feature/channel/hook/query/useChannelQuery.ts";
+import {ChannelResponse} from "@service/feature/channel/types/channel.ts";
 
 const InviteFriendModal = ({
   team,
@@ -21,7 +22,7 @@ const InviteFriendModal = ({
   const [memberList, setMemberList] = useState<[] | FriendData[]>();
 
   const { data: friendsData, isLoading, error } = useGetAllFriends();
-  const { data: dmData, mutate } = useCreateDM();
+  const { mutate } = useCreateDM();
   const { sendMessage } = useSendMessage();
 
 
@@ -43,14 +44,37 @@ const InviteFriendModal = ({
     );
   }, [memberList, keyword]);
 
-  const handleInvite = (friendsData:FriendData) => {
-    mutate([friendsData.friendshipInfo.id])
-    sendMessage({
-      content: `"${team.name}`,
-      channelId: dmData?.channel.chatId as string,
-      sender: "system",
-      teamId:team.id
-    });
+  const handleInvite = async (friend: FriendData) => {
+    try {
+      const channelResponse = await new Promise<ChannelResponse>((resolve, reject) => {
+        mutate([friend.friendshipInfo.id], {
+          onSuccess: (data) => resolve(data as unknown as ChannelResponse),
+          onError: (error) => reject(error),
+        });
+      });
+
+      const channelId = channelResponse.team.id;
+
+      if (!channelId) {
+        console.error('DM 생성 실패: channelId 없음', { channelResponse });
+        return;
+      }
+
+      sendMessage({
+        content: `"${team.name}" 그룹 초대 메시지`,
+        channelId: channelId,
+        sender: 'system',
+        teamId: team.id,
+      });
+
+      console.log('초대 메시지가 전송되었습니다.', {
+        friendId: friend.friendshipInfo.id,
+        channelId,
+        teamId: team.id,
+      });
+    } catch (error) {
+      console.error('초대 처리 중 오류 발생:', error);
+    }
   };
 
   if (isLoading) return <div>Loading...</div>;
