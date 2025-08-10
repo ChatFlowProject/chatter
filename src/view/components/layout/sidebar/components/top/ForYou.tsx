@@ -8,13 +8,17 @@ import { useDeleteMyNoti } from '@service/feature/noti/hook/useInbox';
 dayjs.extend(relativeTime);
 
 const ForYou = ({ data }: { data: MyAlarm }) => {
-  const { id, type, isRead, message, receiverId, sender, createdAt } = data;
+  const { id, type, isRead, message, receiverId, sender, createdAt, dm } = data;
   const navigate = useNavigate();
 
   const { mutate } = useDeleteMyNoti();
 
   const handleClick = () => {
-    navigate('/channels/@me');
+    if (!dm) {
+      navigate('/channels/@me');
+    } else {
+      navigate(`/channels/@me/${dm.chatId}`);
+    }
   };
 
   const handleClickDelete = (

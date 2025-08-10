@@ -15,9 +15,32 @@ export const getAllMyAlarm = async (pageParam: {
   notificationId: number;
   dateTime: string;
 }): Promise<PageMetaData<MyAlarm>> => {
-  const res = await axios.get(
-    `/notification?size=6&notificationId=${pageParam.notificationId}&dateTime=${pageParam.dateTime}`,
-  );
+  // const res = await axios.get(
+  //   `/notification?size=6&notificationId=${pageParam.notificationId}&dateTime=${pageParam.dateTime}`,
+  // );
+  const { notificationId, dateTime } = pageParam;
+  const res = await axios.get('/notification', {
+    params: {
+      size: 6,
+      ...(notificationId !== 0 ? { dateTime } : {}),
+      ...(notificationId !== 0 ? { notificationId } : {}),
+    },
+  });
+
+  // const res = await axios.get('/mention', {
+  //   params: {
+  //     size: 6,
+  //     includeEveryone,
+  //     includeAllTeams,
+  //     ...(teamId ? { teamId } : {}),
+  //     ...(nextCursorId !== 0
+  //       ? {
+  //           nextCursorId,
+  //           nextCursorCreatedAt,
+  //         }
+  //       : {}),
+  //   },
+  // });
   return res.data;
 };
 

@@ -1,4 +1,5 @@
 import {
+  DM,
   SSECategory,
   SSEChannel,
   SSEMentionMsg,
@@ -16,6 +17,8 @@ export default function Alarm({
   category,
   message,
   text,
+  dm,
+  type = 'friend',
 }: {
   sender: SSESender;
   team?: SSETeam;
@@ -23,12 +26,18 @@ export default function Alarm({
   category?: SSECategory;
   message?: SSEMentionMsg;
   text?: string;
+  dm?: DM;
+  type?: 'friend' | 'mention' | 'inviteTeam';
 }) {
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.auth.user);
   const handleClick = () => {
-    if (team && channel) {
-      navigate(`/channels/${team.id}/${message?.chatId}`);
+    if (type === 'mention') {
+      navigate(
+        `/channels/${team?.id}/${message?.chatId}?messageId=${message?.id}`,
+      );
+    } else if (type === 'inviteTeam') {
+      navigate(`/channels/@me/${dm?.chatId}`);
     } else {
       navigate('/channels/@me');
     }
@@ -48,10 +57,11 @@ export default function Alarm({
       </div>
       <div className='gap-[2px] flex flex-col justify-center'>
         <p className='text-white text-[12px] font-medium font-[Ginto]'>
-          {sender.name} {channel && `(#${channel.name}, ${category?.name})`}
+          {sender.name}{' '}
+          {type === 'mention' && `(#${channel?.name}, ${category?.name})`}
         </p>
         <div className='text-[#b9bbbe] text-[10px] font-medium font-[Whitney Semibold] flex gap-1 items-center'>
-          {channel && (
+          {type === 'mention' && (
             <p className='text-[#818284] text-[9px]'>@{sender?.name}</p>
           )}
           <p>{message?.content || text}</p>
