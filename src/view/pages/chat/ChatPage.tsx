@@ -65,7 +65,6 @@ export function ChatPage() {
         attachments = mentionsOrAttachments as { type: string; url: string }[];
       }
     }
-
     const tempMessage: ChatMessage = {
       tempId: uuidv4(),
       sender: {
@@ -91,13 +90,13 @@ export function ChatPage() {
     } catch (error) {
       console.error('메시지 전송 오류:', error);
 
-      setLocalMessages((prev: ChatMessage[]) =>
-          prev.map((msg: ChatMessage) =>
-              msg.tempId === tempMessage.tempId
-                  ? { ...msg, status: 'error' }
-                  : msg
-          )
-      );
+      // setLocalMessages((prev: ChatMessage[]) =>
+      //     prev.map((msg: ChatMessage) =>
+      //         msg.tempId === tempMessage.tempId
+      //             ? { ...msg, status: 'error' }
+      //             : msg
+      //     )
+      // );
     }
   };
 
