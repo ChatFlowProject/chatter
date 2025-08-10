@@ -10,7 +10,7 @@ import { RootState } from 'src/app/store.ts';
 export default function AddTeamModal() {
   const [preview, setPreview] = useState<string | null>(null);
   const user = useSelector((state: RootState) => state.auth.user);
-  const [name, setName] = useState<string>(`${user?.nickname} 님의 서버`);
+  const [name, setName] = useState<string>(`${user?.name} 님의 서버`);
 
   const { mutate } = useCreateTeamMutation();
 
@@ -21,12 +21,12 @@ export default function AddTeamModal() {
 
   const handleClose = () => {
     setPreview(null);
-    setName(`${user?.nickname} 님의 서버`);
+    setName(`${user?.name} 님의 서버`);
   };
 
   const handleSubmit = async () => {
     setPreview(null);
-    setName(`${user?.nickname} 님의 서버`);
+    setName(`${user?.name} 님의 서버`);
 
     if (!name.trim()) {
       toast.error('서버 이름을 입력해주세요.');
