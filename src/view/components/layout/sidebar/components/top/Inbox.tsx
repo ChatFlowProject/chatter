@@ -97,12 +97,12 @@ export default function Inbox() {
     mutate();
   };
 
-  if (
-    (selected === 'myAlarm' && isMyAlarmLoading) ||
-    (selected === 'unReaded' && isMentionLoading)
-  ) {
-    return <div>로딩중</div>;
-  }
+  // if (
+  //   (selected === 'myAlarm' && isMyAlarmLoading) ||
+  //   (selected === 'unReaded' && isMentionLoading)
+  // ) {
+  //   return <div>로딩중</div>;
+  // }
 
   if (
     (selected === 'myAlarm' && myAlarmError) ||
