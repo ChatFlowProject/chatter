@@ -4,6 +4,7 @@ import UserProfileBar from './profile/UserProfileBar.tsx';
 import DirectChannelSidebar from './sidebar/channel/DirectChannelSidebar.tsx';
 import ServerChannelSidebar from './sidebar/channel/ServerChannelSidebar.tsx';
 import TopSidebar from '@components/layout/sidebar/top/TopSidebar.tsx';
+import TeamMemberSidebar from './sidebar/team/TeamMemberSidebar.tsx';
 
 const LayoutWithSidebar = () => {
   const location = useLocation();
@@ -22,9 +23,16 @@ const LayoutWithSidebar = () => {
           {isDMView ? <DirectChannelSidebar /> : <ServerChannelSidebar />}
           <UserProfileBar />
         </aside>
-        <main className='flex-1  bg-wrapper text-white overflow-y-auto border border-[#42454A] rounded-[12px]'>
-          <Outlet />
-        </main>
+        <div className='flex flex-1 flex-row bg-wrapper text-white overflow-y-auto border border-[#42454A] rounded-[12px]'>
+          <main className='flex-1  bg-wrapper text-white overflow-y-auto border border-[#42454A] rounded-[12px]'>
+            <Outlet />
+          </main>
+          {!isDMView && (
+            <aside>
+              <TeamMemberSidebar />
+            </aside>
+          )}
+        </div>
       </div>
     </div>
   );
